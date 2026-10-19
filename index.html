@@ -1,0 +1,1386 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAZR DECO — Marquage publicitaire et impression personnalisée</title>
+<meta name="description" content="Objets publicitaires, textile, signalétique, cadeaux gravés et impression alimentaire, fabriqués en Martinique. Livraison Martinique, Guadeloupe, Guyane.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+:root{
+  color-scheme:light;
+  --white:#FFFFFF;--cream:#FFF9F3;--sand:#F4EEE7;--line:#E6DED4;
+  --ink:#101826;--ink-2:#1C2638;--edge:#2E3A50;
+  --body:#2A3441;--gray:#4F5B6B;--ph:#4A5568;
+  --on-dark:#FFFFFF;--on-dark-2:#E4E9F1;--on-dark-3:#C3CEDD;
+  --accent:#0B4F80;--err:#A3123F;--ok:#08555F;
+  --mag:#E8175D;--mag-d:#FF8DB4;--mag-l:#A3123F;--mag-f:#FF7AA2;--mag-t:#FFE6EF;
+  --cya:#12A8B8;--cya-d:#6EDDEA;--cya-l:#08555F;--cya-f:#3FD0DC;--cya-t:#DDF6F8;
+  --ora:#F7A21B;--ora-d:#FFB65C;--ora-l:#7F3D00;--ora-f:#FFB23E;--ora-t:#FFF0D9;
+  --blu:#1477B8;--blu-d:#8CCBF5;--blu-l:#0B4F80;--blu-f:#6BB8EC;--blu-t:#E1EFFA;
+  --grad:linear-gradient(90deg,#F7A21B,#E8175D,#12A8B8,#1477B8);
+  --r:999px;--rad:22px;--rad-s:14px;--wrap:1280px;
+  --display:'Fraunces',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+  --shadow:0 18px 40px -18px rgba(16,24,38,.35);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.55;overflow-x:hidden}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--display);color:var(--ink);font-weight:800;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em;font-optical-sizing:auto}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+.eyebrow{display:inline-block;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+:focus-visible{outline:3px solid var(--blu);outline-offset:3px}
+[data-c=mag]{--c:var(--mag);--c-d:var(--mag-d);--c-l:var(--mag-l);--c-f:var(--mag-f);--c-t:var(--mag-t)}
+[data-c=cya]{--c:var(--cya);--c-d:var(--cya-d);--c-l:var(--cya-l);--c-f:var(--cya-f);--c-t:var(--cya-t)}
+[data-c=ora]{--c:var(--ora);--c-d:var(--ora-d);--c-l:var(--ora-l);--c-f:var(--ora-f);--c-t:var(--ora-t)}
+[data-c=blu]{--c:var(--blu);--c-d:var(--blu-d);--c-l:var(--blu-l);--c-f:var(--blu-f);--c-t:var(--blu-t)}
+.t-mag{color:var(--mag-d)}.t-cya{color:var(--cya-d)}.t-ora{color:var(--ora-d)}.t-blu{color:var(--blu-d)}
+em{font-style:italic}
+
+/* Bandeau promo */
+.promo{background:var(--ink);color:var(--on-dark-2);font-size:.82rem;font-weight:500}
+.promo .wrap{display:flex;justify-content:center;gap:28px;min-height:36px;align-items:center;flex-wrap:wrap}
+.promo span{display:inline-flex;align-items:center;gap:10px}
+.promo span::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c)}
+
+/* En-tête */
+header.top{background:#FAF9F7;position:sticky;top:0;z-index:300;box-shadow:0 1px 0 var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:28px;height:116px}
+.brand{text-decoration:none;display:flex;align-items:center;min-width:0;flex-shrink:0}
+.brand img{display:block;height:104px;width:auto}
+.brand b{font-family:var(--display);font-weight:900;font-size:1.65rem;color:var(--ink);letter-spacing:.01em;white-space:nowrap;line-height:1}
+.brand b i{font-style:italic;color:var(--mag-l)}
+.brand span{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);margin-top:4px}
+.search{flex:1;display:flex;max-width:500px;margin-left:auto;background:var(--sand);border-radius:var(--r);padding:4px;border:2px solid transparent;transition:border-color .2s}
+.search:focus-within{border-color:var(--ink);background:var(--white)}
+.search input{flex:1;min-width:0;height:44px;border:0;background:transparent;padding:0 18px;font:inherit;font-size:16px;color:var(--ink);outline:none}
+.search button{height:44px;padding:0 22px;border:0;background:var(--ink);color:var(--on-dark);font:inherit;font-weight:700;border-radius:var(--r);cursor:pointer}
+.quote-link{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 8px 0 20px;border-radius:var(--r);text-decoration:none;color:var(--ink);font-weight:700;white-space:nowrap;background:var(--ora-f);transition:transform .15s}
+.quote-link:hover{color:var(--ink);transform:translateY(-2px)}
+.quote-link .n{display:inline-grid;place-items:center;min-width:34px;height:34px;padding:0 8px;border-radius:var(--r);background:var(--ink);color:var(--on-dark);font-size:.85rem}
+.filet{height:6px;background:var(--grad)}
+.acct-link{display:inline-flex;align-items:center;min-height:48px;padding:0 18px;border-radius:var(--r);text-decoration:none;color:var(--ink);font-weight:700;white-space:nowrap;border:2px solid var(--ink)}
+.acct-link:hover{background:var(--ink);color:var(--on-dark)}
+.acct-link.on{background:var(--cya-f);border-color:var(--cya-f)}
+.st{display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:var(--r);font-size:.8rem;font-weight:700;color:var(--ink);background:var(--sand);white-space:nowrap}
+.st.demande{background:var(--ora-f)}.st.devis_envoye,.st.bat_envoye{background:var(--blu-t)}.st.valide{background:var(--cya-t)}.st.en_production{background:var(--cya-f)}.st.prete{background:var(--blu-f)}.st.livree{background:#BFE8D6}.st.annulee{color:var(--gray)}
+.acc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
+.acc .box{background:var(--cream);border-radius:28px;padding:26px;display:flex;flex-direction:column;gap:14px}
+.acc .box h2{font-size:1.5rem}
+.order{background:var(--white);border-radius:var(--rad);box-shadow:0 0 0 1px var(--line);padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.order .top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.order .top b{font-family:var(--display);font-size:1.15rem;color:var(--ink)}
+.order ul{margin:0;padding-left:18px;font-size:.9rem}
+.order .sums{display:flex;gap:18px;flex-wrap:wrap;font-size:.92rem}
+.order .sums b{color:var(--ink)}
+.order .bat{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.order .bat textarea{font:inherit;font-size:16px;border:2px solid var(--line);border-radius:var(--rad-s);padding:8px 12px;min-height:80px;width:100%;color:var(--ink)}
+.annonce{display:block;text-align:center;padding:10px 16px;font-weight:700;color:var(--ink);background:var(--c-f,var(--ora-f));text-decoration:none}
+a.annonce:hover{text-decoration:underline;color:var(--ink)}
+.price s,.tiers s{color:var(--gray);font-weight:500;font-size:.85em}
+.badge.promo{left:auto;right:14px;background:var(--ink)}
+.code-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
+.page-md{max-width:780px;padding-bottom:40px}
+.page-md h2{font-size:1.5rem;margin:26px 0 10px}.page-md h3{font-size:1.15rem;margin:18px 0 8px}
+.page-md p{margin:0 0 12px}.page-md ul{margin:0 0 12px;padding-left:22px}
+.page-md .md-note{background:var(--ora-t);border-radius:var(--rad-s);padding:12px 16px;color:var(--ink)}
+.modal[hidden]{display:none!important}
+.prod>*,.qlayout>*,.cat-layout>*,.qline>*,.hero .wrap>*{min-width:0}
+.tiers-m{display:none;list-style:none;margin:0;padding:0;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tiers-m li{background:var(--cream);border-radius:var(--rad-s);padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.tiers-m li span{font-size:.8rem;color:var(--gray);font-weight:600}
+.tiers-m li b{font-family:var(--display);font-size:1.1rem;color:var(--ink)}
+.tiers-m li.on{background:var(--c-l)}.tiers-m li.on span,.tiers-m li.on b,.tiers-m li.on s{color:var(--on-dark)}
+.tiers-cap{display:none;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--gray);margin:0 0 10px}
+@media(min-width:901px) and (max-width:1240px){body nav#sidebar .links{flex-wrap:wrap;justify-content:center;overflow:visible;row-gap:2px}}
+@media(max-width:600px){
+  table.tiers{display:none}.tiers-m{display:grid}.tiers-cap{display:block}
+  table.ship,table.ship tbody,table.ship tr,table.ship td{display:block;width:100%}
+  table.ship thead{display:none}
+  table.ship{box-shadow:none;border-radius:0;overflow:visible}
+  table.ship tr{background:var(--white);border-radius:var(--rad-s);box-shadow:0 0 0 1px var(--line);margin-bottom:10px;overflow:hidden}
+  table.ship td{display:flex;justify-content:space-between;gap:12px;text-align:right;padding:10px 14px}
+  table.ship td:first-child{display:block;text-align:left;background:var(--ink);color:var(--on-dark)}
+  table.ship td[data-l]::before{content:attr(data-l);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);font-weight:700;text-align:left;flex-shrink:0}
+}
+@media(max-width:520px){
+  .qline{grid-template-columns:1fr;padding:16px 16px 16px 24px}
+  .qline .lt{text-align:left}
+  .acc .box{padding:20px 16px}
+}
+.modal{position:fixed;inset:0;z-index:600;background:rgba(5,13,27,.55);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal .mbox{background:var(--white);border-radius:24px;padding:24px;width:min(480px,100%);display:flex;flex-direction:column;gap:14px}
+
+/* Navigation */
+nav#sidebar{background:var(--white);border-bottom:1px solid var(--line)}
+nav#sidebar .links{max-width:var(--wrap);margin:0 auto;padding:10px 20px;display:flex;flex-wrap:nowrap;gap:2px;justify-content:space-between;overflow-x:auto;scrollbar-width:none}
+nav#sidebar .links::-webkit-scrollbar{display:none}
+nav#sidebar a{display:flex;align-items:center;min-height:44px;padding:0 9px;color:var(--ink);text-decoration:none;font-size:.83rem;white-space:nowrap;font-weight:600;border-radius:var(--r);cursor:pointer;transition:background .15s}
+nav#sidebar a:hover{background:var(--c-t,var(--sand))}
+nav#sidebar a.active{background:var(--c-f,var(--ink));color:var(--ink)}
+nav#sidebar a.active:not([data-c]){background:var(--ink);color:var(--on-dark)}
+nav#sidebar .m-only,.m-search{display:none}
+.mobilebar,.drawer-head{display:none}
+.backdrop{position:fixed;inset:0;background:rgba(5,13,27,.55);z-index:350;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.backdrop.on{opacity:1;visibility:visible}
+
+main{min-height:60vh}
+.crumbs{padding:24px 0 0;font-size:.86rem;color:var(--gray)}
+.crumbs a{color:var(--accent);font-weight:600}
+
+/* Boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 28px;border-radius:var(--r);font:inherit;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn.primary{background:var(--mag-l);color:var(--on-dark)}
+.btn.primary:hover{color:var(--on-dark)}
+.btn.light{background:var(--ora-f);color:var(--ink)}
+.btn.light:hover{color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--on-dark);border-color:var(--on-dark-3)}
+.btn.ghost:hover{border-color:var(--on-dark);color:var(--on-dark)}
+.btn.outline{background:var(--white);color:var(--ink);border-color:var(--ink)}
+.btn.outline:hover{background:var(--ink);color:var(--on-dark)}
+.btn[disabled]{background:var(--sand);color:var(--gray);border-color:var(--line);cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Accueil — hero */
+.hero{background:#020200;color:var(--on-dark);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--grad)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr 1fr;gap:48px;padding-top:80px;padding-bottom:88px;align-items:center}
+.hero .eyebrow{color:var(--ora-d)}
+.hero h1{color:var(--on-dark);font-size:4.4rem;font-weight:900;margin:18px 0 22px;line-height:.98}
+.hero h1 em{font-weight:700}
+.hero p.lead{color:var(--on-dark-2);font-size:1.12rem;max-width:540px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.facts{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:28px;margin-top:44px}
+.facts b{display:block;font-family:var(--display);font-weight:800;font-size:1.7rem;color:var(--on-dark);line-height:1.1}
+.facts span{font-size:.8rem;color:var(--on-dark-3)}
+.hero-logo{display:flex;justify-content:center;align-items:center}
+.hero-logo img{width:100%;max-width:500px;height:auto;image-rendering:auto}
+.collage{position:relative;height:460px}
+.ring{position:absolute;border-radius:50%;background:conic-gradient(from 200deg,#F7A21B,#E8175D,#12A8B8,#1477B8,#F7A21B);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 16px),#000 calc(100% - 15px));mask:radial-gradient(farthest-side,transparent calc(100% - 16px),#000 calc(100% - 15px))}
+.ring.r1{width:360px;height:360px;right:30px;top:40px;animation:spin 40s linear infinite}
+.ring.r2{width:150px;height:150px;left:10px;bottom:10px;animation:spin 30s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stk{position:absolute;width:210px;padding:20px 22px;border-radius:var(--rad);background:var(--c-f);color:var(--ink);box-shadow:var(--shadow);transition:transform .3s}
+.stk b{display:block;font-family:var(--display);font-weight:800;font-size:1.3rem;line-height:1.1}
+.stk small{display:block;margin-top:6px;font-size:.82rem;font-weight:600}
+.stk.s1{top:20px;left:40px;transform:rotate(-6deg)}
+.stk.s2{top:120px;right:10px;transform:rotate(5deg)}
+.stk.s3{bottom:70px;left:90px;transform:rotate(4deg)}
+.stk.s4{bottom:10px;right:60px;transform:rotate(-4deg)}
+.collage:hover .stk{transform:rotate(0) scale(1.03)}
+
+/* Bandeau réassurance */
+.assur{padding:28px 0 0}
+.assur .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.assur div{padding:18px 20px;border-radius:var(--rad-s);background:var(--c-t)}
+.assur b{display:block;color:var(--ink);font-size:.98rem}
+.assur span{font-size:.86rem;color:var(--body)}
+
+section.block{padding:72px 0 0}
+section.band{margin-top:72px;padding:64px 0;background:var(--c-t)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px}
+.sec-head h2{font-size:2.6rem;margin-top:8px}
+.sec-head h2 em{color:var(--mag-l);font-weight:700}
+
+/* Univers */
+.univers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.uni{position:relative;overflow:hidden;background:var(--c-f);border-radius:var(--rad);padding:26px 24px 22px;text-decoration:none;display:flex;flex-direction:column;gap:10px;min-height:230px;color:var(--ink);transition:transform .2s,box-shadow .2s}
+.uni > *{position:relative;z-index:1}
+.uni::after{content:"";position:absolute;width:130px;height:130px;right:-56px;bottom:-62px;border-radius:50%;border:16px solid rgba(255,255,255,.45)}
+.uni:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:var(--shadow);color:var(--ink)}
+.uni .num{font-family:var(--display);font-weight:900;font-size:2.6rem;line-height:1;color:var(--ink)}
+.uni h3{font-size:1.35rem}
+.uni p{font-size:.92rem;color:var(--ink);max-width:90%}
+.uni .meta{margin-top:auto;align-self:flex-start;position:relative;z-index:1;font-size:.84rem;font-weight:700;background:var(--white);color:var(--ink);padding:7px 14px;border-radius:var(--r)}
+
+/* Technologies */
+.techs-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.techs-row a{position:relative;overflow:hidden;padding:26px 22px;border-radius:var(--rad);background:var(--ink);text-decoration:none;display:flex;flex-direction:column;gap:8px;min-height:220px;transition:transform .2s}
+.techs-row a::before{content:"";position:absolute;width:120px;height:120px;right:-30px;top:-30px;border-radius:50%;background:var(--c)}
+.techs-row a:hover{transform:translateY(-6px)}
+.techs-row b{position:relative;font-family:var(--display);font-weight:800;color:var(--on-dark);font-size:1.3rem;margin-top:52px}
+.techs-row span{font-size:.88rem;color:var(--on-dark-2)}
+.techs-row em{font-style:normal;font-size:.84rem;color:var(--c-d);font-weight:700;margin-top:auto}
+
+/* Bannière d'appel */
+.cta-band{margin-top:72px}
+.cta-band .inner{position:relative;overflow:hidden;border-radius:28px;background:var(--mag-l);color:var(--on-dark);padding:48px 56px;display:grid;grid-template-columns:1.4fr auto;gap:28px;align-items:center}
+.cta-band .inner::after{content:"";position:absolute;width:300px;height:300px;right:-80px;top:-120px;border-radius:50%;border:28px solid rgba(255,255,255,.18)}
+.cta-band h2{color:var(--on-dark);font-size:2.3rem}
+.cta-band p{color:var(--on-dark);margin-top:10px;max-width:560px}
+.cta-band .btn{position:relative;z-index:1;background:var(--white);color:var(--ink)}
+
+/* Catalogue */
+.cat-head{position:relative;overflow:hidden;margin:18px 0 32px;padding:40px 44px;border-radius:28px;background:var(--c-t,var(--sand))}
+.cat-head::after{content:"";position:absolute;width:260px;height:260px;right:-70px;top:-90px;border-radius:50%;background:var(--c-f,var(--ora-f))}
+.cat-head > *{position:relative;z-index:1}
+.cat-head .eyebrow{color:var(--ink)}
+.cat-head h1{font-size:3rem;margin:10px 0 12px;max-width:760px}
+.cat-head p{max-width:680px;color:var(--body)}
+.cat-head .bar{display:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 18px;border-radius:var(--r);background:var(--c-f,var(--white));color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:transform .15s}
+.chip:hover{transform:translateY(-2px);color:var(--ink)}
+.cat-layout{display:grid;grid-template-columns:270px 1fr;gap:36px;align-items:start}
+.fbox{background:var(--cream);border-radius:var(--rad);padding:4px 22px 8px;position:sticky;top:180px}
+.fbox summary{list-style:none;cursor:pointer;min-height:56px;display:flex;align-items:center;justify-content:space-between;font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--ink)}
+.fbox summary::-webkit-details-marker{display:none}
+.fbox summary::after{content:"Afficher";font-family:var(--sans);font-size:.8rem;color:var(--accent);font-weight:600}
+.fbox[open] summary::after{content:"Masquer"}
+.fgroup{padding:16px 0;border-top:1px solid var(--line)}
+.fgroup h3{font-family:var(--sans);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;font-weight:700}
+.check{display:flex;align-items:center;gap:10px;min-height:40px;font-size:.93rem;color:var(--body);cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--mag-l);flex-shrink:0}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:.88rem;font-weight:700;color:var(--ink)}
+.field input,.field select,.field textarea,.results-bar select{font:inherit;font-size:16px;color:var(--ink);background:var(--white);border:2px solid var(--line);border-radius:var(--rad-s);padding:10px 14px;min-height:46px}
+.field textarea{resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ink);outline:none}
+.hint{font-size:.84rem;color:var(--gray)}
+.reset{margin:4px 0 14px;background:none;border:0;padding:0;min-height:40px;font:inherit;font-size:.9rem;font-weight:600;color:var(--accent);text-decoration:underline;cursor:pointer}
+.results-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.results-bar label{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--gray)}
+#count{font-family:var(--display);font-size:1.3rem;color:var(--ink);font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.grid.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+/* Carte produit */
+.card{background:var(--white);border-radius:var(--rad);display:flex;flex-direction:column;position:relative;box-shadow:0 0 0 1px var(--line);transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-6px);box-shadow:0 0 0 2px var(--c),var(--shadow)}
+.media{display:block;aspect-ratio:1/1;background:var(--c-f);border-radius:var(--rad) var(--rad) 0 0;text-decoration:none;overflow:hidden;position:relative}
+.media img{width:100%;height:100%;object-fit:cover}
+.ph{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:18px;position:relative}
+.ph::before{content:"";position:absolute;width:72%;aspect-ratio:1;border-radius:50%;background:var(--white);box-shadow:0 0 0 14px rgba(255,255,255,.4)}
+.ph .ill{position:relative;width:80%;height:auto;filter:drop-shadow(0 10px 14px rgba(16,24,38,.18));transition:transform .3s}
+.card:hover .ph .ill{transform:rotate(-4deg) scale(1.04)}
+.ph small{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);font-weight:700;background:var(--white);padding:4px 10px;border-radius:var(--r)}
+.badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--c-l);color:var(--on-dark);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:6px 12px;border-radius:var(--r)}
+.cbody{padding:16px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cbody .tech{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--c-l)}
+.cbody h3{font-size:1.18rem}
+.cbody h3 a{color:var(--ink);text-decoration:none}
+.cbody h3 a::after{content:"";position:absolute;inset:0;border-radius:var(--rad)}
+.cbody h3 a:focus-visible{outline:none}
+.card:focus-within{outline:3px solid var(--blu);outline-offset:3px}
+.cbody .ref{font-size:.82rem;color:var(--gray)}
+.price{margin-top:auto;padding-top:12px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.price small{font-size:.82rem;color:var(--gray)}
+.price strong{font-family:var(--display);font-weight:800;font-size:1.55rem;color:var(--ink)}
+.atqty{align-self:flex-start;font-size:.84rem;color:var(--ink);font-weight:700;background:var(--c-t);padding:5px 12px;border-radius:var(--r)}
+.empty{background:var(--cream);border-radius:var(--rad);padding:48px;text-align:center;display:flex;flex-direction:column;gap:16px;align-items:center}
+
+/* Fiche produit */
+.prod{display:grid;grid-template-columns:1fr 1fr;gap:56px;padding:24px 0 0;align-items:start}
+.pmedia{position:sticky;top:180px}
+.pmedia .media{border-radius:28px}
+.pmedia .ph::before{width:64%}
+.pmedia .note{font-size:.84rem;color:var(--gray);margin-top:12px}
+.pinfo{display:flex;flex-direction:column;gap:20px}
+.pinfo .eyebrow{align-self:flex-start;background:var(--c-f);color:var(--ink);padding:7px 14px;border-radius:var(--r)}
+.pinfo h1{font-size:3rem}
+.pinfo .lead{font-size:1.08rem}
+.tlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:.92rem}
+.tlist li{padding:10px 14px;border-radius:var(--rad-s);background:var(--c-t)}
+.tlist strong{color:var(--ink)}
+table.tiers{width:100%;border-collapse:separate;border-spacing:6px 0;font-size:.95rem;margin:0 -6px}
+table.tiers caption{text-align:left;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--gray);padding:0 6px 10px}
+table.tiers th,table.tiers td{padding:10px 8px;text-align:center;background:var(--cream)}
+table.tiers thead th{border-radius:var(--rad-s) var(--rad-s) 0 0;font-weight:700;color:var(--ink)}
+table.tiers tbody td{border-radius:0 0 var(--rad-s) var(--rad-s)}
+table.tiers th:first-child{text-align:left;color:var(--gray);font-weight:600;background:transparent}
+table.tiers td{font-family:var(--display);font-weight:700;color:var(--ink);font-size:1.05rem}
+table.tiers .on{background:var(--c-l);color:var(--on-dark)}
+.pform{display:flex;flex-direction:column;gap:16px;background:var(--cream);border-radius:28px;padding:26px}
+.summary{background:var(--white);border-radius:var(--rad);padding:18px 20px;display:grid;grid-template-columns:1fr auto;gap:6px 16px;font-size:.93rem;box-shadow:0 0 0 1px var(--line)}
+.summary .tot{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--ink)}
+.summary .k{color:var(--gray)}
+.summary .v{text-align:right;color:var(--ink);font-weight:700}
+.summary .msg{grid-column:1/-1;font-weight:700}
+.summary .msg.err{color:var(--err)}
+.summary .msg.ok{color:var(--ok)}
+.mini{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;font-size:.85rem;color:var(--ink);font-weight:600}
+.mini li{padding:12px 14px;border-radius:var(--rad-s);background:var(--sand)}
+.mini li:nth-child(1){background:var(--mag-t)}.mini li:nth-child(2){background:var(--cya-t)}.mini li:nth-child(3){background:var(--ora-t)}
+
+/* Devis */
+.qlayout{display:grid;grid-template-columns:1.6fr 1fr;gap:36px;align-items:start;padding-top:8px}
+.qline{display:grid;grid-template-columns:1fr 120px 130px;gap:18px;align-items:center;background:var(--white);border-radius:var(--rad);box-shadow:0 0 0 1px var(--line),inset 8px 0 0 var(--c);padding:18px 22px 18px 30px;margin-bottom:12px}
+.qline h3{font-size:1.1rem}
+.qline h3 a{color:var(--ink);text-decoration:none}
+.qline .opts{font-size:.85rem;color:var(--gray)}
+.qline .lt{text-align:right;font-family:var(--display);font-weight:800;color:var(--ink);font-size:1.25rem}
+.qline .lt small{display:block;font-family:var(--sans);font-weight:500;font-size:.8rem;color:var(--gray)}
+.qline .field input{width:100%}
+.qline .rm{background:none;border:0;padding:0;min-height:36px;font:inherit;font-size:.85rem;font-weight:600;color:var(--err);text-decoration:underline;cursor:pointer}
+.qline .err{color:var(--err);font-size:.86rem;font-weight:700}
+.panel{background:var(--cream);border-radius:28px;padding:26px;display:flex;flex-direction:column;gap:14px;position:sticky;top:180px}
+.panel h2{font-size:1.6rem}
+.totals{display:grid;grid-template-columns:1fr auto;gap:8px 16px;font-size:.95rem;background:var(--white);border-radius:var(--rad);padding:16px 18px}
+.totals .v{text-align:right;color:var(--ink);font-weight:700}
+.totals .big{font-family:var(--display);font-weight:800;font-size:1.7rem;color:var(--ink)}
+.notice{font-size:.87rem;background:var(--ora-t);border-radius:var(--rad-s);padding:12px 14px;color:var(--ink)}
+.stack{display:flex;flex-direction:column;gap:10px}
+
+/* Infos */
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.tile{position:relative;overflow:hidden;background:var(--c-t,var(--cream));border-radius:var(--rad);padding:26px;display:flex;flex-direction:column;gap:8px}
+.tile::after{content:"";position:absolute;width:110px;height:110px;right:-30px;top:-30px;border-radius:50%;background:var(--c-f,var(--sand))}
+.tile > *{position:relative;z-index:1}
+.tile h3{font-size:1.35rem}
+.tile p{font-size:.93rem}
+.tile .eyebrow{color:var(--ink)!important}
+.tile a{font-weight:700;color:var(--ink)}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.steps div{counter-increment:s;padding:22px;border-radius:var(--rad);font-size:.93rem;background:var(--sand)}
+.steps div:nth-child(1){background:var(--mag-f)}.steps div:nth-child(2){background:var(--cya-f)}.steps div:nth-child(3){background:var(--ora-f)}.steps div:nth-child(4){background:var(--blu-f)}
+.steps div{color:var(--ink)}
+.steps div::before{content:counter(s,decimal-leading-zero);display:block;font-family:var(--display);font-weight:900;font-size:2.2rem;color:var(--ink);margin-bottom:6px}
+.steps b{color:var(--ink);display:block}
+table.ship{width:100%;border-collapse:collapse;font-size:.95rem;border-radius:var(--rad);overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+table.ship th{background:var(--ink);color:var(--on-dark);text-align:left;padding:14px 16px;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase}
+table.ship td{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--white)}
+table.ship td:first-child{font-weight:700;color:var(--ink)}
+
+footer{margin-top:96px;background:var(--ink);color:var(--on-dark-2);position:relative;overflow:hidden}
+footer::before{content:"";position:absolute;width:360px;height:360px;right:-150px;top:-170px;border-radius:50%;background:conic-gradient(from 90deg,#F7A21B,#E8175D,#12A8B8,#1477B8,#F7A21B);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 22px),#000 calc(100% - 21px));mask:radial-gradient(farthest-side,transparent calc(100% - 22px),#000 calc(100% - 21px));opacity:.9}
+footer .wrap{position:relative;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-top:56px;padding-bottom:40px}
+footer h2{font-size:1.8rem;font-weight:900;color:var(--on-dark)}
+footer h3{font-family:var(--sans);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ora-d);margin-bottom:12px;font-weight:700}
+footer p,footer li{font-size:.92rem;color:var(--on-dark-2)}
+footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+footer a{color:var(--on-dark-2);text-decoration:none;display:inline-flex;min-height:32px;align-items:center}
+footer a:hover{color:var(--on-dark)}
+footer .legal{border-top:1px solid var(--edge);padding:16px 32px 28px;font-size:.82rem;color:var(--on-dark-3)}
+
+.toast{position:fixed;bottom:24px;right:24px;z-index:500;background:var(--ink);color:var(--on-dark);padding:14px 22px;border-radius:var(--r);font-weight:700;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:opacity .2s,transform .2s;pointer-events:none;width:auto}
+.toast.on{opacity:1;transform:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+@media(max-width:1100px){
+  .grid,.grid.g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .univers{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .techs-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-logo{order:-1}
+  .hero-logo img{max-width:380px}
+  .facts{grid-template-columns:repeat(2,auto)}
+}
+@media(max-width:900px){
+  body.nav-open{overflow:hidden}
+  .wrap{padding:0 16px}
+  .promo .wrap{gap:14px;font-size:.76rem;justify-content:flex-start;overflow:hidden;flex-wrap:nowrap;white-space:nowrap}
+  .promo span:nth-child(n+2){display:none}
+  header.top .wrap{height:68px;gap:12px}
+  .brand img{height:60px}
+  .search{display:none}
+  .quote-link{min-height:42px;padding:0 6px 0 14px;font-size:.88rem}
+  .acct-link{min-height:42px;padding:0 12px;margin-left:auto;font-size:.88rem}
+  .acc{grid-template-columns:1fr}
+  .quote-link .n{min-width:30px;height:30px}
+
+  .mobilebar{display:flex;align-items:center;gap:12px;position:sticky;top:68px;z-index:280;background:var(--white);border-bottom:1px solid var(--line);padding:9px 16px}
+  .mobilebar .mb-lbl{flex:1;min-width:0}
+  .mobilebar .mb-where{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);display:block}
+  .mobilebar .mb-title{font-weight:700;color:var(--ink);font-size:.9rem;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mobilebar .mb-btn{flex-shrink:0;min-height:40px;padding:0 18px;font:inherit;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.8rem;background:var(--ink);color:var(--on-dark);border:none;border-radius:var(--r);cursor:pointer}
+
+  nav#sidebar{position:fixed;top:0;left:0;bottom:0;height:100dvh;width:min(86vw,330px);transform:translateX(-101%);transition:transform .24s cubic-bezier(.4,0,.2,1);z-index:400;overscroll-behavior:contain;overflow-y:auto;background:var(--ink);border:0}
+  nav#sidebar.open{transform:none;box-shadow:14px 0 40px rgba(5,13,27,.4)}
+  .drawer-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--ink);position:sticky;top:0;z-index:2;border-bottom:1px solid var(--edge)}
+  .drawer-head .dh-t{font-family:var(--display);color:var(--on-dark);font-weight:800;font-size:1.1rem}
+  .drawer-head .dh-x{margin-left:auto;min-height:38px;padding:0 16px;color:var(--on-dark);font:inherit;font-weight:700;background:transparent;border:1px solid var(--on-dark-3);border-radius:var(--r);cursor:pointer}
+  .m-search{display:flex;padding:14px 18px;gap:6px}
+  .m-search input{flex:1;min-width:0;height:44px;border:0;border-radius:var(--r);padding:0 16px;font:inherit;font-size:16px}
+  .m-search button{height:44px;padding:0 16px;border:0;border-radius:var(--r);background:var(--ora-f);color:var(--ink);font:inherit;font-weight:700}
+  nav#sidebar .links{flex-direction:column;padding:6px 12px 24px;gap:4px}
+  nav#sidebar .m-only{display:flex}
+  nav#sidebar a{padding:11px 16px;min-height:44px;font-size:.92rem;color:var(--on-dark-2)}
+  nav#sidebar a:hover{background:var(--ink-2);color:var(--on-dark)}
+  nav#sidebar a.active{background:var(--c-f,var(--on-dark));color:var(--ink)}
+  nav#sidebar a.active:not([data-c]){background:var(--on-dark);color:var(--ink)}
+
+  .btn{min-height:42px}
+  .chip{min-height:36px}
+  .hero .wrap{padding-top:44px;padding-bottom:48px;gap:24px}
+  .hero h1{font-size:2.7rem}
+  .hero-logo img{max-width:260px}
+  .ring.r1{width:240px;height:240px;right:0}
+  .stk{width:160px;padding:14px 16px}
+  .stk b{font-size:1.05rem}
+  .stk.s1{left:0}.stk.s3{left:20px}.stk.s4{right:0}.stk.s2{right:0}
+  .facts{gap:18px}
+  .assur .wrap{grid-template-columns:1fr 1fr;gap:10px}
+  section.block{padding-top:48px}
+  section.band{margin-top:48px;padding:44px 0}
+  .sec-head{flex-direction:column;align-items:flex-start}
+  .sec-head h2{font-size:2rem}
+  .univers,.cols2,.steps{grid-template-columns:1fr}
+  .grid.g3,.grid.g4,.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .cbody{padding:12px 14px 14px}
+  .cbody h3{font-size:1rem}
+  .price strong{font-size:1.25rem}
+  .cat-head{padding:28px 22px;border-radius:var(--rad)}
+  .cat-head h1,.pinfo h1{font-size:2.1rem}
+  .cta-band .inner{grid-template-columns:1fr;padding:32px 24px}
+  .cta-band h2{font-size:1.8rem}
+  .cat-layout,.prod,.qlayout{grid-template-columns:1fr;gap:24px}
+  .fbox,.pmedia,.panel{position:static}
+  .mini{grid-template-columns:1fr}
+  .qline{grid-template-columns:1fr 1fr;padding:16px 16px 16px 24px}
+  .qline .info{grid-column:1/-1}
+  .nav-btns{flex-direction:column-reverse}
+  .nav-btns .btn{width:100%}
+  .field input,.field textarea,.field select{font-size:16px}
+  footer .wrap{grid-template-columns:1fr 1fr}
+  footer .legal{padding:16px}
+  .toast{left:16px;right:16px;width:auto;text-align:center;bottom:16px}
+}
+@media(max-width:520px){
+  .grid,.grid.g4{grid-template-columns:1fr}
+  .techs-row{grid-template-columns:1fr}
+  .assur .wrap{grid-template-columns:1fr}
+  .hero h1{font-size:2.3rem}
+  .facts{grid-template-columns:1fr 1fr}
+  footer .wrap{grid-template-columns:1fr}
+}
+@media(max-width:380px){
+  main{padding:0 0 56px}
+  nav#sidebar{width:92vw}
+  .quote-link .lbl{display:none}
+}
+</style>
+</head>
+<body>
+<div class="promo"><div class="wrap"><span data-c="mag" data-t="promo_1">BAT gratuit sous 24 à 48 h</span><span data-c="cya" data-t="promo_2">Fabrication express en 24 h</span><span data-c="ora" data-t="promo_3">Livraison Martinique · Guadeloupe · Guyane</span></div></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#/"><img src="logo-lazerdeco-blanc.png" alt="LAZR DECO, retour à l'accueil" width="563" height="619"></a>
+    <form class="search" role="search" onsubmit="return doSearch(this)">
+      <label class="sr" for="q-top">Rechercher un produit</label>
+      <input id="q-top" name="q" type="search" placeholder="Stylo, gourde, t-shirt, trophée…" autocomplete="off">
+      <button type="submit">Rechercher</button>
+    </form>
+    <a class="acct-link" href="#/compte" id="acct-link">Mon compte</a>
+    <a class="quote-link" href="#/devis"><span class="lbl">Mon devis</span><span class="n" id="cart-n">0</span></a>
+  </div>
+  <div class="filet"></div>
+</header>
+
+<div class="mobilebar">
+  <span class="mb-lbl"><span class="mb-where">Vous consultez</span><span class="mb-title" id="mb-title">Accueil</span></span>
+  <button class="mb-btn" type="button" id="mb-btn" aria-controls="sidebar" aria-expanded="false" onclick="toggleNav()">Menu</button>
+</div>
+<div class="backdrop" id="backdrop" onclick="closeNav()" aria-hidden="true"></div>
+
+<nav id="sidebar" aria-label="Navigation principale">
+  <div class="drawer-head"><span class="dh-t">Navigation</span><button class="dh-x" type="button" onclick="closeNav()">Fermer</button></div>
+  <form class="m-search" role="search" onsubmit="return doSearch(this)">
+    <label class="sr" for="q-mob">Rechercher un produit</label>
+    <input id="q-mob" name="q" type="search" placeholder="Rechercher…" autocomplete="off">
+    <button type="submit">OK</button>
+  </form>
+  <div class="links" id="nav-links"></div>
+</nav>
+
+<div id="annonce"></div>
+<main id="app" tabindex="-1"></main>
+
+<footer>
+  <div class="filet"></div>
+  <div class="wrap" id="foot"></div>
+  <div class="wrap legal" id="legal"></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-t"><div class="mbox" id="modal-box"></div></div>
+
+<script>
+'use strict';
+const RETOUR_AUTH = /(?:^|[#&])type=(recovery|invite)/.exec(location.hash);
+const DATA = {"config":{"marque":"LAZR DECO","logo":"logo-lazerdeco.jpg","email":"","whatsapp":"","telephone":"[Téléphone]","adresse":"[Adresse de l'atelier], Martinique","tva":{"Martinique":0.085,"Guadeloupe":0.085,"Guyane":0},"express":0.2,"supabase":{"url":"","cle_publique":""},"delais":{"mq-retrait":"Gratuit","mq-livraison":"Forfait indiqué sur le devis, 24 à 72 h","gp":"Sur devis selon poids, 3 à 5 jours ouvrés","gf":"Sur devis selon poids, 5 à 8 jours ouvrés"},"email_equipe":[],"site_url":""},"techniques":{"laser":{"nom":"Laser CO2","detail":"Gravure et découpe : bois, bambou, acrylique, cuir, ardoise, verre","delai":3},"uv":{"nom":"UV DTF","detail":"Transferts quadri sur supports rigides : inox, verre, céramique, plastique","delai":2},"alim":{"nom":"Alimentaire","detail":"Encres comestibles sur feuilles de sucre et azyme","delai":1},"3d":{"nom":"Impression 3D","detail":"Objets en volume PLA ou PETG, sur mesure","delai":5},"dtf":{"nom":"DTF textile","detail":"Transferts souples sur coton, polyester et mélanges","delai":3}},"categories":[{"id":"textile","nom":"Textile & accessoires","accroche":"T-shirts, sweats, casquettes et sacs marqués en DTF","couleur":"blu"},{"id":"mugs","nom":"Mugs & gourdes","accroche":"Contenants isothermes, mugs, verres et bouteilles","couleur":"cya"},{"id":"bureau","nom":"Bureau & écriture","accroche":"Stylos, carnets, clés USB et badges","couleur":"blu"},{"id":"goodies","nom":"Goodies & porte-clés","accroche":"Petits objets à offrir en nombre","couleur":"mag"},{"id":"signaletique","nom":"Signalétique & PLV","accroche":"Plaques, présentoirs, chevalets, enseignes","couleur":"cya"},{"id":"cadeaux","nom":"Cadeaux & trophées","accroche":"Objets gravés pour récompenser et marquer les dates","couleur":"mag"},{"id":"patisserie","nom":"Pâtisserie","accroche":"Impressions comestibles pour gâteaux et biscuits","couleur":"ora"},{"id":"stickers","nom":"Stickers & transferts","accroche":"Étiquettes, autocollants et transferts prêts à poser","couleur":"ora"}],"produits":[{"ref":"T-01","nom":"T-shirt coton 150 g","cat":"textile","tech":["dtf"],"desc":"100 % coton, coupe mixte, logo cœur et grand visuel dos. Toutes couleurs, de l'enfant au 3XL.","q":[1,10,50,100],"p":[15,11,8.5,7.2],"badge":"Best-seller","emplacement":2.5},{"ref":"T-02","nom":"T-shirt technique sport","cat":"textile","tech":["dtf"],"desc":"Polyester respirant pour clubs, courses et carnaval. Numéro et nom au dos en option.","q":[1,10,50,100],"p":[17,12.5,9.5,8],"emplacement":2.5},{"ref":"T-03","nom":"Polo piqué","cat":"textile","tech":["dtf"],"desc":"Polo 200 g, tenue d'équipe et accueil. Logo poitrine, option dos.","q":[1,10,50,100],"p":[22,17,13.5,11.5],"emplacement":2.5},{"ref":"T-04","nom":"Sweat à capuche","cat":"textile","tech":["dtf"],"desc":"Molleton 280 g, poche kangourou, marquage poitrine et dos.","q":[1,10,50,100],"p":[32,26,21,18.5],"emplacement":2.5},{"ref":"T-05","nom":"Tote bag coton","cat":"textile","tech":["dtf"],"desc":"Sac 38 × 42 cm, anses longues, visuel quadri une face.","q":[1,10,50,100],"p":[9,6.5,4.7,3.9],"badge":"Best-seller","emplacement":2},{"ref":"T-06","nom":"Casquette 5 panneaux","cat":"textile","tech":["dtf"],"desc":"Transfert frontal, réglage arrière, plusieurs coloris.","q":[1,10,50,100],"p":[13,10,7.5,6.2]},{"ref":"T-07","nom":"Tablier de cuisine","cat":"textile","tech":["dtf"],"desc":"Tablier à bavette avec poche, pour restaurants, traiteurs et cadeaux.","q":[1,10,25,50],"p":[18,14,11,9.5]},{"ref":"T-08","nom":"Bob coton","cat":"textile","tech":["dtf"],"desc":"Bob réversible ou uni, logo frontal, idéal festivals et plage.","q":[1,10,50,100],"p":[15,11.5,8.8,7.5]},{"ref":"M-01","nom":"Gourde inox 500 ml","cat":"mugs","tech":["uv"],"desc":"Double paroi isotherme, 12 h froid. Logo quadri, finition mate ou brillante.","q":[1,10,50,100],"p":[17,13,9.9,8.5],"badge":"Best-seller"},{"ref":"M-02","nom":"Mug céramique 330 ml","cat":"mugs","tech":["uv"],"desc":"Mug blanc ou couleur, visuel une ou deux faces.","q":[1,10,50,100],"p":[12,9,6.9,5.9]},{"ref":"M-03","nom":"Gobelet isotherme 350 ml","cat":"mugs","tech":["uv"],"desc":"Inox avec couvercle coulissant, format voiture et bureau.","q":[1,10,50,100],"p":[15,11.5,8.9,7.5]},{"ref":"M-04","nom":"Verre ou chope","cat":"mugs","tech":["uv","laser"],"desc":"Verre à pied, tumbler ou chope : impression couleur ou gravure laser dépolie.","q":[1,12,48,96],"p":[9,6.5,4.9,4.2]},{"ref":"M-05","nom":"Bouteille en verre 50 cl","cat":"mugs","tech":["uv"],"desc":"Pour jus, rhum arrangé, sirops. Étiquette imprimée directement sur le verre.","q":[1,10,50,100],"p":[8.5,6,4.4,3.6],"badge":"Nouveau"},{"ref":"B-01","nom":"Stylo bille","cat":"bureau","tech":["uv"],"desc":"Stylo plastique, logo couleur sur le corps. Encre bleue ou noire.","q":[10,50,250,500],"p":[1.9,1.2,0.75,0.55],"badge":"Best-seller"},{"ref":"B-02","nom":"Stylo bambou gravé","cat":"bureau","tech":["laser"],"desc":"Corps bambou, gravure laser naturelle, image éco-responsable.","q":[10,50,250,500],"p":[2.4,1.6,1,0.8]},{"ref":"B-03","nom":"Carnet A5","cat":"bureau","tech":["uv"],"desc":"Couverture rigide, 96 pages lignées, élastique de fermeture.","q":[1,10,50,100],"p":[11,8,5.9,4.9]},{"ref":"B-04","nom":"Clé USB bois 16 Go","cat":"bureau","tech":["laser"],"desc":"Coque bois ou bambou gravée, capuchon aimanté.","q":[1,10,50,100],"p":[14,10.5,8,6.9]},{"ref":"B-05","nom":"Badge nominatif","cat":"bureau","tech":["laser","uv"],"desc":"Acrylique découpé, logo couleur et prénom, fixation aimant ou épingle.","q":[1,10,50,100],"p":[6.5,4.5,3.2,2.6]},{"ref":"G-01","nom":"Porte-clés bois gravé","cat":"goodies","tech":["laser"],"desc":"Hêtre ou bambou 5 cm, gravure recto, anneau métal inclus.","q":[1,10,50,100],"p":[5,3.5,2.2,1.7],"badge":"Best-seller"},{"ref":"G-02","nom":"Porte-clés 3D en relief","cat":"goodies","tech":["3d"],"desc":"Votre logo extrudé en deux couleurs, 5 cm, anneau métal inclus.","q":[1,10,50,100],"p":[6,4,2.8,2.2]},{"ref":"G-03","nom":"Porte-clés acrylique imprimé","cat":"goodies","tech":["laser","uv"],"desc":"Découpé à la forme de votre logo, impression couleur recto.","q":[1,10,50,100],"p":[5.5,3.8,2.5,1.9]},{"ref":"G-04","nom":"Magnet acrylique ou bois","cat":"goodies","tech":["laser","uv"],"desc":"Forme libre, visuel couleur ou gravé, aimant puissant au dos.","q":[1,10,50,100],"p":[4.5,3.2,2,1.5]},{"ref":"G-05","nom":"Décapsuleur bois gravé","cat":"goodies","tech":["laser"],"desc":"Bois massif et insert métal, gravure du logo.","q":[1,10,50,100],"p":[7,5,3.6,2.9]},{"ref":"G-06","nom":"Dessous de verre gravé","cat":"goodies","tech":["laser"],"desc":"Bois ou ardoise Ø 10 cm, pour bars, restaurants et cadeaux.","q":[1,10,50,100],"p":[7,5,3.4,2.8]},{"ref":"S-01","nom":"Plaque signalétique","cat":"signaletique","tech":["laser"],"desc":"Plexiglas 30 × 20 cm gravé, entretoises de fixation fournies.","q":[1,3,5,10],"p":[35,30,26,22]},{"ref":"S-02","nom":"Présentoir QR code","cat":"signaletique","tech":["3d"],"desc":"Support de comptoir pour QR code, avis ou paiement, à vos couleurs.","q":[1,5,10,25],"p":[24,19,15,12],"badge":"Nouveau"},{"ref":"S-03","nom":"Chevalet de table A5","cat":"signaletique","tech":["laser","uv"],"desc":"Acrylique, menu, tarifs ou plan de table imprimés en couleur.","q":[1,5,10,25],"p":[16,13,10.5,8.5]},{"ref":"S-04","nom":"Panneau bois gravé","cat":"signaletique","tech":["laser"],"desc":"40 × 30 cm, pour gîtes, commerces et accueil.","q":[1,3,5,10],"p":[45,39,34,29]},{"ref":"S-05","nom":"Logo découpé pour enseigne","cat":"signaletique","tech":["laser"],"desc":"Lettres et logo découpés en bois ou acrylique, fixations murales. Prix de départ, ajusté selon dimensions.","q":[1,2,3,5],"p":[89,79,72,65],"aPartir":true},{"ref":"C-01","nom":"Trophée acrylique","cat":"cadeaux","tech":["laser"],"desc":"Découpe à la forme, gravure personnalisée, socle bois ou acrylique.","q":[1,5,10,25],"p":[29,24,19,15.5]},{"ref":"C-02","nom":"Planche à découper","cat":"cadeaux","tech":["laser"],"desc":"Bambou 30 × 20 cm, gravure de logo, prénom ou recette.","q":[1,5,20,50],"p":[19,16,12.5,10]},{"ref":"C-03","nom":"Cadre photo gravé","cat":"cadeaux","tech":["laser"],"desc":"Bois 10 × 15 cm, date et message gravés sur le cadre.","q":[1,5,10,25],"p":[22,18,14.5,12]},{"ref":"C-04","nom":"Boîte cadeau bois","cat":"cadeaux","tech":["laser"],"desc":"Coffret à couvercle coulissant, gravure du couvercle.","q":[1,5,10,25],"p":[19,15.5,12.5,10.5]},{"ref":"C-05","nom":"Étiquette cuir gravée","cat":"cadeaux","tech":["laser"],"desc":"Patch 6 cm pour casquettes, sacs, carnets ou packagings.","q":[1,25,100,250],"p":[3.5,2.2,1.4,1.05]},{"ref":"C-06","nom":"Figurine ou objet 3D","cat":"cadeaux","tech":["3d"],"desc":"Environ 10 cm, d'après photo, croquis ou fichier STL. Prix de départ, ajusté selon complexité.","q":[1,5,10,25],"p":[39,32,27,23],"aPartir":true},{"ref":"P-01","nom":"Feuille de sucre A4","cat":"patisserie","tech":["alim"],"desc":"Photo pleine page, couleurs vives, pose sur crème ou pâte à sucre.","q":[1,5,10,20],"p":[12,10,8.5,7],"badge":"Best-seller"},{"ref":"P-02","nom":"Feuille azyme A4","cat":"patisserie","tech":["alim"],"desc":"Goût neutre, pour surfaces sèches, longue tenue.","q":[1,5,10,20],"p":[9.5,8,6.5,5.5]},{"ref":"P-03","nom":"Disque gâteau Ø 20 cm","cat":"patisserie","tech":["alim"],"desc":"Prédécoupé, prénom et âge inclus, sur sucre ou azyme.","q":[1,5,10,20],"p":[10,8.5,7,6]},{"ref":"P-04","nom":"Planche de toppers","cat":"patisserie","tech":["alim"],"desc":"12 à 24 motifs par A4 pour cupcakes, macarons et biscuits.","q":[1,5,10,20],"p":[13,11,9,7.5]},{"ref":"P-05","nom":"Bandes de contour","cat":"patisserie","tech":["alim"],"desc":"4 bandes imprimées par A4 pour habiller le tour d'un gâteau.","q":[1,5,10,20],"p":[14,12,10,8.5]},{"ref":"K-01","nom":"Planche de stickers UV DTF","cat":"stickers","tech":["uv"],"desc":"A4 de transferts prêts à poser sur objets rigides, autant de motifs que possible.","q":[1,5,20,50],"p":[19,15,11.5,9.5]},{"ref":"K-02","nom":"Étiquettes produits","cat":"stickers","tech":["uv"],"desc":"Lot de 50 étiquettes 5 cm résistantes à l'eau, pour pots, flacons et bouteilles.","q":[1,5,10,20],"p":[24,19,16,13.5],"badge":"Nouveau"},{"ref":"K-03","nom":"Transfert DTF au mètre","cat":"stickers","tech":["dtf"],"desc":"Laize 58 cm, pour les pros qui pressent eux-mêmes. Prix au mètre linéaire.","q":[1,5,10,25],"p":[15,13,11.5,10]},{"ref":"K-04","nom":"Transfert DTF format A4","cat":"stickers","tech":["dtf"],"desc":"Transfert unitaire à presser sur textile, notice de pose fournie.","q":[1,10,50,100],"p":[6,4.2,3,2.4]}],"textes":{"promo_1":"BAT gratuit sous 24 à 48 h","promo_2":"Fabrication express en 24 h","promo_3":"Livraison Martinique · Guadeloupe · Guyane","accueil_surtitre":"Atelier de marquage en Martinique","accueil_titre":"Votre marque,","accueil_mot1":"gravée","accueil_mot2":"imprimée","accueil_mot3":"croquée","accueil_intro":"Objets publicitaires, textile, signalétique, cadeaux gravés et décors de pâtisserie. Composez votre sélection, nous vous envoyons le devis et le bon à tirer.","accueil_cta_titre":"Un projet, un événement, une équipe à habiller ?","accueil_cta_texte":"Envoyez votre logo et vos quantités : devis et bon à tirer sous 24 à 48 h ouvrées.","infos_intro":"Tout est fabriqué sur place, de la pièce unique à la série. Chaque produit du catalogue est réalisé avec les machines ci-dessous.","pied_presentation":"Marquage publicitaire, gravure laser, impression UV, 3D, textile et alimentaire."},"roles":[{"id":"createur","nom":"Créateur","description":"Catalogue : fiches produits, tarifs, photos et médiathèque.","ordre":10,"permissions":{"produits":["voir","creer","modifier"],"univers":["voir"],"machines":["voir"],"promotions":["voir"],"medias":["voir","creer"]}},{"id":"gestion","nom":"Gestion","description":"Devis, BAT, commandes, paiements, clients et statistiques.","ordre":20,"permissions":{"statistiques":["voir"],"produits":["voir"],"devis":["voir","creer","modifier"],"production":["voir","modifier"],"paiements":["voir","creer","modifier"],"clients":["voir","modifier"],"emails":["voir"]}},{"id":"atelier","nom":"Atelier","description":"File de production par machine : démarrer et terminer les fabrications.","ordre":30,"permissions":{"produits":["voir"],"machines":["voir"],"production":["voir","modifier"]}}],"accueil":{"sections":[{"id":"hero","visible":true},{"id":"reassurance","visible":true},{"id":"univers","visible":true},{"id":"selection","visible":true},{"id":"techniques","visible":true},{"id":"appel","visible":true}],"banniere":{"actif":false,"texte":"","lien":"","couleur":"ora","debut":null,"fin":null},"selection":{"titre":"Best-sellers","refs":[]}},"seo":{"titre":"LAZR DECO — Marquage publicitaire et impression personnalisée en Martinique","description":"Objets publicitaires, textile, signalétique, cadeaux gravés et impression alimentaire, fabriqués en Martinique. Livraison Martinique, Guadeloupe, Guyane."},"modeles_emails":{"nouvelle_demande":{"pour":"equipe","actif":true,"sujet":"Nouvelle demande {{numero}} — {{client}}","corps":"Nouvelle demande de devis {{numero}} de {{client}} {{societe}}.\nMontant estimé : {{total_ttc}} TTC.\n\nOuvrir la demande : {{lien_gestion}}"},"statut":{"pour":"client","actif":true,"sujet":"{{marque}} — votre commande {{numero}} : {{statut}}","corps":"Bonjour {{client}},\n\nVotre commande {{numero}} est maintenant : {{statut}}.\nSuivez-la dans votre espace client : {{lien_client}}\n\nL'équipe {{marque}}"},"bat":{"pour":"client","actif":true,"sujet":"{{marque}} — votre BAT pour {{numero}} est prêt","corps":"Bonjour {{client}},\n\nLe bon à tirer (version {{version}}) de votre commande {{numero}} est disponible.\nValidez-le ou demandez une correction depuis votre espace client : {{lien_client}}\n\nAucune fabrication ne démarre sans votre validation.\n\nL'équipe {{marque}}"},"bat_reponse":{"pour":"equipe","actif":true,"sujet":"BAT {{numero}} v{{version}} : {{decision}}","corps":"{{client}} a répondu au BAT version {{version}} de la commande {{numero}} : {{decision}}.\n{{commentaire}}\n\nOuvrir la commande : {{lien_gestion}}"},"paiement":{"pour":"client","actif":true,"sujet":"{{marque}} — paiement reçu pour {{numero}}","corps":"Bonjour {{client}},\n\nNous avons bien reçu votre paiement de {{montant}} pour la commande {{numero}}.\nMerci !\n\nL'équipe {{marque}}"}},"pages":[{"slug":"mentions-legales","titre":"Mentions légales","type":"legale","ordre":1,"contenu":"> Modèle à compléter et à faire valider par un professionnel avant publication.\n\n## Éditeur du site\n**LAZR DECO** — [à compléter] (forme juridique, capital)\nSiège : [à compléter]\nSIRET : [à compléter] · RCS : [à compléter]\nTVA intracommunautaire : [à compléter]\nDirecteur de la publication : [à compléter]\nContact : [à compléter]\n\n## Hébergement\nSite : GitHub Pages — GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.\nDonnées clients et comptes : Supabase — [à compléter] (région d'hébergement choisie).\n\n## Propriété intellectuelle\nLes textes, visuels et le logo LAZR DECO sont protégés. Toute reproduction sans autorisation est interdite.\nLes logos et visuels fournis par les clients restent leur propriété ; le client garantit en détenir les droits."},{"slug":"cgv","titre":"Conditions générales de vente","type":"legale","ordre":2,"contenu":"> Modèle à compléter et à faire valider par un professionnel avant publication.\n\n## 1. Objet\nLes présentes conditions s'appliquent aux commandes de produits personnalisés passées auprès de LAZR DECO par des particuliers et des professionnels.\n\n## 2. Devis et commande\nToute demande donne lieu à un devis. La commande est ferme après validation du bon à tirer (BAT) et, pour les professionnels, versement d'un acompte de 50 %.\n\n## 3. Bon à tirer\nAucune fabrication ne démarre sans BAT validé par le client. Le client vérifie textes, couleurs et dimensions ; une validation vaut accord sur la conformité du visuel.\n\n## 4. Prix et paiement\nLes prix sont indiqués en euros hors taxes, avec la TVA applicable au territoire de livraison. Modes de paiement acceptés : [à compléter].\n\n## 5. Délais et livraison\nDélais indicatifs à compter de la validation du BAT. Livraison en Martinique, Guadeloupe et Guyane selon les conditions indiquées au devis.\n\n## 6. Droit de rétractation\nConformément à l'article L221-28 du Code de la consommation, le droit de rétractation ne s'applique pas aux biens confectionnés selon les spécifications du consommateur ou nettement personnalisés.\n\n## 7. Fichiers fournis\nLe client garantit détenir les droits sur les logos, images et textes transmis et dégage LAZR DECO de toute responsabilité à ce titre.\n\n## 8. Réclamations\nToute réclamation doit être adressée à [à compléter] dans un délai de [à compléter] jours après réception.\n\n## 9. Médiation et droit applicable\nMédiateur de la consommation : [à compléter]. Droit français applicable."},{"slug":"confidentialite","titre":"Politique de confidentialité","type":"legale","ordre":3,"contenu":"> Modèle à compléter et à faire valider par un professionnel avant publication.\n\n## Responsable du traitement\nLAZR DECO — [à compléter] — contact : [à compléter]\n\n## Données collectées\nNom, société, e-mail, téléphone, adresse de livraison, contenu des demandes, fichiers fournis, historique des commandes et paiements.\n\n## Finalités et base légale\nTraitement des devis et commandes (exécution du contrat), facturation et comptabilité (obligation légale), suivi client (intérêt légitime).\n\n## Durées de conservation\nCompte client : jusqu'à sa clôture. Pièces comptables : 10 ans. Fichiers de personnalisation : [à compléter].\n\n## Vos droits\nAccès, rectification, effacement, limitation, opposition et portabilité : écrivez à [à compléter]. Vous pouvez saisir la CNIL (www.cnil.fr).\n\n## Sous-traitants\nHébergement des données : Supabase. Envoi des e-mails : Resend. [à compléter]"}]};
+const $ = id => document.getElementById(id);
+let CFG = DATA.config, TECH = DATA.techniques, CATS = DATA.categories, PRODS = DATA.produits, TEXTES = Object.assign({}, DATA.textes || {});
+let PROMOS = DATA.promotions || [], PAGES_SITE = (DATA.pages || []).map(p => Object.assign({publie: true, dans_pied: true}, p));
+let ACCUEIL = DATA.accueil || {}, SEO = DATA.seo || {};
+let byRef = {}, catById = {};
+function indexer() { byRef = Object.fromEntries(PRODS.map(p => [p.ref, p])); catById = Object.fromEntries(CATS.map(c => [c.id, c])); }
+indexer();
+const T = k => (TEXTES[k] != null && TEXTES[k] !== '') ? TEXTES[k] : ((DATA.textes || {})[k] || '');
+const SBC = CFG.supabase || {};
+const SB = (SBC.url && SBC.cle_publique && window.supabase) ? window.supabase.createClient(SBC.url, SBC.cle_publique, {auth: {persistSession: true, autoRefreshToken: true}}) : null;
+let MOI = null;
+const STATUTS = {demande: 'Demande reçue', devis_envoye: 'Devis envoyé', bat_envoye: 'BAT envoyé', valide: 'Validée', en_production: 'En production', prete: 'Prête', livree: 'Livrée', annulee: 'Annulée'};
+const KEY = 'lazerdeco-devis';
+const livr = d => (CFG.delais && CFG.delais[d.id]) || d.livr;
+const DEST = [
+  {id:'mq-retrait', nom:'Martinique — retrait atelier', tva:'Martinique', livr:'Gratuit'},
+  {id:'mq-livraison', nom:'Martinique — livraison', tva:'Martinique', livr:'Forfait indiqué sur le devis, 24 à 72 h'},
+  {id:'gp', nom:'Guadeloupe', tva:'Guadeloupe', livr:'Sur devis selon poids, 3 à 5 jours ouvrés'},
+  {id:'gf', nom:'Guyane', tva:'Guyane', livr:'Sur devis selon poids, 5 à 8 jours ouvrés'}
+];
+
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const r2 = n => Math.round(n * 100) / 100;
+const eur = n => r2(n).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €';
+const norm = s => String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const colorOf = p => catById[p.cat].couleur;
+/* LAZERDECO — illustrations vectorielles des produits.
+   Chaque forme : d = dessin SVG (viewBox 200×200), z = zones d'impression [x, y, l, h],
+   f = teinte par défaut de l'objet ('cat' = couleur vive de l'univers), sombre = zone foncée. */
+const NOIR = '#000000', BOIS = '#E2B07A', ACRY = '#EAF6FA', CUIR = '#7A4A26', PAPIER = '#FFFFFF', INOX = '#D9DEE5';
+const S = 'stroke="#101826" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"';
+const FORMES = {
+  tshirt: {f: NOIR, z: [[70, 58, 60, 60]], d: c => `<path ${S} fill="${c}" d="M62 38 80 28q20 14 40 0l18 10 32 32-20 18-10-8v94H60V80l-10 8-20-18z"/>`},
+  polo: {f: NOIR, z: [[106, 60, 32, 32]], d: c => `<path ${S} fill="${c}" d="M62 38 80 28q20 14 40 0l18 10 32 32-20 18-10-8v94H60V80l-10 8-20-18z"/><path ${S} fill="#fff" d="m82 30 18 22 18-22"/><path ${S} fill="none" d="M100 52v26"/>`},
+  sweat: {f: NOIR, z: [[72, 66, 56, 56]], d: c => `<path ${S} fill="${c}" d="M64 40q36-26 72 0l36 30 4 92-20 2-8-70-2 80H54l-2-80-8 70-20-2 4-92z"/><path ${S} fill="none" d="M76 40q24 36 48 0"/><path ${S} fill="none" d="M70 140h60v32H70z"/>`},
+  tote: {f: NOIR, z: [[60, 84, 80, 80]], d: c => `<path ${S} fill="none" stroke-width="6" d="M76 72q0-44 24-44t24 44"/><rect ${S} fill="${c}" x="48" y="70" width="104" height="112" rx="4"/>`},
+  casquette: {f: NOIR, z: [[80, 70, 40, 40]], d: c => `<path ${S} fill="${c}" d="M44 122q0-64 56-64t56 64z"/><path ${S} fill="${c}" d="M44 122q60 14 132-4-14 24-76 24-42 0-56-20z"/><circle ${S} fill="${c}" cx="100" cy="58" r="5"/>`},
+  tablier: {f: NOIR, z: [[70, 82, 60, 60]], d: c => `<path ${S} fill="none" d="M76 36q24-26 48 0"/><path ${S} fill="${c}" d="M76 36h48v34l26 14-6 92H56l-6-92 26-14z"/><path ${S} fill="none" d="M74 150h52v22H74z"/>`},
+  bob: {f: NOIR, z: [[82, 66, 36, 36]], d: c => `<path ${S} fill="${c}" d="M64 106q0-48 36-48t36 48z"/><path ${S} fill="${c}" d="M30 110q70-20 140 0-4 22-70 22T30 110z"/>`},
+  gourde: {f: NOIR, z: [[72, 90, 56, 56]], d: c => `<rect ${S} fill="#101826" x="82" y="24" width="36" height="32" rx="8"/><rect ${S} fill="${c}" x="68" y="52" width="64" height="128" rx="22"/><path stroke="#fff" stroke-width="5" stroke-linecap="round" d="M80 66v100" opacity=".7"/>`},
+  mug: {f: NOIR, z: [[60, 78, 68, 68]], d: c => `<path ${S} fill="none" stroke-width="12" d="M134 80q34 0 34 30t-34 30"/><rect ${S} fill="${c}" x="50" y="58" width="88" height="110" rx="10"/>`},
+  gobelet: {f: NOIR, z: [[72, 86, 56, 56]], d: c => `<path ${S} fill="${c}" d="M64 58h72l-10 120H74z"/><rect ${S} fill="#101826" x="58" y="40" width="84" height="20" rx="6"/>`},
+  verre: {f: ACRY, z: [[78, 74, 44, 44]], d: c => `<path ${S} fill="${c}" d="M62 36h76l-12 136H74z"/><path ${S} fill="none" d="M66 62h68"/>`},
+  bouteille: {f: '#BFE8D6', z: [[74, 112, 52, 46]], d: c => `<rect ${S} fill="#101826" x="86" y="18" width="28" height="18" rx="4"/><path ${S} fill="${c}" d="M88 36h24v24q24 14 24 40v78H64v-78q0-26 24-40z"/>`},
+  stylo: {f: 'cat', z: [[66, 92, 68, 16]], d: c => `<g transform="rotate(35 100 100)"><rect ${S} fill="${c}" x="90" y="18" width="20" height="150" rx="10"/><path ${S} fill="#F4EEE7" d="m90 166 10 22 10-22z"/><rect ${S} fill="#101826" x="106" y="28" width="7" height="44" rx="3"/></g>`, rot: -55},
+  stylobois: {f: BOIS, z: [[66, 92, 68, 16]], d: c => `<g transform="rotate(35 100 100)"><rect ${S} fill="${c}" x="90" y="18" width="20" height="150" rx="10"/><path ${S} fill="#F4EEE7" d="m90 166 10 22 10-22z"/></g>`, rot: -55},
+  carnet: {f: NOIR, z: [[66, 66, 62, 62]], d: c => `<rect ${S} fill="${c}" x="52" y="30" width="96" height="140" rx="8"/><path ${S} fill="none" d="M66 30v140"/><rect ${S} fill="#101826" x="130" y="30" width="7" height="140"/>`},
+  usb: {f: BOIS, z: [[78, 86, 44, 44]], d: c => `<rect ${S} fill="${INOX}" x="84" y="28" width="32" height="34" rx="3"/><rect ${S} fill="${c}" x="66" y="58" width="68" height="114" rx="14"/>`},
+  badge: {f: ACRY, z: [[50, 80, 46, 46]], d: c => `<rect ${S} fill="${c}" x="34" y="62" width="132" height="80" rx="12"/><rect fill="#101826" x="104" y="88" width="50" height="9" rx="4"/><rect fill="#4F5B6B" x="104" y="106" width="36" height="8" rx="4"/>`},
+  porteclesbois: {f: BOIS, z: [[72, 86, 56, 56]], d: c => `<circle ${S} fill="none" stroke-width="5" cx="100" cy="40" r="16"/><rect ${S} fill="${c}" x="58" y="58" width="84" height="112" rx="34"/><circle ${S} fill="#FFF9F3" cx="100" cy="72" r="6"/>`},
+  porteclesrelief: {f: 'cat', z: [[64, 76, 72, 72]], d: c => `<circle ${S} fill="none" stroke-width="5" cx="100" cy="36" r="14"/><rect ${S} fill="${c}" x="54" y="52" width="92" height="118" rx="18"/><rect ${S} fill="#fff" x="62" y="72" width="76" height="80" rx="10"/>`},
+  porteclesacry: {f: ACRY, z: [[66, 80, 68, 68]], d: c => `<circle ${S} fill="none" stroke-width="5" cx="100" cy="36" r="14"/><path ${S} fill="${c}" d="M100 52c40 0 56 30 56 62s-20 60-56 60-56-28-56-60 16-62 56-62z"/>`},
+  magnet: {f: NOIR, z: [[60, 60, 80, 80]], d: c => `<circle ${S} fill="#4F5B6B" cx="106" cy="106" r="64"/><circle ${S} fill="${c}" cx="100" cy="100" r="64"/>`},
+  decapsuleur: {f: BOIS, z: [[76, 100, 48, 48]], d: c => `<rect ${S} fill="${c}" x="66" y="24" width="68" height="152" rx="26"/><path ${S} fill="#FFF9F3" d="M84 50h32v16q0 12-16 12T84 66z"/><path ${S} fill="${INOX}" d="M86 48h28v8H86z"/>`},
+  sousverre: {f: BOIS, z: [[66, 66, 68, 68]], d: c => `<circle ${S} fill="${c}" cx="100" cy="100" r="74"/><circle ${S} fill="none" stroke-dasharray="2 8" cx="100" cy="100" r="62"/>`},
+  plaque: {f: ACRY, z: [[66, 68, 68, 68]], d: c => `<rect ${S} fill="${c}" x="22" y="50" width="156" height="102" rx="8"/>${[[36, 64], [164, 64], [36, 138], [164, 138]].map(([x, y]) => `<circle ${S} fill="${INOX}" cx="${x}" cy="${y}" r="6"/>`).join('')}`},
+  presentoir: {f: 'cat', z: [[78, 52, 44, 44]], d: c => `<path ${S} fill="${c}" d="M70 36h60l12 124H58z"/><rect ${S} fill="#101826" x="46" y="158" width="108" height="18" rx="4"/><g fill="#101826"><rect x="82" y="108" width="14" height="14"/><rect x="104" y="108" width="14" height="14"/><rect x="82" y="130" width="14" height="14"/><rect x="108" y="134" width="6" height="6"/></g>`},
+  chevalet: {f: ACRY, z: [[72, 50, 56, 56]], d: c => `<rect ${S} fill="${c}" x="56" y="30" width="88" height="128" rx="4"/><rect ${S} fill="#101826" x="44" y="156" width="112" height="18" rx="4"/><path stroke="#4F5B6B" stroke-width="5" stroke-linecap="round" d="M72 122h56M72 138h40"/>`},
+  panneau: {f: BOIS, z: [[64, 62, 72, 72]], d: c => `<rect ${S} fill="${c}" x="20" y="46" width="160" height="112" rx="6"/><path stroke="#B8854F" stroke-width="2" fill="none" d="M24 70q40 8 80 0t72 4M24 140q50-6 90 2t62-4"/>`},
+  enseigne: {f: '#F4EEE7', z: [[30, 30, 140, 140]], d: c => `<rect x="10" y="10" width="180" height="180" rx="16" fill="${c}"/><path stroke="#E6DED4" stroke-width="2" d="M10 60h180M10 110h180M10 160h180"/>`},
+  trophee: {f: ACRY, z: [[72, 44, 56, 56]], d: c => `<path ${S} fill="${c}" d="M66 24h68v100q0 30-34 30t-34-30z"/><rect ${S} fill="${BOIS}" x="54" y="150" width="92" height="28" rx="4"/><path stroke="#4F5B6B" stroke-width="5" stroke-linecap="round" d="M80 118h40"/>`},
+  planche: {f: BOIS, z: [[68, 88, 64, 64]], d: c => `<rect ${S} fill="${c}" x="44" y="30" width="112" height="150" rx="16"/><circle ${S} fill="#FFF9F3" cx="100" cy="52" r="9"/>`},
+  cadre: {f: BOIS, z: [[74, 74, 52, 52]], d: c => `<rect ${S} fill="${c}" x="34" y="34" width="132" height="132" rx="4"/><rect ${S} fill="#FFF9F3" x="56" y="56" width="88" height="88"/>`},
+  boite: {f: BOIS, z: [[74, 48, 52, 26]], d: c => `<rect ${S} fill="${c}" x="40" y="80" width="120" height="86" rx="4"/><rect ${S} fill="${c}" x="34" y="40" width="132" height="42" rx="4"/>`},
+  cuir: {f: CUIR, z: [[72, 78, 56, 44]], sombre: true, d: c => `<rect ${S} fill="${c}" x="44" y="62" width="112" height="76" rx="16"/><rect fill="none" stroke="#E2B07A" stroke-width="2" stroke-dasharray="5 5" x="54" y="72" width="92" height="56" rx="10"/>`},
+  figurine: {f: 'cat', z: [[84, 112, 32, 32]], d: c => `<ellipse ${S} fill="#101826" cx="100" cy="174" rx="54" ry="12"/><path ${S} fill="${c}" d="M66 172q0-82 34-82t34 82z"/><circle ${S} fill="${c}" cx="100" cy="60" r="28"/>`},
+  feuille: {f: PAPIER, z: [[66, 52, 68, 68]], d: c => `<rect ${S} fill="#F4EEE7" x="62" y="34" width="96" height="136" rx="4" transform="rotate(8 110 100)"/><rect ${S} fill="${c}" x="50" y="30" width="96" height="136" rx="4"/><path stroke="#E6DED4" stroke-width="5" stroke-linecap="round" d="M66 138h64M66 152h44"/>`},
+  stickers: {f: PAPIER, z: [[60, 44, 36, 36], [104, 44, 36, 36], [60, 92, 36, 36], [104, 92, 36, 36], [60, 140, 36, 22], [104, 140, 36, 22]], d: c => `<rect ${S} fill="${c}" x="48" y="30" width="104" height="142" rx="6"/>`},
+  gateau: {f: '#FFE6EF', z: [[62, 56, 76, 40]], d: c => `<path ${S} fill="#FFB23E" d="M30 82v66q0 22 70 22t70-22V82"/><ellipse ${S} fill="${c}" cx="100" cy="80" rx="70" ry="24"/>`},
+  toppers: {f: PAPIER, z: [[44, 50, 40, 40], [116, 50, 40, 40], [80, 114, 40, 40]], d: c => [[64, 70], [136, 70], [100, 134]].map(([x, y]) => `<circle ${S} fill="${c}" cx="${x}" cy="${y}" r="30"/>`).join('')},
+  bandes: {f: '#FFF0D9', z: [[40, 112, 30, 30], [86, 112, 30, 30], [132, 112, 30, 30]], d: c => `<path ${S} fill="${c}" d="M24 76v80q0 20 76 20t76-20V76"/><ellipse ${S} fill="#FFE6EF" cx="100" cy="76" rx="76" ry="22"/><path ${S} fill="#fff" d="M24 106q76 20 152 0v42q-76 20-152 0z"/>`},
+  etiquettes: {f: ACRY, z: [[70, 102, 60, 40]], d: c => `<rect ${S} fill="#101826" x="64" y="38" width="72" height="22" rx="6"/><rect ${S} fill="${c}" x="56" y="58" width="88" height="118" rx="16"/><rect ${S} fill="#fff" x="64" y="94" width="72" height="56" rx="6"/>`},
+  rouleau: {f: PAPIER, z: [[52, 96, 40, 40], [100, 96, 40, 40]], d: c => `<path ${S} fill="${c}" d="M40 86h110v70H40z"/><ellipse ${S} fill="#F4EEE7" cx="150" cy="70" rx="18" ry="30"/><path ${S} fill="#F4EEE7" d="M40 40h110v60H40z"/><ellipse ${S} fill="#F4EEE7" cx="40" cy="70" rx="18" ry="30"/>`}
+};
+const FORME_REF = {
+  'T-01': 'tshirt', 'T-02': 'tshirt', 'T-03': 'polo', 'T-04': 'sweat', 'T-05': 'tote', 'T-06': 'casquette', 'T-07': 'tablier', 'T-08': 'bob',
+  'M-01': 'gourde', 'M-02': 'mug', 'M-03': 'gobelet', 'M-04': 'verre', 'M-05': 'bouteille',
+  'B-01': 'stylo', 'B-02': 'stylobois', 'B-03': 'carnet', 'B-04': 'usb', 'B-05': 'badge',
+  'G-01': 'porteclesbois', 'G-02': 'porteclesrelief', 'G-03': 'porteclesacry', 'G-04': 'magnet', 'G-05': 'decapsuleur', 'G-06': 'sousverre',
+  'S-01': 'plaque', 'S-02': 'presentoir', 'S-03': 'chevalet', 'S-04': 'panneau', 'S-05': 'enseigne',
+  'C-01': 'trophee', 'C-02': 'planche', 'C-03': 'cadre', 'C-04': 'boite', 'C-05': 'cuir', 'C-06': 'figurine',
+  'P-01': 'feuille', 'P-02': 'feuille', 'P-03': 'gateau', 'P-04': 'toppers', 'P-05': 'bandes',
+  'K-01': 'stickers', 'K-02': 'etiquettes', 'K-03': 'rouleau', 'K-04': 'feuille'
+};
+const VIVE = {mag: '#FF7AA2', cya: '#3FD0DC', ora: '#FFB23E', blu: '#6BB8EC'};
+let LOGO_OK = false, DETOURE_OK = false;
+const LOGO_DETOURE = 'logo-lazerdeco-detoure.png';
+const VIVES = Object.values(VIVE);
+/* Logo détouré (autorisé) sur supports clairs ou sombres ; logo d'origine sur fond noir pour les supports de couleur vive. */
+function marque(x, y, w, h, sombre, fond) {
+  const src = DETOURE_OK && !VIVES.includes(fond) ? LOGO_DETOURE : (LOGO_OK ? CFG.logo : null);
+  if (src) return `<image href="${esc(src)}" x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid meet"/>`;
+  const fs = Math.max(5, Math.min(h * 0.32, w / 5.6));
+  const col = sombre ? '#FFF9F3' : '#A3123F';
+  return `<text x="${x + w / 2}" y="${y + h / 2}" text-anchor="middle" dominant-baseline="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="${fs.toFixed(1)}" fill="${col}">LAZR<tspan x="${x + w / 2}" dy="${(fs * 1.05).toFixed(1)}">DECO</tspan></text>`;
+}
+function illustration(p) {
+  const k = p.forme || FORME_REF[p.ref] || 'feuille';
+  const F = FORMES[k] || FORMES.feuille;
+  const fill = p.teinte || (F.f === 'cat' ? VIVE[catById[p.cat].couleur] : F.f);
+  const zones = F.z.map(([x, y, w, h]) => marque(x, y, w, h, F.sombre, fill)).join('');
+  const zg = F.rot ? `<g transform="rotate(${F.rot} 100 100)">${zones}</g>` : zones;
+  return `<svg class="ill" viewBox="0 0 200 200" role="img" aria-label="${esc(p.nom)} marqué du logo ${esc(CFG.marque)}">${F.d(fill)}${zg}</svg>`;
+}
+function chargerLogo(apres) {
+  const im = new Image();
+  im.onload = () => { LOGO_OK = true; apres(); };
+  im.src = CFG.logo;
+  const d = new Image();
+  d.onload = () => { DETOURE_OK = true; apres(); };
+  d.src = LOGO_DETOURE;
+}
+
+/* LAZERDECO — moteur de prix partagé par le site et l'espace de gestion.
+   Il reproduit exactement le calcul de la base (fonctions calcul_prix et remise_code) :
+   palier → promotion produit → marquage supplémentaire → express → remise pro, arrondi au centime. */
+const TARIF = {
+  r2: n => Math.round((Number(n) + Number.EPSILON) * 100) / 100,
+  jour: () => new Date().toISOString().slice(0, 10),
+  enCours(x, jour) {
+    const j = jour || TARIF.jour();
+    return x && x.actif !== false && (!x.debut || x.debut <= j) && (!x.fin || x.fin >= j);
+  },
+  palier(p, q) { let u = null; (p.q || []).forEach((t, i) => { if (q >= t) u = Number(p.p[i]); }); return u; },
+  promoPct(p, promos, jour) {
+    let m = 0;
+    (promos || []).forEach(x => {
+      if (TARIF.enCours(x, jour) && (!x.produit || x.produit === p.ref) && (!x.univers || x.univers === p.cat)) m = Math.max(m, Number(x.pct));
+    });
+    return m;
+  },
+  /* o : {promos, emplacement, express, tauxExpress, remisePro, jour} → {u, pct, base} ou null sous le minimum */
+  unitaire(p, q, o) {
+    o = o || {};
+    const base = TARIF.palier(p, q);
+    if (base == null) return null;
+    const pct = TARIF.promoPct(p, o.promos, o.jour);
+    let u = base;
+    if (pct) u = u * (1 - pct / 100);
+    if (o.emplacement && p.emplacement) u += Number(p.emplacement);
+    if (o.express) u = u * (1 + (o.tauxExpress == null ? 0.2 : Number(o.tauxExpress)));
+    if (o.remisePro) u = u * (1 - Number(o.remisePro) / 100);
+    return {u: TARIF.r2(u), pct, base};
+  },
+  /* c : code promo ; lignes : [{ref, cat, total}] ; o : {utilisations, jour} */
+  code(c, lignes, o) {
+    o = o || {};
+    const non = m => ({ok: false, remise: 0, message: m});
+    if (!c) return non('Ce code promo n’existe pas.');
+    if (!TARIF.enCours(c, o.jour)) return non('Ce code promo n’est pas valable actuellement.');
+    if (c.max_utilisations != null && (o.utilisations || 0) >= Number(c.max_utilisations)) return non('Ce code promo a atteint son nombre maximal d’utilisations.');
+    const elig = TARIF.r2((lignes || []).filter(l => (!c.produit || l.ref === c.produit) && (!c.univers || l.cat === c.univers)).reduce((s, l) => s + Number(l.total || 0), 0));
+    if (!(elig > 0)) return non('Ce code ne s’applique à aucun produit de votre sélection.');
+    if (Number(c.minimum_ht || 0) > elig) return non('Ce code s’applique dès ' + String(Number(c.minimum_ht).toFixed(2)).replace('.', ',') + ' € HT d’achat.');
+    const remise = c.type === 'pct' ? TARIF.r2(elig * Number(c.valeur) / 100) : TARIF.r2(Math.min(Number(c.valeur), elig));
+    return {ok: true, remise, message: (c.type === 'pct' ? '−' + String(Number(c.valeur)).replace('.', ',') + ' %' : 'Remise') + ' appliquée'};
+  }
+};
+
+/* Rendu des pages rédigées dans l'espace de gestion : ## titre, ### sous-titre, - liste, > encadré,
+   **gras**, [texte](https://lien). Tout le reste est affiché comme du texte (aucun HTML accepté). */
+const MD = {
+  rendre(src) {
+    const e = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+    const inl = s => e(s).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|#\/[a-z0-9/-]*)\)/g, '<a href="$2">$1</a>');
+    const out = []; let liste = null, para = [];
+    const finPara = () => { if (para.length) { out.push('<p>' + para.map(inl).join('<br>') + '</p>'); para = []; } };
+    const finListe = () => { if (liste) { out.push('<ul>' + liste.map(x => '<li>' + inl(x) + '</li>').join('') + '</ul>'); liste = null; } };
+    String(src || '').split(/\r?\n/).forEach(l => {
+      const t = l.trim(); let m;
+      if (!t) { finPara(); finListe(); return; }
+      if ((m = t.match(/^(#{2,3})\s+(.*)$/))) { finPara(); finListe(); out.push(`<h${m[1].length}>${inl(m[2])}</h${m[1].length}>`); return; }
+      if ((m = t.match(/^>\s?(.*)$/))) { finPara(); finListe(); out.push('<p class="md-note">' + inl(m[1]) + '</p>'); return; }
+      if ((m = t.match(/^[-*]\s+(.*)$/))) { finPara(); (liste = liste || []).push(m[1]); return; }
+      finListe(); para.push(t);
+    });
+    finPara(); finListe();
+    return out.join('');
+  }
+};
+
+const techNames = p => p.tech.map(t => (TECH[t] || {nom: t}).nom).join(' + ');
+
+/* --- Prix --- */
+function tierIndex(p, q) { let i = -1; p.q.forEach((t, k) => { if (q >= t) i = k; }); return i; }
+/* Prix affiché = palier → promotion en cours → tarif pro du compte (mêmes règles que la base). */
+const remisePro = () => Number((MOI && MOI.remise_pro) || 0);
+const promoDe = p => TARIF.promoPct(p, PROMOS);
+function prixAff(v, p) { const pc = promoDe(p), rp = remisePro(); return r2(v * (1 - pc / 100) * (1 - rp / 100)); }
+function unitPrice(p, q) { const i = tierIndex(p, q); return i < 0 ? null : prixAff(p.p[i], p); }
+function lineCalc(l) {
+  const p = byRef[l.ref]; if (!p) return null;
+  const q = Math.floor(Number(l.qty)) || 0;
+  const r = TARIF.unitaire(p, q, {promos: PROMOS, emplacement: l.empl, express: l.express, tauxExpress: CFG.express, remisePro: remisePro()});
+  if (!r) return {p, q, u: null, total: null, min: p.q[0]};
+  return {p, q, u: r.u, total: r2(r.u * q), min: p.q[0], base: prixAff(p.p[0], p), pct: r.pct};
+}
+const prixBarre = (p, v) => { const a = prixAff(v, p); return a < v ? `<s>${eur(v)}</s> ${eur(a)}` : eur(v); };
+
+/* --- Panier --- */
+let cart = [];
+function loadCart() { try { const v = JSON.parse(localStorage.getItem(KEY) || '[]'); cart = Array.isArray(v) ? v.filter(l => byRef[l.ref]) : []; } catch (e) { cart = []; } }
+function saveCart() { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (e) {} updateCount(); }
+function updateCount() { const n = cart.length; $('cart-n').textContent = n; }
+let toastT = null;
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2600); }
+let modalRes = null, modalPrev = null;
+function demander(titre, texte, bouton) {
+  return new Promise(res => {
+    modalRes = res; modalPrev = document.activeElement;
+    $('modal-box').innerHTML = `<h2 id="modal-t" style="font-size:1.4rem">${esc(titre)}</h2>${texte ? `<p>${esc(texte)}</p>` : ''}
+      <div class="stack nav-btns"><button class="btn primary" type="button" data-m="1">${esc(bouton || 'Confirmer')}</button><button class="btn outline" type="button" data-m="0">Retour</button></div>`;
+    $('modal').hidden = false;
+    $('modal-box').querySelectorAll('[data-m]').forEach(b => b.onclick = () => fermerModal(b.dataset.m === '1'));
+    $('modal-box').querySelector('[data-m="1"]').focus();
+  });
+}
+function fermerModal(v) { if ($('modal').hidden) return; $('modal').hidden = true; $('modal-box').innerHTML = ''; const r = modalRes; modalRes = null; try { if (modalPrev) modalPrev.focus(); } catch (e) {} if (r) r(v); }
+
+/* --- Navigation mobile (standard) --- */
+function openNav() {
+  $('sidebar').classList.add('open'); $('backdrop').classList.add('on');
+  document.body.classList.add('nav-open');
+  $('mb-btn').setAttribute('aria-expanded', 'true'); $('mb-btn').textContent = 'Fermer';
+  const cur = document.querySelector('#sidebar a.active') || document.querySelector('#sidebar a');
+  if (cur) { try { cur.focus({preventScroll: true}); } catch (e) { cur.focus(); } }
+}
+function closeNav() {
+  $('sidebar').classList.remove('open'); $('backdrop').classList.remove('on');
+  document.body.classList.remove('nav-open');
+  $('mb-btn').setAttribute('aria-expanded', 'false'); $('mb-btn').textContent = 'Menu';
+}
+function toggleNav() { $('sidebar').classList.contains('open') ? closeNav() : openNav(); }
+function navKey(e, href) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(href); } }
+function go(href) { if (location.hash === href) route(); else location.hash = href; }
+
+const NAV = [
+  {page:'home', href:'#/', label:'Accueil', m:true},
+  {page:'c-tous', href:'#/c/tous', label:'Tout le catalogue'},
+  ...CATS.map(c => ({page:'c-' + c.id, href:'#/c/' + c.id, label:c.nom, c:c.couleur})),
+  {page:'infos', href:'#/infos', label:'Savoir-faire & livraison', m:true},
+  {page:'compte', href:'#/compte', label:'Mon compte', m:true},
+  {page:'devis', href:'#/devis', label:'Mon devis', m:true}
+];
+function buildNav() {
+  $('nav-links').innerHTML = NAV.map(n =>
+    `<a href="${n.href}" data-page="${n.page}" data-label="${esc(n.label)}" tabindex="0"${n.c ? ` data-c="${n.c}"` : ''}${n.m ? ' class="m-only"' : ''} onkeydown="navKey(event,'${n.href}')">${esc(n.label)}</a>`).join('');
+  $('nav-links').addEventListener('click', e => { if (e.target.closest('a')) closeNav(); });
+}
+function setActive(page, label) {
+  document.querySelectorAll('#sidebar a').forEach(a => a.classList.toggle('active', a.dataset.page === page));
+  const t = $('mb-title'); if (t) t.textContent = label;
+  document.title = (label === 'Accueil' ? '' : label + ' — ') + 'LAZR DECO';
+}
+function doSearch(f) {
+  const q = f.q.value.trim(); closeNav();
+  go(q ? '#/recherche/' + encodeURIComponent(q) : '#/c/tous'); return false;
+}
+
+/* --- Gabarits --- */
+function media(p, big) {
+  const inner = p.img ? `<img src="${esc(p.img)}" alt="${esc(p.nom)}, réalisation ${esc(CFG.marque)}" loading="lazy">`
+    : `<div class="ph">${illustration(p)}<small>Exemple de marquage</small></div>`;
+  return big ? `<div class="media">${inner}</div>` : `<a class="media" href="#/p/${p.ref}" tabindex="-1" aria-hidden="true">${inner}</a>`;
+}
+function card(p, qty) {
+  const last = p.p[p.p.length - 1], lastQ = p.q[p.q.length - 1];
+  let at = '';
+  if (qty) { const u = unitPrice(p, qty); at = u == null ? '' : `<p class="atqty">À ${qty} ex. : ${eur(u)} HT l'unité</p>`; }
+  const pc = promoDe(p);
+  return `<article class="card" data-c="${colorOf(p)}">
+    ${media(p)}${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${pc ? `<span class="badge promo">Promo −${String(pc).replace('.', ',')} %</span>` : ''}
+    <div class="cbody">
+      <p class="tech">${esc(techNames(p))}</p>
+      <h3><a href="#/p/${p.ref}">${esc(p.nom)}</a></h3>
+      <p class="ref">Réf. ${p.ref} · minimum ${p.q[0]} ex.</p>
+      ${at}
+      <p class="price"><small>${p.aPartir ? 'À partir de' : 'Dès'}</small>${prixAff(last, p) < last ? `<s>${eur(last)}</s>` : ''}<strong>${eur(prixAff(last, p))}</strong><small>HT l'unité, par ${lastQ} ex.</small></p>
+    </div></article>`;
+}
+function crumbs(items) {
+  return `<nav class="crumbs" aria-label="Fil d'Ariane">${items.map((it, i) => i < items.length - 1 ? `<a href="${it[1]}">${esc(it[0])}</a> / ` : `<span aria-current="page">${esc(it[0])}</span>`).join('')}</nav>`;
+}
+
+function renderAnnonce() {
+  const b = ACCUEIL.banniere || {}, el = $('annonce');
+  if (!b.actif || !b.texte || !TARIF.enCours({actif: true, debut: b.debut, fin: b.fin})) { el.innerHTML = ''; return; }
+  const lien = /^(https:\/\/|#\/)/.test(b.lien || '') ? b.lien : '';
+  el.innerHTML = lien ? `<a class="annonce" data-c="${esc(b.couleur || 'ora')}" href="${esc(lien)}"${lien.startsWith('https') ? ' rel="noopener"' : ''}>${esc(b.texte)}</a>` : `<p class="annonce" data-c="${esc(b.couleur || 'ora')}">${esc(b.texte)}</p>`;
+}
+function setMeta(titre, desc) {
+  document.title = titre;
+  let m = document.querySelector('meta[name="description"]');
+  if (!m) { m = document.createElement('meta'); m.name = 'description'; document.head.appendChild(m); }
+  if (desc) m.setAttribute('content', String(desc).slice(0, 300));
+}
+function viewHome() {
+  const sel = ACCUEIL.selection || {};
+  const refs = (sel.refs || []).filter(r => byRef[r]);
+  const best = refs.length ? refs.map(r => byRef[r]) : [...PRODS.filter(p => p.badge === 'Best-seller'), ...PRODS.filter(p => p.badge === 'Nouveau')].slice(0, 8);
+  const minOf = id => { const v = PRODS.filter(p => p.cat === id).map(p => prixAff(p.p[p.p.length - 1], p)); return v.length ? Math.min(...v) : 0; };
+  const tcol = {laser: 'mag', uv: 'cya', alim: 'ora', '3d': 'blu', dtf: 'mag'};
+  const S = {};
+  S.hero = `<section class="hero"><div class="wrap">
+    <div><p class="eyebrow">${esc(T('accueil_surtitre'))}</p>
+      <h1>${esc(T('accueil_titre'))} <em class="t-mag">${esc(T('accueil_mot1'))}</em>, <em class="t-cya">${esc(T('accueil_mot2'))}</em>, <em class="t-ora">${esc(T('accueil_mot3'))}</em>.</h1>
+      <p class="lead">${esc(T('accueil_intro'))}</p>
+      <div class="ctas"><a class="btn light" href="#/c/tous">Voir le catalogue</a><a class="btn ghost" href="#/infos">Notre savoir-faire</a></div>
+      <div class="facts">
+        <div><b>${PRODS.length}</b><span>références</span></div>
+        <div><b>${Object.keys(TECH).length}</b><span>technologies</span></div>
+        <div><b>24–48 h</b><span>pour votre BAT</span></div>
+        <div><b>972·971·973</b><span>livrés</span></div>
+      </div></div>
+    <div class="hero-logo"><img src="${esc(CFG.logo)}" alt="Logo ${esc(CFG.marque)}" width="1024" height="1024" fetchpriority="high"></div>
+    </div></div></section>`;
+  S.reassurance = `<div class="assur"><div class="wrap">
+    <div data-c="mag"><b>BAT gratuit</b><span>Aucune production sans votre accord</span></div>
+    <div data-c="cya"><b>Dès 1 exemplaire</b><span>Prix dégressifs selon la quantité</span></div>
+    <div data-c="ora"><b>Express 24 h</b><span>Sur la plupart des références</span></div>
+    <div data-c="blu"><b>Particuliers et pros</b><span>Prix HT affichés, TTC calculé au devis</span></div>
+  </div></div>`;
+  S.univers = `<section class="block"><div class="wrap">
+    <div class="sec-head"><div><p class="eyebrow">Nos univers</p><h2>Que voulez-vous <em>personnaliser</em> ?</h2></div><a class="btn outline" href="#/c/tous">Tout le catalogue</a></div>
+    <div class="univers">${CATS.map((c, i) => `<a class="uni" data-c="${c.couleur}" href="#/c/${c.id}"><span class="num">${String(i + 1).padStart(2, '0')}</span><h3>${esc(c.nom)}</h3><p>${esc(c.accroche)}</p><span class="meta">${PRODS.filter(p => p.cat === c.id).length} produits · dès ${eur(minOf(c.id))} HT</span></a>`).join('')}</div>
+  </div></section>`;
+  S.selection = best.length ? `<section class="band" data-c="cya"><div class="wrap">
+    <div class="sec-head"><div><p class="eyebrow" style="color:var(--ink)">${refs.length ? 'Notre sélection' : 'Les plus demandés'}</p><h2>${esc(sel.titre || 'Best-sellers')}</h2></div></div>
+    <div class="grid g4">${best.map(p => card(p)).join('')}</div>
+  </div></section>` : '';
+  S.techniques = `<section class="block"><div class="wrap">
+    <div class="sec-head"><div><p class="eyebrow">L'atelier</p><h2>Cinq technologies, <em>un seul</em> interlocuteur</h2></div></div>
+    <div class="techs-row">${Object.entries(TECH).map(([k, t]) => `<a href="#/c/tous?t=${k}" data-c="${tcol[k]}"><b>${esc(t.nom)}</b><span>${esc(t.detail)}</span><em>${PRODS.filter(p => p.tech.includes(k)).length} produits</em></a>`).join('')}</div>
+  </div></section>`;
+  S.appel = `<section class="cta-band"><div class="wrap"><div class="inner">
+    <div><h2>${esc(T('accueil_cta_titre'))}</h2><p>${esc(T('accueil_cta_texte'))}</p></div>
+    <a class="btn" href="#/devis">Composer mon devis</a>
+  </div></div></section>`;
+  const ordre = (ACCUEIL.sections && ACCUEIL.sections.length) ? ACCUEIL.sections : Object.keys(S).map(id => ({id, visible: true}));
+  return ordre.filter(s => s.visible !== false && S[s.id]).map(s => S[s.id]).join('');
+}
+function viewPage(pg) {
+  return `<div class="wrap">${crumbs([['Accueil', '#/'], [pg.titre, '']])}
+    <div class="cat-head"><p class="eyebrow">${pg.type === 'legale' ? 'Informations légales' : esc(CFG.marque)}</p><h1>${esc(pg.titre)}</h1></div>
+    <article class="page-md">${MD.rendre(pg.contenu)}</article></div>`;
+}
+
+const F = {tech: new Set(), budget: '', qty: '', sort: 'pert'};
+let scope = {cat: 'tous', q: ''};
+function scoped() {
+  let list = PRODS;
+  if (scope.cat !== 'tous') list = list.filter(p => p.cat === scope.cat);
+  if (scope.q) {
+    const words = norm(scope.q).split(/\s+/).filter(Boolean);
+    list = list.filter(p => { const hay = norm([p.nom, p.desc, p.ref, catById[p.cat].nom, techNames(p)].join(' ')); return words.every(w => hay.includes(w)); });
+  }
+  return list;
+}
+function filtered() {
+  const qty = parseInt(F.qty, 10) || 0;
+  let list = scoped().filter(p => (!F.tech.size || p.tech.some(t => F.tech.has(t))) && (!qty || p.q[0] <= qty));
+  if (F.budget) { const b = Number(F.budget); list = list.filter(p => (qty ? unitPrice(p, qty) : p.p[p.p.length - 1]) <= b); }
+  const pr = p => qty ? unitPrice(p, qty) : p.p[p.p.length - 1];
+  if (F.sort === 'asc') list = list.slice().sort((a, b) => pr(a) - pr(b));
+  else if (F.sort === 'desc') list = list.slice().sort((a, b) => pr(b) - pr(a));
+  else if (F.sort === 'nom') list = list.slice().sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+  return {list, qty};
+}
+function viewCatalog(cat, q) {
+  scope = {cat, q: q || ''};
+  const c = catById[cat];
+  const title = q ? `Résultats pour « ${esc(q)} »` : c ? esc(c.nom) : 'Tout le catalogue';
+  const present = [...new Set(scoped().flatMap(p => p.tech))];
+  return `<div class="wrap">${crumbs([['Accueil', '#/'], [q ? 'Recherche' : c ? c.nom : 'Tout le catalogue', '']])}
+    <div class="cat-head"${c ? ` data-c="${c.couleur}"` : ''}><p class="eyebrow">${q ? 'Recherche' : c ? 'Univers' : 'Catalogue'}</p><h1>${title}</h1>
+      <p>${c ? esc(c.accroche) + '. ' : ''}Prix unitaires HT dégressifs : saisissez votre quantité pour voir le prix exact de chaque produit.</p><div class="bar"></div>
+      ${!c ? `<div class="chips">${CATS.map(x => `<a class="chip" href="#/c/${x.id}">${esc(x.nom)}</a>`).join('')}</div>` : ''}</div>
+    <div class="cat-layout">
+      <aside><details class="fbox" id="fbox"${window.innerWidth > 900 ? ' open' : ''}><summary>Filtres</summary>
+        <div class="fgroup"><div class="field"><label for="f-qty">Quantité souhaitée</label><input id="f-qty" type="number" inputmode="numeric" min="1" step="1" placeholder="Ex. 50" value="${esc(F.qty)}"></div><p class="hint" style="margin-top:6px">Masque les produits dont le minimum dépasse cette quantité.</p></div>
+        <div class="fgroup"><h3>Technologie</h3>${present.map(t => `<label class="check"><input type="checkbox" value="${t}" data-f="tech"${F.tech.has(t) ? ' checked' : ''}> ${esc(TECH[t].nom)}</label>`).join('')}</div>
+        <div class="fgroup"><div class="field"><label for="f-budget">Prix unitaire maximum HT</label><select id="f-budget"><option value="">Sans limite</option>${[2, 5, 10, 20, 50].map(v => `<option value="${v}"${String(F.budget) === String(v) ? ' selected' : ''}>${v} €</option>`).join('')}</select></div></div>
+        <button class="reset" type="button" id="f-reset">Réinitialiser les filtres</button>
+      </details></aside>
+      <section aria-label="Produits"><div class="results-bar"><span id="count" aria-live="polite"></span>
+        <label for="f-sort">Trier par <select id="f-sort"><option value="pert">Pertinence</option><option value="asc">Prix croissant</option><option value="desc">Prix décroissant</option><option value="nom">Nom</option></select></label></div>
+        <div class="grid" id="grid"></div></section>
+    </div></div>`;
+}
+function renderGrid() {
+  const {list, qty} = filtered();
+  $('count').textContent = list.length + (list.length > 1 ? ' produits' : ' produit');
+  $('grid').innerHTML = list.length ? list.map(p => card(p, qty)).join('')
+    : `<div class="empty" style="grid-column:1/-1"><p>Aucun produit ne correspond à ces critères.</p><button class="btn outline" type="button" onclick="resetFilters()">Réinitialiser les filtres</button></div>`;
+}
+function resetFilters() {
+  F.tech.clear(); F.budget = ''; F.qty = ''; F.sort = 'pert';
+  const h = location.hash.split('?')[0];
+  if (h !== location.hash) location.hash = h; else route();
+}
+function bindCatalog() {
+  $('f-sort').value = F.sort;
+  $('f-sort').onchange = e => { F.sort = e.target.value; renderGrid(); };
+  $('f-budget').onchange = e => { F.budget = e.target.value; renderGrid(); };
+  $('f-qty').oninput = e => { F.qty = e.target.value; renderGrid(); };
+  document.querySelectorAll('[data-f=tech]').forEach(cb => cb.onchange = () => { cb.checked ? F.tech.add(cb.value) : F.tech.delete(cb.value); renderGrid(); });
+  $('f-reset').onclick = resetFilters;
+  renderGrid();
+}
+
+function viewProduct(p) {
+  const c = catById[p.cat];
+  const related = PRODS.filter(x => x.cat === p.cat && x.ref !== p.ref).slice(0, 4);
+  return `<div class="wrap">${crumbs([['Accueil', '#/'], [c.nom, '#/c/' + c.id], [p.nom, '']])}
+    <div class="prod" data-c="${c.couleur}">
+      <div class="pmedia">${media(p, true)}<p class="note">${p.img ? 'Réalisation de l’atelier.' : 'Exemple de marquage avec le logo ' + esc(CFG.marque) + '.'} Visuel non contractuel, un BAT vous est envoyé avant production.</p></div>
+      <div class="pinfo">
+        <p class="eyebrow">${esc(c.nom)} · Réf. ${p.ref}</p>
+        <h1>${esc(p.nom)}</h1>
+        <p class="lead">${esc(p.desc)}</p>
+        <ul class="tlist">${p.tech.map(t => `<li><strong>${esc(TECH[t].nom)}</strong> — ${esc(TECH[t].detail)}</li>`).join('')}</ul>
+        <table class="tiers" id="tiers"><caption>Prix unitaire HT selon la quantité</caption>
+          <thead><tr><th scope="row">Quantité</th>${p.q.map((q, i) => `<th scope="col">${q}${i === p.q.length - 1 ? ' +' : ''}</th>`).join('')}</tr></thead>
+          <tbody><tr><th scope="row">Prix HT</th>${p.p.map((v, i) => `<td data-i="${i}">${p.aPartir ? 'dès ' : ''}${prixBarre(p, v)}</td>`).join('')}</tr></tbody></table>
+        <p class="tiers-cap" aria-hidden="true">Prix unitaire HT selon la quantité</p>
+        <ul class="tiers-m" aria-hidden="true">${p.q.map((q, i) => `<li data-i="${i}"><span>Dès ${q} ex.</span><b>${p.aPartir ? 'dès ' : ''}${prixBarre(p, p.p[i])}</b></li>`).join('')}</ul>
+        ${promoDe(p) || remisePro() ? `<p class="notice">${[promoDe(p) ? `Promotion en cours : −${String(promoDe(p)).replace('.', ',')} % sur ce produit` : '', remisePro() ? `votre tarif professionnel −${String(remisePro()).replace('.', ',')} % est appliqué` : ''].filter(Boolean).join(' · ')}.</p>` : ''}
+        <form class="pform" id="pform" novalidate>
+          <div class="field"><label for="qty">Quantité (minimum ${p.q[0]})</label><input id="qty" type="number" inputmode="numeric" min="${p.q[0]}" step="1" value="${p.q[0]}"></div>
+          ${p.emplacement ? `<label class="check"><input type="checkbox" id="empl"> Marquage supplémentaire (dos, manche ou nuque) : + ${eur(p.emplacement)} HT l'unité</label>` : ''}
+          <label class="check"><input type="checkbox" id="expr"> Fabrication express sous 24 h : + ${Math.round(CFG.express * 100)} %</label>
+          <div class="field"><label for="note">Couleur, texte, emplacement souhaité</label><textarea id="note" rows="3" placeholder="Ex. logo blanc côté gauche, prénoms au dos…"></textarea></div>
+          <div class="field"><label for="logo">Votre logo ou visuel (facultatif)</label><input id="logo" type="file" accept="image/*,.pdf,.svg,.ai,.eps"><p class="hint">Le nom du fichier est noté sur la demande ; joignez-le à l'e-mail ou au message d'envoi.</p></div>
+          <div class="summary" id="sum" aria-live="polite"></div>
+          <button class="btn primary" type="submit" id="add">Ajouter au devis</button>
+        </form>
+        <ul class="mini"><li>BAT gratuit avant toute production</li><li>Fabriqué en atelier en Martinique</li><li>Livraison 972 · 971 · 973</li></ul>
+      </div>
+    </div>
+    ${related.length ? `<section class="block"><div class="sec-head"><div><p class="eyebrow">Dans le même univers</p><h2>Vous aimerez aussi</h2></div></div><div class="grid g4">${related.map(x => card(x)).join('')}</div></section>` : ''}
+  </div>`;
+}
+function bindProduct(p) {
+  const upd = () => {
+    const l = {ref: p.ref, qty: $('qty').value, empl: $('empl') && $('empl').checked, express: $('expr').checked};
+    const r = lineCalc(l), i = tierIndex(p, r.q);
+    document.querySelectorAll('#tiers td, .tiers-m li').forEach(td => td.classList.toggle('on', Number(td.dataset.i) === i));
+    if (r.u == null) {
+      $('sum').innerHTML = `<p class="msg err">Minimum de commande : ${p.q[0]} exemplaires.</p>`;
+      $('add').disabled = true; return;
+    }
+    $('add').disabled = false;
+    const saving = r2((r.base - prixAff(p.p[i], p)) * r.q);
+    $('sum').innerHTML = `<span class="k">Prix unitaire HT</span><span class="v">${eur(r.u)}</span>
+      <span class="k">Total HT, ${r.q} ex.</span><span class="v tot">${eur(r.total)}</span>
+      <span class="k">Total TTC (TVA 8,5 %)</span><span class="v">${eur(r.total * 1.085)}</span>
+      ${saving > 0 ? `<p class="msg ok">Vous économisez ${eur(saving)} HT par rapport au prix à l'unité.</p>` : `<p class="msg" style="color:var(--gray);font-weight:500">Prochain palier : ${p.q[i + 1] || ''} ex. à ${p.p[i + 1] != null ? eur(prixAff(p.p[i + 1], p)) : ''} HT l'unité.</p>`}`;
+  };
+  ['qty', 'empl', 'expr'].forEach(id => { if ($(id)) { $(id).addEventListener('input', upd); $(id).addEventListener('change', upd); } });
+  $('pform').onsubmit = e => {
+    e.preventDefault();
+    const q = Math.floor(Number($('qty').value));
+    if (unitPrice(p, q) == null) { upd(); $('qty').focus(); return; }
+    const f = $('logo').files && $('logo').files[0];
+    cart.push({ref: p.ref, qty: q, empl: !!($('empl') && $('empl').checked), express: $('expr').checked, note: $('note').value.trim(), fichier: f ? f.name : ''});
+    saveCart(); toast(p.nom + ' ajouté au devis');
+  };
+  upd();
+}
+
+function totals(destId) {
+  const d = DEST.find(x => x.id === destId) || DEST[0];
+  const rate = CFG.tva[d.tva];
+  const brut = r2(cart.reduce((s, l) => s + (lineCalc(l).total || 0), 0));
+  const remise = CODE && CODE.ok ? Math.min(CODE.remise, brut) : 0, ht = r2(brut - remise);
+  return {d, rate, brut, remise, ht, tva: r2(ht * rate), ttc: r2(ht * (1 + rate))};
+}
+let CODE = null;
+const lignesRpc = () => cart.map(l => ({ref: l.ref, quantite: Math.floor(Number(l.qty)), emplacement: !!l.empl, express: !!l.express, note: l.note || '', fichier: l.fichier || ''}));
+async function verifierCode(code) {
+  if (!code) { CODE = null; return; }
+  const r = await SB.rpc('verifier_code', {p_code: code, p_lignes: lignesRpc()});
+  if (r.error) throw r.error;
+  CODE = Object.assign({code: code.toUpperCase()}, r.data || {});
+}
+let dest = 'mq-retrait';
+function viewQuote() {
+  if (!cart.length) return `<div class="wrap">${crumbs([['Accueil', '#/'], ['Mon devis', '']])}
+    <div class="cat-head"><p class="eyebrow">Demande de devis</p><h1>Votre devis est vide</h1></div>
+    <div class="empty"><p>Ajoutez des produits depuis le catalogue : la quantité et les options choisies sont reprises ici.</p><a class="btn primary" href="#/c/tous">Parcourir le catalogue</a></div></div>`;
+  const ready = !!(CFG.email || CFG.whatsapp);
+  return `<div class="wrap">${crumbs([['Accueil', '#/'], ['Mon devis', '']])}
+    <div class="cat-head"><p class="eyebrow">Demande de devis</p><h1>Mon devis</h1><p>Vérifiez les quantités, indiquez la destination et vos coordonnées. Nous revenons vers vous avec le devis définitif et le bon à tirer.</p></div>
+    <div class="qlayout">
+      <div id="lines"></div>
+      <aside class="panel" aria-label="Récapitulatif">
+        <h2>Récapitulatif</h2>
+        <div class="field"><label for="dest">Destination</label><select id="dest">${DEST.map(d => `<option value="${d.id}"${d.id === dest ? ' selected' : ''}>${esc(d.nom)}</option>`).join('')}</select></div>
+        <div class="totals" id="totals"></div>
+        ${SB ? (MOI ? `<form class="stack" id="cform" novalidate>
+          <p class="notice" style="border-left-color:var(--cya)">Demande envoyée au nom de <b>${esc(MOI.nom || MOI.email)}</b>${MOI.societe ? ' · ' + esc(MOI.societe) : ''}, suivie dans <a href="#/compte">Mon compte</a>.</p>
+          <div class="code-row"><div class="field"><label for="c-code">Code promo</label><input id="c-code" value="${esc(CODE ? CODE.code : '')}" autocomplete="off" autocapitalize="characters"></div><button class="btn outline" type="button" id="c-code-ok">Appliquer</button></div>
+          <p class="msg" id="c-code-msg" aria-live="polite" style="font-weight:600;font-size:.9rem;${CODE && CODE.ok ? 'color:var(--ok)' : 'color:var(--err)'}">${CODE ? esc(CODE.message || '') : ''}</p>
+          <div class="field"><label for="c-msg">Message, date souhaitée</label><textarea id="c-msg" rows="3"></textarea></div>
+          <p class="msg" id="c-err" role="alert" style="color:var(--err);font-weight:600;font-size:.9rem"></p>
+          <div class="stack nav-btns"><button class="btn primary" type="button" data-send="db">Envoyer ma demande</button><button class="btn outline" type="button" data-send="copy">Copier le récapitulatif</button></div>
+        </form>` : `<div class="stack"><p class="notice">Connectez-vous ou créez votre compte client pour envoyer la demande et suivre sa fabrication. Votre sélection est conservée.</p>
+          <a class="btn primary" href="#/compte?retour=devis">Se connecter ou créer un compte</a><p class="msg" id="c-err" role="alert"></p></div>`) : `
+        <form class="stack" id="cform" novalidate>
+          <div class="field"><label for="c-nom">Nom et prénom *</label><input id="c-nom" autocomplete="name" required></div>
+          <div class="field"><label for="c-soc">Société ou association</label><input id="c-soc" autocomplete="organization"></div>
+          <div class="field"><label for="c-mail">E-mail</label><input id="c-mail" type="email" autocomplete="email"></div>
+          <div class="field"><label for="c-tel">Téléphone</label><input id="c-tel" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="c-msg">Message, date souhaitée</label><textarea id="c-msg" rows="3"></textarea></div>
+          <p class="hint">* Indiquez au moins un e-mail ou un téléphone.</p>
+          <p class="msg" id="c-err" role="alert" style="color:var(--err);font-weight:600;font-size:.9rem"></p>
+          ${ready ? '' : `<p class="notice">Les coordonnées d'envoi de l'atelier ne sont pas encore configurées : copiez le récapitulatif et transmettez-le par vos moyens habituels.</p>`}
+          <div class="stack nav-btns">
+            ${CFG.email ? `<button class="btn primary" type="button" data-send="mail">Envoyer par e-mail</button>` : ''}
+            ${CFG.whatsapp ? `<button class="btn outline" type="button" data-send="wa">Envoyer sur WhatsApp</button>` : ''}
+            <button class="btn ${ready ? 'outline' : 'primary'}" type="button" data-send="copy">Copier le récapitulatif</button>
+          </div>
+        </form>
+        `}
+      </aside>
+    </div></div>`;
+}
+function renderLines() {
+  $('lines').innerHTML = cart.map((l, i) => {
+    const r = lineCalc(l), p = r.p;
+    const opts = [p.tech.map(t => TECH[t].nom).join(' + '), l.empl ? 'marquage supplémentaire' : '', l.express ? 'express 24 h' : '', l.fichier ? 'fichier : ' + l.fichier : ''].filter(Boolean).join(' · ');
+    return `<div class="qline" data-c="${colorOf(p)}">
+      <div class="info"><h3><a href="#/p/${p.ref}">${esc(p.nom)}</a></h3><p class="opts">Réf. ${p.ref} · ${esc(opts)}</p>${l.note ? `<p class="opts">« ${esc(l.note)} »</p>` : ''}<button class="rm" type="button" data-rm="${i}">Retirer</button></div>
+      <div class="field"><label for="lq-${i}">Quantité</label><input id="lq-${i}" type="number" inputmode="numeric" min="${p.q[0]}" step="1" value="${r.q}" data-q="${i}"></div>
+      <div class="lt">${r.u == null ? `<span class="err">Minimum ${p.q[0]} ex.</span>` : `${eur(r.total)}<small>${eur(r.u)} HT/u</small>`}</div>
+    </div>`;
+  }).join('');
+  const recode = async () => { if (CODE && SB) { try { await verifierCode(CODE.code); } catch (e) { CODE = null; } if ($('c-code-msg')) $('c-code-msg').textContent = CODE ? (CODE.message || '') : ''; } if ($('totals')) renderTotals(); };
+  document.querySelectorAll('[data-q]').forEach(inp => inp.onchange = () => { cart[+inp.dataset.q].qty = Math.floor(Number(inp.value)) || 0; saveCart(); renderLines(); recode(); });
+  document.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { cart.splice(+b.dataset.rm, 1); saveCart(); if (cart.length) { renderLines(); recode(); } else { CODE = null; route(); } });
+  renderTotals();
+}
+function renderTotals() {
+  const t = totals(dest);
+  $('totals').innerHTML = `${t.remise ? `<span>Sous-total HT</span><span class="v">${eur(t.brut)}</span><span>Code ${esc(CODE.code)}</span><span class="v">−${eur(t.remise)}</span>` : ''}<span>Total HT</span><span class="v">${eur(t.ht)}</span>
+    <span>${t.rate ? 'TVA ' + String(t.rate * 100).replace('.', ',') + ' %' : 'TVA non applicable (Guyane)'}</span><span class="v">${eur(t.tva)}</span>
+    <span>Total TTC</span><span class="v big">${eur(t.ttc)}</span>
+    <span style="grid-column:1/-1" class="hint">Livraison : ${esc(livr(t.d))}.</span>`;
+}
+function recap() {
+  const t = totals(dest), v0 = id => ($(id) ? $(id).value.trim() : ''), m = MOI || {};
+  const v = id => v0(id) || ({'c-nom': m.nom, 'c-soc': m.societe, 'c-mail': m.email, 'c-tel': m.telephone}[id] || '');
+  const lines = cart.map(l => { const r = lineCalc(l); return `- ${r.p.ref} ${r.p.nom} × ${r.q} : ${r.u == null ? 'quantité sous le minimum' : eur(r.u) + ' HT/u = ' + eur(r.total) + ' HT'}${l.empl ? ' · marquage supplémentaire' : ''}${l.express ? ' · express 24 h' : ''}${l.fichier ? ' · fichier : ' + l.fichier : ''}${l.note ? ' · « ' + l.note + ' »' : ''}`; });
+  return [`Demande de devis — ${CFG.marque}`, '', `Client : ${v('c-nom')}${v('c-soc') ? ' (' + v('c-soc') + ')' : ''}`, `E-mail : ${v('c-mail') || '—'}`, `Téléphone : ${v('c-tel') || '—'}`, `Destination : ${t.d.nom}`, '', ...lines, '',
+    ...(t.remise ? [`Code promo ${CODE.code} : −${eur(t.remise)}`] : []), `Total HT : ${eur(t.ht)}`, `${t.rate ? 'TVA' : 'TVA non applicable'} : ${eur(t.tva)}`, `Total TTC : ${eur(t.ttc)} (hors livraison)`, '', v('c-msg') ? 'Message : ' + v('c-msg') : ''].join('\n').replace(/ | /g, ' ').trim();
+}
+function bindQuote() {
+  if (!cart.length) return;
+  $('dest').onchange = e => { dest = e.target.value; renderTotals(); };
+  renderLines();
+  if ($('c-code-ok')) $('c-code-ok').onclick = async () => {
+    const m = $('c-code-msg'), code = $('c-code').value.trim();
+    try { await verifierCode(code); } catch (e) { CODE = null; m.style.color = 'var(--err)'; m.textContent = msgErreur(e); renderTotals(); return; }
+    m.style.color = CODE && CODE.ok ? 'var(--ok)' : 'var(--err)'; m.textContent = CODE ? (CODE.message || '') : 'Code retiré.';
+    renderTotals();
+  };
+  document.querySelectorAll('[data-send]').forEach(b => b.onclick = () => {
+    const err = $('c-err'); err.textContent = '';
+    if (cart.some(l => lineCalc(l).u == null)) { err.textContent = 'Une quantité est sous le minimum de commande.'; return; }
+    const kind = b.dataset.send;
+    if (kind !== 'copy' && kind !== 'db' && (!$('c-nom').value.trim() || !($('c-mail').value.trim() || $('c-tel').value.trim()))) { err.textContent = 'Indiquez votre nom et un e-mail ou un téléphone.'; $('c-nom').focus(); return; }
+    if (kind === 'db') { envoyerDevisDb(b); return; }
+    const text = recap();
+    if (kind === 'mail') location.href = `mailto:${CFG.email}?subject=${encodeURIComponent('Demande de devis — ' + CFG.marque)}&body=${encodeURIComponent(text)}`;
+    else if (kind === 'wa') window.open(`https://wa.me/${CFG.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    else copyText(text);
+  });
+}
+async function envoyerDevisDb(btn) {
+  const err = $('c-err'); btn.disabled = true; err.textContent = '';
+  try {
+    const code = $('c-code') ? $('c-code').value.trim() : '';
+    const r1 = await SB.rpc('soumettre_devis', {p_destination: dest, p_message: ($('c-msg') && $('c-msg').value.trim()) || '', p_code: code, p_lignes: lignesRpc()});
+    if (r1.error) throw r1.error;
+    const d = Array.isArray(r1.data) ? r1.data[0] : r1.data;
+    cart = []; CODE = null; saveCart();
+    toast('Demande ' + ((d && d.numero) || '') + ' envoyée' + (code && d && !d.code_valide ? ' (code promo non applicable)' : ''));
+    go('#/compte');
+  } catch (e) { err.textContent = msgErreur(e); btn.disabled = false; }
+}
+function msgErreur(e) {
+  const m = (e && (e.message || e.error_description)) || String(e);
+  if (/Invalid login credentials/i.test(m)) return 'E-mail ou mot de passe incorrect.';
+  if (/Email not confirmed/i.test(m)) return 'Confirmez d\u2019abord votre adresse e-mail grâce au lien reçu.';
+  if (/already registered|already been registered/i.test(m)) return 'Un compte existe déjà avec cet e-mail : connectez-vous.';
+  if (/Password should be/i.test(m)) return 'Mot de passe trop court : 8 caractères minimum.';
+  if (/Quantité minimale/i.test(m)) return m;
+  if (/row-level security|permission denied/i.test(m)) return 'Action non autorisée. Reconnectez-vous puis réessayez.';
+  if (/Failed to fetch|NetworkError/i.test(m)) return 'Connexion au serveur impossible. Vérifiez votre réseau.';
+  return m;
+}
+
+/* --- Espace client --- */
+async function chargerMoi() {
+  if (!SB) return;
+  try {
+    const {data} = await SB.auth.getSession();
+    const u = data && data.session && data.session.user;
+    if (!u) { MOI = null; } else {
+      const r = await SB.from('profils').select('*').eq('id', u.id).single();
+      MOI = r.error ? {id: u.id, email: u.email, nom: '', role: 'client', actif: true} : r.data;
+      if (MOI && MOI.actif === false) { await SB.auth.signOut(); MOI = null; toast('Ce compte est désactivé. Contactez l’atelier.'); }
+    }
+  } catch (e) { MOI = null; }
+  const a = $('acct-link'); if (a) { a.classList.toggle('on', !!MOI); a.textContent = MOI ? 'Mon compte' : 'Se connecter'; }
+}
+let RECUP = !!(SB && RETOUR_AUTH);
+function viewMotDePasse() {
+  return `<div class="wrap">${crumbs([['Accueil', '#/'], ['Nouveau mot de passe', '']])}
+    <div class="cat-head" data-c="cya"><p class="eyebrow">Espace client</p><h1>${RETOUR_AUTH && RETOUR_AUTH[1] === 'invite' ? 'Activez votre compte' : 'Nouveau mot de passe'}</h1><p>Choisissez votre mot de passe pour accéder à votre compte.</p></div>
+    <div class="acc"><form class="box" id="f-pw" novalidate>
+      <div class="field"><label for="pw1">Mot de passe (8 caractères minimum)</label><input id="pw1" type="password" autocomplete="new-password" minlength="8" required></div>
+      <div class="field"><label for="pw2">Confirmation</label><input id="pw2" type="password" autocomplete="new-password" required></div>
+      <p class="msg" id="pw-err" role="alert" style="color:var(--err);font-weight:700"></p>
+      <button class="btn primary" type="submit">Enregistrer</button></form></div></div>`;
+}
+function bindMotDePasse() {
+  $('f-pw').onsubmit = async ev => {
+    ev.preventDefault(); const a = $('pw1').value, b = $('pw2').value, e = $('pw-err');
+    if (a.length < 8) { e.textContent = 'Mot de passe trop court : 8 caractères minimum.'; return; }
+    if (a !== b) { e.textContent = 'Les deux mots de passe ne correspondent pas.'; return; }
+    const r = await SB.auth.updateUser({password: a});
+    if (r.error) { e.textContent = msgErreur(r.error); return; }
+    RECUP = false; await chargerMoi(); toast('Mot de passe enregistré');
+    if (MOI && MOI.role !== 'client') { location.href = 'admin.html#/tableau'; return; }
+    try { history.replaceState(null, '', '#/compte'); } catch (x) {} route();
+  };
+}
+function viewCompte(params) {
+  const base = `<div class="wrap">${crumbs([['Accueil', '#/'], ['Mon compte', '']])}`;
+  if (!SB) return base + `<div class="cat-head"><p class="eyebrow">Espace client</p><h1>Bientôt disponible</h1><p>Vous pourrez bientôt suivre vos devis et commandes en ligne. En attendant, composez votre sélection et envoyez-la depuis <a href="#/devis">Mon devis</a>.</p></div></div>`;
+  if (!MOI) return base + `<div class="cat-head" data-c="cya"><p class="eyebrow">Espace client</p><h1>Connexion</h1><p>Suivez vos demandes, vos BAT, la fabrication et vos paiements.</p></div>
+    <div class="acc">
+      <form class="box" id="f-login" novalidate><h2>J\u2019ai déjà un compte</h2>
+        <div class="field"><label for="lg-mail">E-mail</label><input id="lg-mail" type="email" autocomplete="username" required></div>
+        <div class="field"><label for="lg-pw">Mot de passe</label><input id="lg-pw" type="password" autocomplete="current-password" required></div>
+        <p class="msg" id="lg-err" role="alert" style="color:var(--err);font-weight:700"></p>
+        <button class="btn primary" type="submit">Se connecter</button><button class="reset" type="button" id="lg-reset">Mot de passe oublié</button></form>
+      <form class="box" id="f-signup" novalidate><h2>Créer mon compte</h2>
+        <div class="field"><label for="su-nom">Nom et prénom *</label><input id="su-nom" autocomplete="name" required></div>
+        <div class="field"><label for="su-soc">Société ou association</label><input id="su-soc" autocomplete="organization"></div>
+        <div class="field"><label for="su-tel">Téléphone</label><input id="su-tel" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="su-mail">E-mail *</label><input id="su-mail" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="su-pw">Mot de passe * (8 caractères minimum)</label><input id="su-pw" type="password" autocomplete="new-password" minlength="8" required></div>
+        <label class="check"><input type="checkbox" id="su-ok" required> J\u2019accepte que mes données servent uniquement au traitement de mes devis et commandes.</label>
+        <p class="msg" id="su-err" role="alert" style="font-weight:700"></p>
+        <button class="btn outline" type="submit">Créer mon compte</button></form>
+    </div></div>`;
+  return base + `<div class="cat-head" data-c="cya"><p class="eyebrow">Espace client</p><h1>Bonjour ${esc((MOI.nom || MOI.email).split(' ')[0])}</h1><p>Retrouvez vos demandes, leur avancement et vos paiements.</p>
+      <div class="chips">${MOI.role !== 'client' ? '<a class="chip" href="admin.html">Accéder à l\u2019espace de gestion</a>' : ''}<button class="chip" type="button" id="logout-c" style="border:0;cursor:pointer;font:inherit">Se déconnecter</button></div></div>
+    <div class="acc"><section aria-label="Mes demandes"><h2 style="font-size:1.6rem;margin-bottom:14px">Mes demandes et commandes</h2><div class="stack" id="mes-devis"><p class="hint">Chargement…</p></div></section>
+      <form class="box" id="f-profil" novalidate><h2>Mes coordonnées</h2>
+        <div class="field"><label for="pr-nom">Nom et prénom</label><input id="pr-nom" value="${esc(MOI.nom || '')}" autocomplete="name"></div>
+        <div class="field"><label for="pr-soc">Société ou association</label><input id="pr-soc" value="${esc(MOI.societe || '')}" autocomplete="organization"></div>
+        <div class="field"><label for="pr-tel">Téléphone</label><input id="pr-tel" type="tel" value="${esc(MOI.telephone || '')}" autocomplete="tel"></div>
+        <p class="hint">E-mail : ${esc(MOI.email)}</p>
+        <button class="btn outline" type="submit">Enregistrer</button></form></div></div>`;
+}
+async function bindCompte(params) {
+  if (!SB) return;
+  const retour = params && params.get('retour');
+  if (!MOI) {
+    $('f-login').onsubmit = async (ev) => {
+      ev.preventDefault(); $('lg-err').textContent = '';
+      const r = await SB.auth.signInWithPassword({email: $('lg-mail').value.trim(), password: $('lg-pw').value});
+      if (r.error) { $('lg-err').textContent = msgErreur(r.error); return; }
+      await chargerMoi(); toast('Connexion réussie'); go(retour === 'devis' ? '#/devis' : '#/compte');
+    };
+    $('lg-reset').onclick = async () => {
+      const m = $('lg-mail').value.trim(); if (!m) { $('lg-err').textContent = 'Saisissez votre e-mail puis cliquez à nouveau.'; $('lg-mail').focus(); return; }
+      const r = await SB.auth.resetPasswordForEmail(m, {redirectTo: location.href.split('#')[0] + '#/compte'});
+      if (r.error) $('lg-err').textContent = msgErreur(r.error); else toast('E-mail de réinitialisation envoyé');
+    };
+    $('f-signup').onsubmit = async (ev) => {
+      ev.preventDefault(); const e = $('su-err'); e.style.color = 'var(--err)'; e.textContent = '';
+      const nom = $('su-nom').value.trim(), mail = $('su-mail').value.trim(), pw = $('su-pw').value;
+      if (nom.length < 2 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { e.textContent = 'Indiquez votre nom et un e-mail valide.'; return; }
+      if (pw.length < 8) { e.textContent = 'Mot de passe trop court : 8 caractères minimum.'; return; }
+      if (!$('su-ok').checked) { e.textContent = 'Merci d\u2019accepter l\u2019utilisation de vos données pour traiter vos demandes.'; return; }
+      const r = await SB.auth.signUp({email: mail, password: pw, options: {data: {nom, societe: $('su-soc').value.trim(), telephone: $('su-tel').value.trim()}, emailRedirectTo: location.href.split('#')[0] + '#/compte'}});
+      if (r.error) { e.textContent = msgErreur(r.error); return; }
+      if (r.data && r.data.session) { await chargerMoi(); toast('Compte créé'); go(retour === 'devis' ? '#/devis' : '#/compte'); }
+      else { e.style.color = 'var(--ok)'; e.textContent = 'Compte créé : cliquez sur le lien reçu par e-mail pour l\u2019activer, puis connectez-vous.'; }
+    };
+    return;
+  }
+  $('logout-c').onclick = async () => { await SB.auth.signOut(); MOI = null; await chargerMoi(); toast('Vous êtes déconnecté'); route(); };
+  $('f-profil').onsubmit = async (ev) => {
+    ev.preventDefault();
+    const patch = {nom: $('pr-nom').value.trim(), societe: $('pr-soc').value.trim() || null, telephone: $('pr-tel').value.trim() || null};
+    const r = await SB.from('profils').update(patch).eq('id', MOI.id).select().single();
+    if (r.error) toast(msgErreur(r.error)); else { MOI = r.data; toast('Coordonnées enregistrées'); }
+  };
+  const box = $('mes-devis');
+  const r = await SB.from('suivi_devis').select('*').eq('client', MOI.id).order('cree_le', {ascending: false});
+  if (r.error) { box.innerHTML = `<p class="msg" style="color:var(--err)">${esc(msgErreur(r.error))}</p>`; return; }
+  if (!r.data.length) { box.innerHTML = '<div class="empty"><p>Aucune demande pour l\u2019instant.</p><a class="btn primary" href="#/c/tous">Parcourir le catalogue</a></div>'; return; }
+  const ids = r.data.map(d => d.id);
+  const l = await SB.from('devis_lignes').select('devis, ref, quantite, prix_unitaire, total, produits(nom)').in('devis', ids);
+  const parDevis = {}; (l.data || []).forEach(x => (parDevis[x.devis] = parDevis[x.devis] || []).push(x));
+  const bq = await SB.from('bats').select('*').in('devis', ids).order('version', {ascending: false});
+  const batDe = {}; (bq.data || []).forEach(b => { if (!batDe[b.devis]) batDe[b.devis] = b; });
+  const BATS = {en_attente: 'À valider', valide: 'Validé', correction: 'Correction demandée', remplace: 'Remplacé'};
+  const batHtml = d => { const b = batDe[d.id]; if (!b) return '';
+    return `<div class="bat"><p><b>Bon à tirer v${b.version}</b> · <span class="st ${b.statut === 'en_attente' ? 'bat_envoye' : b.statut === 'valide' ? 'valide' : 'demande'}">${BATS[b.statut]}</span></p>
+      ${b.message ? `<p class="hint">« ${esc(b.message)} »</p>` : ''}${b.commentaire_client ? `<p class="hint">Votre demande : « ${esc(b.commentaire_client)} »</p>` : ''}
+      <div class="chips"><button class="btn outline" type="button" data-voirbat="${esc(b.fichier)}">Voir le BAT</button></div>
+      ${b.statut === 'en_attente' ? `<div class="field"><label for="bc-${b.id}">Correction souhaitée (si besoin)</label><textarea id="bc-${b.id}" maxlength="1000"></textarea></div>
+      <div class="stack nav-btns"><button class="btn primary" type="button" data-batok="${b.id}">Valider le BAT et lancer la fabrication</button><button class="btn outline" type="button" data-batko="${b.id}">Demander une correction</button></div>` : ''}</div>`; };
+  box.innerHTML = r.data.map(d => `<article class="order">
+    <div class="top"><b>${esc(d.numero)}</b><span class="st ${esc(d.statut)}">${STATUTS[d.statut] || esc(d.statut)}</span></div>
+    <p class="hint">${new Date(d.cree_le).toLocaleDateString('fr-FR')} · ${esc((DEST.find(x => x.id === d.destination) || {}).nom || d.destination)}</p>
+    <ul>${(parDevis[d.id] || []).map(x => `<li>${esc(x.produits ? x.produits.nom : x.ref)} × ${x.quantite} — ${eur(Number(x.total))} HT</li>`).join('')}</ul>
+    <div class="sums"><span>Total TTC <b>${eur(Number(d.total_ttc))}</b></span><span>Payé <b>${eur(Number(d.paye))}</b></span>${d.statut !== 'annulee' && Number(d.reste) > 0.004 ? `<span>Reste <b>${eur(Number(d.reste))}</b></span>` : ''}</div>
+    ${d.code_promo ? `<p class="hint">Code ${esc(d.code_promo)} : ${d.code_valide ? '−' + eur(Number(d.remise_code)) + ' HT' : 'non applicable'}</p>` : ''}
+    ${batHtml(d)}
+    ${d.statut === 'demande' ? `<div><button class="btn outline" type="button" data-annuler="${d.id}">Annuler cette demande</button></div>` : ''}</article>`).join('');
+  document.querySelectorAll('[data-voirbat]').forEach(b => b.onclick = async () => {
+    const x = await SB.storage.from('bat').createSignedUrl(b.dataset.voirbat, 3600);
+    if (x.error) { toast(msgErreur(x.error)); return; }
+    const a = document.createElement('a'); a.href = x.data.signedUrl; a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove();
+  });
+  const repondre = async (id, decision) => {
+    const com = ($('bc-' + id) || {}).value || '';
+    if (decision === 'correction' && com.trim().length < 3) { toast('Décrivez la correction souhaitée.'); $('bc-' + id).focus(); return; }
+    if (decision === 'valide' && !await demander('Valider ce BAT ?', 'La fabrication sera lancée à l’identique de ce bon à tirer.', 'Valider')) return;
+    const x = await SB.rpc('repondre_bat', {p_bat: Number(id), p_decision: decision, p_commentaire: com.trim() || null});
+    if (x.error) toast(msgErreur(x.error)); else { toast(decision === 'valide' ? 'BAT validé : merci !' : 'Demande de correction envoyée'); route(); }
+  };
+  document.querySelectorAll('[data-batok]').forEach(b => b.onclick = () => repondre(b.dataset.batok, 'valide'));
+  document.querySelectorAll('[data-batko]').forEach(b => b.onclick = () => repondre(b.dataset.batko, 'correction'));
+  document.querySelectorAll('[data-annuler]').forEach(b => b.onclick = async () => {
+    if (!await demander('Annuler cette demande ?', 'Elle restera visible dans votre historique.', 'Annuler la demande', true)) return;
+    const x = await SB.from('devis').update({statut: 'annulee'}).eq('id', Number(b.dataset.annuler));
+    if (x.error) toast(msgErreur(x.error)); else { toast('Demande annulée'); route(); }
+  });
+}
+
+/* --- Données en ligne --- */
+const depuisDb = p => ({ref: p.ref, nom: p.nom, cat: p.categorie, tech: p.techniques, desc: p.description, q: p.quantites.map(Number), p: p.prix.map(Number),
+  badge: p.badge || undefined, emplacement: p.emplacement == null ? undefined : Number(p.emplacement), aPartir: p.a_partir, img: p.image || undefined, forme: p.forme || undefined, teinte: p.teinte || undefined});
+function appliquerTextes() { document.querySelectorAll('[data-t]').forEach(el => { const v = T(el.dataset.t); if (v) el.textContent = v; }); }
+async function chargerDistant() {
+  if (!SB) return;
+  try {
+    const rs = await Promise.all([SB.from('categories').select('id, nom, accroche, couleur').eq('actif', true).order('ordre'),
+      SB.from('techniques').select('id, nom, detail').eq('actif', true).order('ordre'), SB.from('produits').select('*').eq('actif', true).order('ordre'),
+      SB.from('textes').select('cle, valeur'), SB.from('parametres').select('cle, valeur'),
+      SB.from('promotions').select('*'), SB.from('pages').select('slug, titre, contenu, type, seo_titre, seo_description, publie, dans_pied, ordre').eq('publie', true).order('ordre')]);
+    const err = rs.find(r => r.error); if (err) throw err.error;
+    const [c, te, p, tx, pa, pr, pg] = rs.map(r => r.data);
+    PROMOS = pr.filter(x => TARIF.enCours(x)); PAGES_SITE = pg;
+    const pm = Object.fromEntries(pa.map(x => [x.cle, x.valeur]));
+    if (pm.accueil) ACCUEIL = pm.accueil; if (pm.seo) SEO = pm.seo;
+    if (c.length) CATS = c;
+    if (te.length) TECH = Object.fromEntries(te.map(x => [x.id, {nom: x.nom, detail: x.detail}]));
+    if (p.length) PRODS = p.map(depuisDb).map(x => Object.assign(x, {tech: x.tech.filter(t => TECH[t])})).filter(x => x.tech.length && CATS.some(k => k.id === x.cat));
+    tx.forEach(x => { TEXTES[x.cle] = x.valeur; });
+    CFG = Object.assign({}, CFG, Object.fromEntries(pa.map(x => [x.cle, x.valeur])));
+    indexer(); loadCart(); updateCount(); buildNav(); buildFooter(); appliquerTextes(); renderAnnonce(); route();
+  } catch (e) { if (window.console) console.warn('Catalogue en ligne indisponible, version locale affichée.', e); }
+}
+
+function copyText(text) {
+  const done = () => toast('Récapitulatif copié');
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+  else fallbackCopy(text, done);
+}
+function fallbackCopy(text, done) {
+  const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { toast('Copie impossible, sélectionnez le texte manuellement'); } ta.remove();
+}
+
+function viewInfos() {
+  const usedBy = k => CATS.filter(c => PRODS.some(p => p.cat === c.id && p.tech.includes(k))).map(c => c.nom).join(', ');
+  const col = {laser: 'mag', uv: 'cya', alim: 'ora', '3d': 'blu', dtf: 'blu'};
+  return `<div class="wrap">${crumbs([['Accueil', '#/'], ['Savoir-faire & livraison', '']])}
+    <div class="cat-head"><p class="eyebrow">L'atelier</p><h1>Savoir-faire &amp; livraison</h1><p>${esc(T('infos_intro'))}</p></div>
+    <div class="cols2">${Object.entries(TECH).map(([k, t]) => `<div class="tile" data-c="${col[k]}"><p class="eyebrow" style="color:var(--c-l)">${PRODS.filter(p => p.tech.includes(k)).length} produits</p><h3>${esc(t.nom)}</h3><p>${esc(t.detail)}.</p><p class="hint">Univers : ${esc(usedBy(k))}</p><a href="#/c/tous?t=${k}">Voir les produits</a></div>`).join('')}</div>
+    <section class="block"><div class="sec-head"><div><p class="eyebrow">Commander</p><h2>De la demande à la livraison</h2></div></div>
+      <div class="steps"><div><b>Composez votre devis</b>Produits, quantités, options et logo.</div><div><b>Recevez le BAT</b>Sous 24 à 48 h ouvrées, une modification incluse.</div><div><b>Validez et réglez</b>Particuliers à la commande, pros avec 50 % d'acompte.</div><div><b>Production et envoi</b>2 à 5 jours ouvrés, express 24 h possible.</div></div></section>
+    <section class="block"><div class="sec-head"><div><p class="eyebrow">Livraison</p><h2>Martinique, Guadeloupe, Guyane</h2></div></div>
+      <table class="ship"><thead><tr><th scope="col">Destination</th><th scope="col">Conditions</th><th scope="col">TVA</th></tr></thead><tbody>
+      ${DEST.map(d => `<tr><td>${esc(d.nom)}</td><td data-l="Conditions">${esc(livr(d))}</td><td data-l="TVA">${CFG.tva[d.tva] ? String(CFG.tva[d.tva] * 100).replace('.', ',') + ' %' : 'Non applicable'}</td></tr>`).join('')}
+      </tbody></table><p class="hint" style="margin-top:10px">Octroi de mer appliqué selon la réglementation en vigueur. Délais indicatifs après validation du BAT.</p></section>
+    <section class="block"><div class="sec-head"><div><p class="eyebrow">Fichiers</p><h2>Préparer votre visuel</h2></div></div>
+      <div class="cols2"><div class="tile"><h3>Formats acceptés</h3><p>Logo vectoriel (PDF, AI, SVG, EPS) ou image PNG en 300 dpi. Pour l'alimentaire, une photo nette en 200 dpi minimum suffit.</p></div><div class="tile"><h3>Pas de fichier ?</h3><p>La mise au propre d'un logo simple est offerte. Pour une création complète, un forfait est indiqué sur le devis.</p></div></div></section>
+  </div>`;
+}
+
+/* --- Routeur --- */
+function parse() {
+  const h = location.hash.replace(/^#\/?/, '');
+  const [path, qs] = h.split('?');
+  const [a, b] = path.split('/');
+  return {a: a || '', b: b ? decodeURIComponent(b) : '', params: new URLSearchParams(qs || '')};
+}
+function route() {
+  const r = parse();
+  let page = 'home', label = 'Accueil', html, after = null, meta = null;
+  if (RECUP) { $('app').innerHTML = viewMotDePasse(); setActive('compte', 'Nouveau mot de passe'); bindMotDePasse(); return; }
+  if (r.a === 'c' && (r.b === 'tous' || catById[r.b])) {
+    const t = r.params.get('t'); if (t && TECH[t]) { F.tech = new Set([t]); }
+    page = 'c-' + r.b; label = r.b === 'tous' ? 'Tout le catalogue' : catById[r.b].nom;
+    html = viewCatalog(r.b, ''); after = bindCatalog;
+  } else if (r.a === 'recherche' && r.b) {
+    page = 'c-tous'; label = 'Recherche'; html = viewCatalog('tous', r.b); after = bindCatalog;
+  } else if (r.a === 'p' && byRef[r.b]) {
+    const p = byRef[r.b]; page = 'c-' + p.cat; label = p.nom; html = viewProduct(p); after = () => bindProduct(p);
+  } else if (r.a === 'compte') {
+    page = 'compte'; label = 'Mon compte'; html = viewCompte(r.params); after = () => bindCompte(r.params);
+  } else if (r.a === 'devis') {
+    page = 'devis'; label = 'Mon devis'; html = viewQuote(); after = bindQuote;
+  } else if (r.a === 'infos') {
+    page = 'infos'; label = 'Savoir-faire & livraison'; html = viewInfos();
+  } else if (r.a === 'page' && PAGES_SITE.some(x => x.slug === r.b && x.publie !== false)) {
+    const pg = PAGES_SITE.find(x => x.slug === r.b); page = 'page-' + pg.slug; label = pg.titre; html = viewPage(pg);
+    meta = [pg.seo_titre || pg.titre + ' — ' + CFG.marque, pg.seo_description];
+  } else {
+    if (r.a) { try { history.replaceState(null, '', '#/'); } catch (e) {} }
+    html = viewHome();
+    meta = [SEO.titre || document.title, SEO.description];
+  }
+  $('app').innerHTML = html;
+  setActive(page, label);
+  if (r.a === 'p' && byRef[r.b]) meta = [byRef[r.b].nom + ' personnalisé — ' + CFG.marque, byRef[r.b].desc];
+  if (meta) setMeta(meta[0], meta[1]);
+  if (after) after();
+  closeNav();
+  try { window.scrollTo(0, 0); } catch (e) {}
+}
+
+function buildFooter() {
+  $('foot').innerHTML = `<div><h2>${esc(CFG.marque)}</h2><p style="margin-top:10px">${esc(T('pied_presentation'))}</p><p style="margin-top:10px">${esc(CFG.adresse)}</p></div>
+    <div><h3>Univers</h3><ul>${CATS.slice(0, 4).map(c => `<li><a href="#/c/${c.id}">${esc(c.nom)}</a></li>`).join('')}</ul></div>
+    <div><h3>&nbsp;</h3><ul>${CATS.slice(4).map(c => `<li><a href="#/c/${c.id}">${esc(c.nom)}</a></li>`).join('')}</ul></div>
+    <div><h3>Contact</h3><ul><li>${esc(CFG.telephone)}</li>${CFG.email ? `<li><a href="mailto:${esc(CFG.email)}">${esc(CFG.email)}</a></li>` : ''}<li><a href="#/infos">Savoir-faire &amp; livraison</a></li><li><a href="#/devis">Mon devis</a></li></ul></div>`;
+  const pied = PAGES_SITE.filter(p => p.publie !== false && p.dans_pied !== false);
+  $('legal').innerHTML = pied.length ? `<nav aria-label="Informations légales" style="display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:8px">${pied.map(p => `<a href="#/page/${esc(p.slug)}">${esc(p.titre)}</a>`).join('')}</nav><span id="legal-t"></span>` : '<span id="legal-t"></span>';
+  $('legal-t').textContent = `© ${new Date().getFullYear()} ${CFG.marque} · Prix unitaires HT indicatifs, devis définitif après BAT · Livraison Martinique, Guadeloupe, Guyane`;
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (!$('modal').hidden) fermerModal(false); else closeNav(); } });
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) fermerModal(false); });
+if (typeof window.matchMedia === 'function') {
+  const wide = window.matchMedia('(min-width: 901px)');
+  const onWide = e => { if (e.matches) closeNav(); };
+  if (wide.addEventListener) wide.addEventListener('change', onWide); else if (wide.addListener) wide.addListener(onWide);
+} else {
+  window.addEventListener('resize', () => { if (window.innerWidth > 900) closeNav(); });
+}
+let x0 = null;
+document.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+document.addEventListener('touchend', e => {
+  if (x0 === null || !$('sidebar').classList.contains('open')) { x0 = null; return; }
+  if (e.changedTouches[0].clientX - x0 < -55) closeNav();
+  x0 = null;
+}, {passive: true});
+window.addEventListener('hashchange', route);
+
+loadCart(); buildNav(); buildFooter(); updateCount(); appliquerTextes(); renderAnnonce(); route(); chargerLogo(route);
+if (SB) {
+  chargerMoi().then(() => { if (!RECUP) route(); });
+  SB.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_OUT' || ev === 'SIGNED_IN') chargerMoi(); });
+  chargerDistant();
+} else { const a = $('acct-link'); if (a) a.textContent = 'Mon compte'; }
+</script>
+</body>
+</html>

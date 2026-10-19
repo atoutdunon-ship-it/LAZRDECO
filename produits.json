@@ -1,0 +1,1247 @@
+{
+  "config": {
+    "marque": "LAZR DECO",
+    "logo": "logo-lazerdeco.jpg",
+    "email": "",
+    "whatsapp": "",
+    "telephone": "[Téléphone]",
+    "adresse": "[Adresse de l'atelier], Martinique",
+    "tva": {
+      "Martinique": 0.085,
+      "Guadeloupe": 0.085,
+      "Guyane": 0
+    },
+    "express": 0.2,
+    "supabase": {
+      "url": "",
+      "cle_publique": ""
+    },
+    "delais": {
+      "mq-retrait": "Gratuit",
+      "mq-livraison": "Forfait indiqué sur le devis, 24 à 72 h",
+      "gp": "Sur devis selon poids, 3 à 5 jours ouvrés",
+      "gf": "Sur devis selon poids, 5 à 8 jours ouvrés"
+    },
+    "email_equipe": [],
+    "site_url": ""
+  },
+  "techniques": {
+    "laser": {
+      "nom": "Laser CO2",
+      "detail": "Gravure et découpe : bois, bambou, acrylique, cuir, ardoise, verre",
+      "delai": 3
+    },
+    "uv": {
+      "nom": "UV DTF",
+      "detail": "Transferts quadri sur supports rigides : inox, verre, céramique, plastique",
+      "delai": 2
+    },
+    "alim": {
+      "nom": "Alimentaire",
+      "detail": "Encres comestibles sur feuilles de sucre et azyme",
+      "delai": 1
+    },
+    "3d": {
+      "nom": "Impression 3D",
+      "detail": "Objets en volume PLA ou PETG, sur mesure",
+      "delai": 5
+    },
+    "dtf": {
+      "nom": "DTF textile",
+      "detail": "Transferts souples sur coton, polyester et mélanges",
+      "delai": 3
+    }
+  },
+  "categories": [
+    {
+      "id": "textile",
+      "nom": "Textile & accessoires",
+      "accroche": "T-shirts, sweats, casquettes et sacs marqués en DTF",
+      "couleur": "blu"
+    },
+    {
+      "id": "mugs",
+      "nom": "Mugs & gourdes",
+      "accroche": "Contenants isothermes, mugs, verres et bouteilles",
+      "couleur": "cya"
+    },
+    {
+      "id": "bureau",
+      "nom": "Bureau & écriture",
+      "accroche": "Stylos, carnets, clés USB et badges",
+      "couleur": "blu"
+    },
+    {
+      "id": "goodies",
+      "nom": "Goodies & porte-clés",
+      "accroche": "Petits objets à offrir en nombre",
+      "couleur": "mag"
+    },
+    {
+      "id": "signaletique",
+      "nom": "Signalétique & PLV",
+      "accroche": "Plaques, présentoirs, chevalets, enseignes",
+      "couleur": "cya"
+    },
+    {
+      "id": "cadeaux",
+      "nom": "Cadeaux & trophées",
+      "accroche": "Objets gravés pour récompenser et marquer les dates",
+      "couleur": "mag"
+    },
+    {
+      "id": "patisserie",
+      "nom": "Pâtisserie",
+      "accroche": "Impressions comestibles pour gâteaux et biscuits",
+      "couleur": "ora"
+    },
+    {
+      "id": "stickers",
+      "nom": "Stickers & transferts",
+      "accroche": "Étiquettes, autocollants et transferts prêts à poser",
+      "couleur": "ora"
+    }
+  ],
+  "produits": [
+    {
+      "ref": "T-01",
+      "nom": "T-shirt coton 150 g",
+      "cat": "textile",
+      "tech": [
+        "dtf"
+      ],
+      "desc": "100 % coton, coupe mixte, logo cœur et grand visuel dos. Toutes couleurs, de l'enfant au 3XL.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        15,
+        11,
+        8.5,
+        7.2
+      ],
+      "badge": "Best-seller",
+      "emplacement": 2.5
+    },
+    {
+      "ref": "T-02",
+      "nom": "T-shirt technique sport",
+      "cat": "textile",
+      "tech": [
+        "dtf"
+      ],
+      "desc": "Polyester respirant pour clubs, courses et carnaval. Numéro et nom au dos en option.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        17,
+        12.5,
+        9.5,
+        8
+      ],
+      "emplacement": 2.5
+    },
+    {
+      "ref": "T-03",
+      "nom": "Polo piqué",
+      "cat": "textile",
+      "tech": [
+        "dtf"
+      ],
+      "desc": "Polo 200 g, tenue d'équipe et accueil. Logo poitrine, option dos.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        22,
+        17,
+        13.5,
+        11.5
+      ],
+      "emplacement": 2.5
+    },
+    {
+      "ref": "T-04",
+      "nom": "Sweat à capuche",
+      "cat": "textile",
+      "tech": [
+        "dtf"
+      ],
+      "desc": "Molleton 280 g, poche kangourou, marquage poitrine et dos.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        32,
+        26,
+        21,
+        18.5
+      ],
+      "emplacement": 2.5
+    },
+    {
+      "ref": "T-05",
+      "nom": "Tote bag coton",
+      "cat": "textile",
+      "tech": [
+        "dtf"
+      ],
+      "desc": "Sac 38 × 42 cm, anses longues, visuel quadri une face.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        9,
+        6.5,
+        4.7,
+        3.9
+      ],
+      "badge": "Best-seller",
+      "emplacement": 2
+    },
+    {
+      "ref": "T-06",
+      "nom": "Casquette 5 panneaux",
+      "cat": "textile",
+      "tech": [
+        "dtf"
+      ],
+      "desc": "Transfert frontal, réglage arrière, plusieurs coloris.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        13,
+        10,
+        7.5,
+        6.2
+      ]
+    },
+    {
+      "ref": "T-07",
+      "nom": "Tablier de cuisine",
+      "cat": "textile",
+      "tech": [
+        "dtf"
+      ],
+      "desc": "Tablier à bavette avec poche, pour restaurants, traiteurs et cadeaux.",
+      "q": [
+        1,
+        10,
+        25,
+        50
+      ],
+      "p": [
+        18,
+        14,
+        11,
+        9.5
+      ]
+    },
+    {
+      "ref": "T-08",
+      "nom": "Bob coton",
+      "cat": "textile",
+      "tech": [
+        "dtf"
+      ],
+      "desc": "Bob réversible ou uni, logo frontal, idéal festivals et plage.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        15,
+        11.5,
+        8.8,
+        7.5
+      ]
+    },
+    {
+      "ref": "M-01",
+      "nom": "Gourde inox 500 ml",
+      "cat": "mugs",
+      "tech": [
+        "uv"
+      ],
+      "desc": "Double paroi isotherme, 12 h froid. Logo quadri, finition mate ou brillante.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        17,
+        13,
+        9.9,
+        8.5
+      ],
+      "badge": "Best-seller"
+    },
+    {
+      "ref": "M-02",
+      "nom": "Mug céramique 330 ml",
+      "cat": "mugs",
+      "tech": [
+        "uv"
+      ],
+      "desc": "Mug blanc ou couleur, visuel une ou deux faces.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        12,
+        9,
+        6.9,
+        5.9
+      ]
+    },
+    {
+      "ref": "M-03",
+      "nom": "Gobelet isotherme 350 ml",
+      "cat": "mugs",
+      "tech": [
+        "uv"
+      ],
+      "desc": "Inox avec couvercle coulissant, format voiture et bureau.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        15,
+        11.5,
+        8.9,
+        7.5
+      ]
+    },
+    {
+      "ref": "M-04",
+      "nom": "Verre ou chope",
+      "cat": "mugs",
+      "tech": [
+        "uv",
+        "laser"
+      ],
+      "desc": "Verre à pied, tumbler ou chope : impression couleur ou gravure laser dépolie.",
+      "q": [
+        1,
+        12,
+        48,
+        96
+      ],
+      "p": [
+        9,
+        6.5,
+        4.9,
+        4.2
+      ]
+    },
+    {
+      "ref": "M-05",
+      "nom": "Bouteille en verre 50 cl",
+      "cat": "mugs",
+      "tech": [
+        "uv"
+      ],
+      "desc": "Pour jus, rhum arrangé, sirops. Étiquette imprimée directement sur le verre.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        8.5,
+        6,
+        4.4,
+        3.6
+      ],
+      "badge": "Nouveau"
+    },
+    {
+      "ref": "B-01",
+      "nom": "Stylo bille",
+      "cat": "bureau",
+      "tech": [
+        "uv"
+      ],
+      "desc": "Stylo plastique, logo couleur sur le corps. Encre bleue ou noire.",
+      "q": [
+        10,
+        50,
+        250,
+        500
+      ],
+      "p": [
+        1.9,
+        1.2,
+        0.75,
+        0.55
+      ],
+      "badge": "Best-seller"
+    },
+    {
+      "ref": "B-02",
+      "nom": "Stylo bambou gravé",
+      "cat": "bureau",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Corps bambou, gravure laser naturelle, image éco-responsable.",
+      "q": [
+        10,
+        50,
+        250,
+        500
+      ],
+      "p": [
+        2.4,
+        1.6,
+        1,
+        0.8
+      ]
+    },
+    {
+      "ref": "B-03",
+      "nom": "Carnet A5",
+      "cat": "bureau",
+      "tech": [
+        "uv"
+      ],
+      "desc": "Couverture rigide, 96 pages lignées, élastique de fermeture.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        11,
+        8,
+        5.9,
+        4.9
+      ]
+    },
+    {
+      "ref": "B-04",
+      "nom": "Clé USB bois 16 Go",
+      "cat": "bureau",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Coque bois ou bambou gravée, capuchon aimanté.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        14,
+        10.5,
+        8,
+        6.9
+      ]
+    },
+    {
+      "ref": "B-05",
+      "nom": "Badge nominatif",
+      "cat": "bureau",
+      "tech": [
+        "laser",
+        "uv"
+      ],
+      "desc": "Acrylique découpé, logo couleur et prénom, fixation aimant ou épingle.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        6.5,
+        4.5,
+        3.2,
+        2.6
+      ]
+    },
+    {
+      "ref": "G-01",
+      "nom": "Porte-clés bois gravé",
+      "cat": "goodies",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Hêtre ou bambou 5 cm, gravure recto, anneau métal inclus.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        5,
+        3.5,
+        2.2,
+        1.7
+      ],
+      "badge": "Best-seller"
+    },
+    {
+      "ref": "G-02",
+      "nom": "Porte-clés 3D en relief",
+      "cat": "goodies",
+      "tech": [
+        "3d"
+      ],
+      "desc": "Votre logo extrudé en deux couleurs, 5 cm, anneau métal inclus.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        6,
+        4,
+        2.8,
+        2.2
+      ]
+    },
+    {
+      "ref": "G-03",
+      "nom": "Porte-clés acrylique imprimé",
+      "cat": "goodies",
+      "tech": [
+        "laser",
+        "uv"
+      ],
+      "desc": "Découpé à la forme de votre logo, impression couleur recto.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        5.5,
+        3.8,
+        2.5,
+        1.9
+      ]
+    },
+    {
+      "ref": "G-04",
+      "nom": "Magnet acrylique ou bois",
+      "cat": "goodies",
+      "tech": [
+        "laser",
+        "uv"
+      ],
+      "desc": "Forme libre, visuel couleur ou gravé, aimant puissant au dos.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        4.5,
+        3.2,
+        2,
+        1.5
+      ]
+    },
+    {
+      "ref": "G-05",
+      "nom": "Décapsuleur bois gravé",
+      "cat": "goodies",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Bois massif et insert métal, gravure du logo.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        7,
+        5,
+        3.6,
+        2.9
+      ]
+    },
+    {
+      "ref": "G-06",
+      "nom": "Dessous de verre gravé",
+      "cat": "goodies",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Bois ou ardoise Ø 10 cm, pour bars, restaurants et cadeaux.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        7,
+        5,
+        3.4,
+        2.8
+      ]
+    },
+    {
+      "ref": "S-01",
+      "nom": "Plaque signalétique",
+      "cat": "signaletique",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Plexiglas 30 × 20 cm gravé, entretoises de fixation fournies.",
+      "q": [
+        1,
+        3,
+        5,
+        10
+      ],
+      "p": [
+        35,
+        30,
+        26,
+        22
+      ]
+    },
+    {
+      "ref": "S-02",
+      "nom": "Présentoir QR code",
+      "cat": "signaletique",
+      "tech": [
+        "3d"
+      ],
+      "desc": "Support de comptoir pour QR code, avis ou paiement, à vos couleurs.",
+      "q": [
+        1,
+        5,
+        10,
+        25
+      ],
+      "p": [
+        24,
+        19,
+        15,
+        12
+      ],
+      "badge": "Nouveau"
+    },
+    {
+      "ref": "S-03",
+      "nom": "Chevalet de table A5",
+      "cat": "signaletique",
+      "tech": [
+        "laser",
+        "uv"
+      ],
+      "desc": "Acrylique, menu, tarifs ou plan de table imprimés en couleur.",
+      "q": [
+        1,
+        5,
+        10,
+        25
+      ],
+      "p": [
+        16,
+        13,
+        10.5,
+        8.5
+      ]
+    },
+    {
+      "ref": "S-04",
+      "nom": "Panneau bois gravé",
+      "cat": "signaletique",
+      "tech": [
+        "laser"
+      ],
+      "desc": "40 × 30 cm, pour gîtes, commerces et accueil.",
+      "q": [
+        1,
+        3,
+        5,
+        10
+      ],
+      "p": [
+        45,
+        39,
+        34,
+        29
+      ]
+    },
+    {
+      "ref": "S-05",
+      "nom": "Logo découpé pour enseigne",
+      "cat": "signaletique",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Lettres et logo découpés en bois ou acrylique, fixations murales. Prix de départ, ajusté selon dimensions.",
+      "q": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "p": [
+        89,
+        79,
+        72,
+        65
+      ],
+      "aPartir": true
+    },
+    {
+      "ref": "C-01",
+      "nom": "Trophée acrylique",
+      "cat": "cadeaux",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Découpe à la forme, gravure personnalisée, socle bois ou acrylique.",
+      "q": [
+        1,
+        5,
+        10,
+        25
+      ],
+      "p": [
+        29,
+        24,
+        19,
+        15.5
+      ]
+    },
+    {
+      "ref": "C-02",
+      "nom": "Planche à découper",
+      "cat": "cadeaux",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Bambou 30 × 20 cm, gravure de logo, prénom ou recette.",
+      "q": [
+        1,
+        5,
+        20,
+        50
+      ],
+      "p": [
+        19,
+        16,
+        12.5,
+        10
+      ]
+    },
+    {
+      "ref": "C-03",
+      "nom": "Cadre photo gravé",
+      "cat": "cadeaux",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Bois 10 × 15 cm, date et message gravés sur le cadre.",
+      "q": [
+        1,
+        5,
+        10,
+        25
+      ],
+      "p": [
+        22,
+        18,
+        14.5,
+        12
+      ]
+    },
+    {
+      "ref": "C-04",
+      "nom": "Boîte cadeau bois",
+      "cat": "cadeaux",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Coffret à couvercle coulissant, gravure du couvercle.",
+      "q": [
+        1,
+        5,
+        10,
+        25
+      ],
+      "p": [
+        19,
+        15.5,
+        12.5,
+        10.5
+      ]
+    },
+    {
+      "ref": "C-05",
+      "nom": "Étiquette cuir gravée",
+      "cat": "cadeaux",
+      "tech": [
+        "laser"
+      ],
+      "desc": "Patch 6 cm pour casquettes, sacs, carnets ou packagings.",
+      "q": [
+        1,
+        25,
+        100,
+        250
+      ],
+      "p": [
+        3.5,
+        2.2,
+        1.4,
+        1.05
+      ]
+    },
+    {
+      "ref": "C-06",
+      "nom": "Figurine ou objet 3D",
+      "cat": "cadeaux",
+      "tech": [
+        "3d"
+      ],
+      "desc": "Environ 10 cm, d'après photo, croquis ou fichier STL. Prix de départ, ajusté selon complexité.",
+      "q": [
+        1,
+        5,
+        10,
+        25
+      ],
+      "p": [
+        39,
+        32,
+        27,
+        23
+      ],
+      "aPartir": true
+    },
+    {
+      "ref": "P-01",
+      "nom": "Feuille de sucre A4",
+      "cat": "patisserie",
+      "tech": [
+        "alim"
+      ],
+      "desc": "Photo pleine page, couleurs vives, pose sur crème ou pâte à sucre.",
+      "q": [
+        1,
+        5,
+        10,
+        20
+      ],
+      "p": [
+        12,
+        10,
+        8.5,
+        7
+      ],
+      "badge": "Best-seller"
+    },
+    {
+      "ref": "P-02",
+      "nom": "Feuille azyme A4",
+      "cat": "patisserie",
+      "tech": [
+        "alim"
+      ],
+      "desc": "Goût neutre, pour surfaces sèches, longue tenue.",
+      "q": [
+        1,
+        5,
+        10,
+        20
+      ],
+      "p": [
+        9.5,
+        8,
+        6.5,
+        5.5
+      ]
+    },
+    {
+      "ref": "P-03",
+      "nom": "Disque gâteau Ø 20 cm",
+      "cat": "patisserie",
+      "tech": [
+        "alim"
+      ],
+      "desc": "Prédécoupé, prénom et âge inclus, sur sucre ou azyme.",
+      "q": [
+        1,
+        5,
+        10,
+        20
+      ],
+      "p": [
+        10,
+        8.5,
+        7,
+        6
+      ]
+    },
+    {
+      "ref": "P-04",
+      "nom": "Planche de toppers",
+      "cat": "patisserie",
+      "tech": [
+        "alim"
+      ],
+      "desc": "12 à 24 motifs par A4 pour cupcakes, macarons et biscuits.",
+      "q": [
+        1,
+        5,
+        10,
+        20
+      ],
+      "p": [
+        13,
+        11,
+        9,
+        7.5
+      ]
+    },
+    {
+      "ref": "P-05",
+      "nom": "Bandes de contour",
+      "cat": "patisserie",
+      "tech": [
+        "alim"
+      ],
+      "desc": "4 bandes imprimées par A4 pour habiller le tour d'un gâteau.",
+      "q": [
+        1,
+        5,
+        10,
+        20
+      ],
+      "p": [
+        14,
+        12,
+        10,
+        8.5
+      ]
+    },
+    {
+      "ref": "K-01",
+      "nom": "Planche de stickers UV DTF",
+      "cat": "stickers",
+      "tech": [
+        "uv"
+      ],
+      "desc": "A4 de transferts prêts à poser sur objets rigides, autant de motifs que possible.",
+      "q": [
+        1,
+        5,
+        20,
+        50
+      ],
+      "p": [
+        19,
+        15,
+        11.5,
+        9.5
+      ]
+    },
+    {
+      "ref": "K-02",
+      "nom": "Étiquettes produits",
+      "cat": "stickers",
+      "tech": [
+        "uv"
+      ],
+      "desc": "Lot de 50 étiquettes 5 cm résistantes à l'eau, pour pots, flacons et bouteilles.",
+      "q": [
+        1,
+        5,
+        10,
+        20
+      ],
+      "p": [
+        24,
+        19,
+        16,
+        13.5
+      ],
+      "badge": "Nouveau"
+    },
+    {
+      "ref": "K-03",
+      "nom": "Transfert DTF au mètre",
+      "cat": "stickers",
+      "tech": [
+        "dtf"
+      ],
+      "desc": "Laize 58 cm, pour les pros qui pressent eux-mêmes. Prix au mètre linéaire.",
+      "q": [
+        1,
+        5,
+        10,
+        25
+      ],
+      "p": [
+        15,
+        13,
+        11.5,
+        10
+      ]
+    },
+    {
+      "ref": "K-04",
+      "nom": "Transfert DTF format A4",
+      "cat": "stickers",
+      "tech": [
+        "dtf"
+      ],
+      "desc": "Transfert unitaire à presser sur textile, notice de pose fournie.",
+      "q": [
+        1,
+        10,
+        50,
+        100
+      ],
+      "p": [
+        6,
+        4.2,
+        3,
+        2.4
+      ]
+    }
+  ],
+  "textes": {
+    "promo_1": "BAT gratuit sous 24 à 48 h",
+    "promo_2": "Fabrication express en 24 h",
+    "promo_3": "Livraison Martinique · Guadeloupe · Guyane",
+    "accueil_surtitre": "Atelier de marquage en Martinique",
+    "accueil_titre": "Votre marque,",
+    "accueil_mot1": "gravée",
+    "accueil_mot2": "imprimée",
+    "accueil_mot3": "croquée",
+    "accueil_intro": "Objets publicitaires, textile, signalétique, cadeaux gravés et décors de pâtisserie. Composez votre sélection, nous vous envoyons le devis et le bon à tirer.",
+    "accueil_cta_titre": "Un projet, un événement, une équipe à habiller ?",
+    "accueil_cta_texte": "Envoyez votre logo et vos quantités : devis et bon à tirer sous 24 à 48 h ouvrées.",
+    "infos_intro": "Tout est fabriqué sur place, de la pièce unique à la série. Chaque produit du catalogue est réalisé avec les machines ci-dessous.",
+    "pied_presentation": "Marquage publicitaire, gravure laser, impression UV, 3D, textile et alimentaire."
+  },
+  "roles": [
+    {
+      "id": "createur",
+      "nom": "Créateur",
+      "description": "Catalogue : fiches produits, tarifs, photos et médiathèque.",
+      "ordre": 10,
+      "permissions": {
+        "produits": [
+          "voir",
+          "creer",
+          "modifier"
+        ],
+        "univers": [
+          "voir"
+        ],
+        "machines": [
+          "voir"
+        ],
+        "promotions": [
+          "voir"
+        ],
+        "medias": [
+          "voir",
+          "creer"
+        ]
+      }
+    },
+    {
+      "id": "gestion",
+      "nom": "Gestion",
+      "description": "Devis, BAT, commandes, paiements, clients et statistiques.",
+      "ordre": 20,
+      "permissions": {
+        "statistiques": [
+          "voir"
+        ],
+        "produits": [
+          "voir"
+        ],
+        "devis": [
+          "voir",
+          "creer",
+          "modifier"
+        ],
+        "production": [
+          "voir",
+          "modifier"
+        ],
+        "paiements": [
+          "voir",
+          "creer",
+          "modifier"
+        ],
+        "clients": [
+          "voir",
+          "modifier"
+        ],
+        "emails": [
+          "voir"
+        ]
+      }
+    },
+    {
+      "id": "atelier",
+      "nom": "Atelier",
+      "description": "File de production par machine : démarrer et terminer les fabrications.",
+      "ordre": 30,
+      "permissions": {
+        "produits": [
+          "voir"
+        ],
+        "machines": [
+          "voir"
+        ],
+        "production": [
+          "voir",
+          "modifier"
+        ]
+      }
+    }
+  ],
+  "accueil": {
+    "sections": [
+      {
+        "id": "hero",
+        "visible": true
+      },
+      {
+        "id": "reassurance",
+        "visible": true
+      },
+      {
+        "id": "univers",
+        "visible": true
+      },
+      {
+        "id": "selection",
+        "visible": true
+      },
+      {
+        "id": "techniques",
+        "visible": true
+      },
+      {
+        "id": "appel",
+        "visible": true
+      }
+    ],
+    "banniere": {
+      "actif": false,
+      "texte": "",
+      "lien": "",
+      "couleur": "ora",
+      "debut": null,
+      "fin": null
+    },
+    "selection": {
+      "titre": "Best-sellers",
+      "refs": []
+    }
+  },
+  "seo": {
+    "titre": "LAZR DECO — Marquage publicitaire et impression personnalisée en Martinique",
+    "description": "Objets publicitaires, textile, signalétique, cadeaux gravés et impression alimentaire, fabriqués en Martinique. Livraison Martinique, Guadeloupe, Guyane."
+  },
+  "modeles_emails": {
+    "nouvelle_demande": {
+      "pour": "equipe",
+      "actif": true,
+      "sujet": "Nouvelle demande {{numero}} — {{client}}",
+      "corps": "Nouvelle demande de devis {{numero}} de {{client}} {{societe}}.\nMontant estimé : {{total_ttc}} TTC.\n\nOuvrir la demande : {{lien_gestion}}"
+    },
+    "statut": {
+      "pour": "client",
+      "actif": true,
+      "sujet": "{{marque}} — votre commande {{numero}} : {{statut}}",
+      "corps": "Bonjour {{client}},\n\nVotre commande {{numero}} est maintenant : {{statut}}.\nSuivez-la dans votre espace client : {{lien_client}}\n\nL'équipe {{marque}}"
+    },
+    "bat": {
+      "pour": "client",
+      "actif": true,
+      "sujet": "{{marque}} — votre BAT pour {{numero}} est prêt",
+      "corps": "Bonjour {{client}},\n\nLe bon à tirer (version {{version}}) de votre commande {{numero}} est disponible.\nValidez-le ou demandez une correction depuis votre espace client : {{lien_client}}\n\nAucune fabrication ne démarre sans votre validation.\n\nL'équipe {{marque}}"
+    },
+    "bat_reponse": {
+      "pour": "equipe",
+      "actif": true,
+      "sujet": "BAT {{numero}} v{{version}} : {{decision}}",
+      "corps": "{{client}} a répondu au BAT version {{version}} de la commande {{numero}} : {{decision}}.\n{{commentaire}}\n\nOuvrir la commande : {{lien_gestion}}"
+    },
+    "paiement": {
+      "pour": "client",
+      "actif": true,
+      "sujet": "{{marque}} — paiement reçu pour {{numero}}",
+      "corps": "Bonjour {{client}},\n\nNous avons bien reçu votre paiement de {{montant}} pour la commande {{numero}}.\nMerci !\n\nL'équipe {{marque}}"
+    }
+  },
+  "pages": [
+    {
+      "slug": "mentions-legales",
+      "titre": "Mentions légales",
+      "type": "legale",
+      "ordre": 1,
+      "contenu": "> Modèle à compléter et à faire valider par un professionnel avant publication.\n\n## Éditeur du site\n**LAZR DECO** — [à compléter] (forme juridique, capital)\nSiège : [à compléter]\nSIRET : [à compléter] · RCS : [à compléter]\nTVA intracommunautaire : [à compléter]\nDirecteur de la publication : [à compléter]\nContact : [à compléter]\n\n## Hébergement\nSite : GitHub Pages — GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.\nDonnées clients et comptes : Supabase — [à compléter] (région d'hébergement choisie).\n\n## Propriété intellectuelle\nLes textes, visuels et le logo LAZR DECO sont protégés. Toute reproduction sans autorisation est interdite.\nLes logos et visuels fournis par les clients restent leur propriété ; le client garantit en détenir les droits."
+    },
+    {
+      "slug": "cgv",
+      "titre": "Conditions générales de vente",
+      "type": "legale",
+      "ordre": 2,
+      "contenu": "> Modèle à compléter et à faire valider par un professionnel avant publication.\n\n## 1. Objet\nLes présentes conditions s'appliquent aux commandes de produits personnalisés passées auprès de LAZR DECO par des particuliers et des professionnels.\n\n## 2. Devis et commande\nToute demande donne lieu à un devis. La commande est ferme après validation du bon à tirer (BAT) et, pour les professionnels, versement d'un acompte de 50 %.\n\n## 3. Bon à tirer\nAucune fabrication ne démarre sans BAT validé par le client. Le client vérifie textes, couleurs et dimensions ; une validation vaut accord sur la conformité du visuel.\n\n## 4. Prix et paiement\nLes prix sont indiqués en euros hors taxes, avec la TVA applicable au territoire de livraison. Modes de paiement acceptés : [à compléter].\n\n## 5. Délais et livraison\nDélais indicatifs à compter de la validation du BAT. Livraison en Martinique, Guadeloupe et Guyane selon les conditions indiquées au devis.\n\n## 6. Droit de rétractation\nConformément à l'article L221-28 du Code de la consommation, le droit de rétractation ne s'applique pas aux biens confectionnés selon les spécifications du consommateur ou nettement personnalisés.\n\n## 7. Fichiers fournis\nLe client garantit détenir les droits sur les logos, images et textes transmis et dégage LAZR DECO de toute responsabilité à ce titre.\n\n## 8. Réclamations\nToute réclamation doit être adressée à [à compléter] dans un délai de [à compléter] jours après réception.\n\n## 9. Médiation et droit applicable\nMédiateur de la consommation : [à compléter]. Droit français applicable."
+    },
+    {
+      "slug": "confidentialite",
+      "titre": "Politique de confidentialité",
+      "type": "legale",
+      "ordre": 3,
+      "contenu": "> Modèle à compléter et à faire valider par un professionnel avant publication.\n\n## Responsable du traitement\nLAZR DECO — [à compléter] — contact : [à compléter]\n\n## Données collectées\nNom, société, e-mail, téléphone, adresse de livraison, contenu des demandes, fichiers fournis, historique des commandes et paiements.\n\n## Finalités et base légale\nTraitement des devis et commandes (exécution du contrat), facturation et comptabilité (obligation légale), suivi client (intérêt légitime).\n\n## Durées de conservation\nCompte client : jusqu'à sa clôture. Pièces comptables : 10 ans. Fichiers de personnalisation : [à compléter].\n\n## Vos droits\nAccès, rectification, effacement, limitation, opposition et portabilité : écrivez à [à compléter]. Vous pouvez saisir la CNIL (www.cnil.fr).\n\n## Sous-traitants\nHébergement des données : Supabase. Envoi des e-mails : Resend. [à compléter]"
+    }
+  ]
+}

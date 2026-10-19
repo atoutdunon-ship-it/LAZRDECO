@@ -1,0 +1,1834 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>LAZR DECO — Espace de gestion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800;9..144,900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+:root{
+  color-scheme:light;
+  --white:#FFFFFF;--cream:#FFF9F3;--sand:#F4EEE7;--line:#E6DED4;--bg:#F7F4F0;
+  --ink:#101826;--ink-2:#1C2638;--edge:#2E3A50;--black:#020200;
+  --body:#2A3441;--gray:#4F5B6B;
+  --on-dark:#FFFFFF;--on-dark-2:#E4E9F1;--on-dark-3:#C3CEDD;
+  --accent:#0B4F80;--err:#A3123F;--ok:#08555F;
+  --mag:#E8175D;--mag-l:#A3123F;--mag-f:#FF7AA2;--mag-t:#FFE6EF;
+  --cya:#12A8B8;--cya-l:#08555F;--cya-f:#3FD0DC;--cya-t:#DDF6F8;
+  --ora:#F7A21B;--ora-l:#7F3D00;--ora-f:#FFB23E;--ora-t:#FFF0D9;
+  --blu:#1477B8;--blu-l:#0B4F80;--blu-f:#6BB8EC;--blu-t:#E1EFFA;
+  --grad:linear-gradient(90deg,#F7A21B,#E8175D,#12A8B8,#1477B8);
+  --r:999px;--rad:18px;--rad-s:12px;
+  --display:'Fraunces',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--body);font-family:var(--sans);font-size:15px;line-height:1.5}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);color:var(--ink);font-weight:800;line-height:1.1;margin:0}
+h2{font-size:1.25rem}h3{font-size:1.05rem}
+p{margin:0}
+:focus-visible{outline:3px solid var(--blu);outline-offset:2px}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[data-c=mag]{--c:var(--mag);--c-l:var(--mag-l);--c-f:var(--mag-f);--c-t:var(--mag-t)}
+[data-c=cya]{--c:var(--cya);--c-l:var(--cya-l);--c-f:var(--cya-f);--c-t:var(--cya-t)}
+[data-c=ora]{--c:var(--ora);--c-l:var(--ora-l);--c-f:var(--ora-f);--c-t:var(--ora-t)}
+[data-c=blu]{--c:var(--blu);--c-l:var(--blu-l);--c-f:var(--blu-f);--c-t:var(--blu-t)}
+
+/* Connexion */
+.login{min-height:100vh;background:var(--black);display:flex;align-items:center;justify-content:center;padding:24px;position:relative}
+.login::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--grad)}
+.login .box{width:min(460px,100%);display:flex;flex-direction:column;gap:18px;color:var(--on-dark)}
+.login img{width:170px;height:170px;object-fit:contain;align-self:center}
+.login h1{color:var(--on-dark);font-size:1.9rem;text-align:center}
+.login .card{background:var(--white);color:var(--body);border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:14px;box-shadow:none}
+.login .demo{background:var(--ink);border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.login .demo p{color:var(--on-dark-2);font-size:.9rem}
+.login .demo .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.login .note{font-size:.85rem;color:var(--on-dark-3);text-align:center}
+
+/* Structure */
+header.top{position:sticky;top:0;z-index:300;background:#FAF9F7;box-shadow:0 1px 0 var(--line)}
+header.top .in{display:flex;align-items:center;gap:16px;height:66px;padding:0 24px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.brand img{height:54px;width:auto;display:block}
+.brand span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);white-space:nowrap;font-weight:700}
+.who{margin-left:auto;display:flex;align-items:center;gap:12px;min-width:0}
+.who .mail{font-size:.88rem;color:var(--gray);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:240px}
+.chip{display:inline-flex;align-items:center;min-height:30px;padding:0 12px;border-radius:var(--r);font-size:.78rem;font-weight:700;letter-spacing:.02em;background:var(--blu-t);color:var(--ink);white-space:nowrap}
+.chip.r-admin{background:var(--mag-f)}
+.demo-band{background:var(--ora-f);color:var(--ink);font-weight:700;font-size:.85rem;text-align:center;padding:6px 16px}
+.filet{height:5px;background:var(--grad)}
+.layout{display:grid;grid-template-columns:250px 1fr;min-height:calc(100vh - 71px)}
+nav#sidebar{background:var(--ink);padding:12px}
+nav#sidebar .links{display:flex;flex-direction:column;gap:2px;position:sticky;top:84px}
+nav#sidebar .sec{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark-3);padding:14px 14px 4px;font-weight:700}
+nav#sidebar a{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;padding:0 14px;border-radius:var(--rad-s);color:var(--on-dark-2);text-decoration:none;font-weight:600;font-size:.9rem;cursor:pointer}
+nav#sidebar a:hover{background:var(--ink-2);color:var(--on-dark)}
+nav#sidebar a.active{background:var(--c-f,var(--on-dark));color:var(--ink)}
+nav#sidebar a .n{font-size:.75rem;min-width:24px;padding:2px 8px;border-radius:var(--r);background:var(--ora-f);color:var(--ink);text-align:center}
+.mobilebar,.drawer-head{display:none}
+.backdrop{position:fixed;inset:0;background:rgba(5,13,27,.55);z-index:350;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.backdrop.on{opacity:1;visibility:visible}
+main{padding:28px 32px 64px;min-width:0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.head h1{font-size:2rem}
+.head p{color:var(--gray);margin-top:4px;max-width:720px}
+.eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+
+/* Éléments */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:var(--r);font:inherit;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid transparent;white-space:nowrap}
+.btn.primary{background:var(--mag-l);color:var(--on-dark)}
+.btn.primary:hover{background:#8A0F35;color:var(--on-dark)}
+.btn.dark{background:var(--ink);color:var(--on-dark)}
+.btn.dark:hover{background:var(--ink-2);color:var(--on-dark)}
+.btn.outline{background:var(--white);color:var(--ink);border-color:var(--ink)}
+.btn.outline:hover{background:var(--ink);color:var(--on-dark)}
+.btn.light{background:var(--ora-f);color:var(--ink)}
+.btn.danger{background:var(--white);color:var(--err);border-color:var(--err)}
+.btn.danger:hover{background:var(--err);color:var(--on-dark)}
+.btn.small{min-height:36px;padding:0 14px;font-size:.85rem}
+.btn[disabled]{background:var(--sand);color:var(--gray);border-color:var(--line);cursor:not-allowed}
+.card{background:var(--white);border-radius:var(--rad);box-shadow:0 0 0 1px var(--line);padding:22px}
+.grid{display:grid;gap:16px}
+.grid>*{min-width:0}
+.dv-grid{grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.kpi{border-radius:var(--rad);padding:18px 20px;background:var(--c-f,var(--white));color:var(--ink);display:flex;flex-direction:column;gap:4px;text-decoration:none;min-width:0}
+.kpi b{font-family:var(--display);font-weight:900;font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
+.kpi span{font-weight:600;font-size:.88rem}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label,.lbl{font-size:.85rem;font-weight:700;color:var(--ink)}
+.field input,.field select,.field textarea,.tools input,.tools select,.inl{font:inherit;font-size:16px;color:var(--ink);background:var(--white);border:2px solid var(--line);border-radius:var(--rad-s);padding:8px 12px;min-height:44px;width:100%}
+.inl{width:auto;min-height:38px;padding:4px 8px}
+.field textarea{resize:vertical;min-height:90px}
+.field textarea.long{min-height:320px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;line-height:1.55}
+.field input:focus,.field select:focus,.field textarea:focus,.tools input:focus,.tools select:focus,.inl:focus{border-color:var(--ink);outline:none}
+.hint{font-size:.82rem;color:var(--gray)}
+.check{display:flex;align-items:center;gap:10px;min-height:40px;cursor:pointer;font-size:.92rem}
+.check input{width:20px;height:20px;accent-color:var(--mag-l);flex-shrink:0}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.tools input{max-width:320px}.tools select{max-width:240px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tabs button{min-height:40px;padding:0 16px;border-radius:var(--r);border:2px solid var(--line);background:var(--white);font:inherit;font-weight:700;color:var(--ink);cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ink);border-color:var(--ink);color:var(--on-dark)}
+.tbl{width:100%;border-collapse:collapse;background:var(--white);font-size:.92rem}
+.tbl th{text-align:left;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);padding:12px 14px;border-bottom:2px solid var(--line);background:var(--cream);white-space:nowrap}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr.go{cursor:pointer}
+.tbl tr.go:hover td{background:var(--cream)}
+.tbl .num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tbl .muted,.muted{color:var(--gray)}
+.tbl td.c{text-align:center}
+.wrapt{overflow-x:auto;border-radius:var(--rad);box-shadow:0 0 0 1px var(--line);position:relative}
+/* Tableaux adaptatifs : passent en fiches dès qu'ils ne tiennent plus en largeur */
+.wrapt.stack{overflow:visible;box-shadow:none;border-radius:0}
+.wrapt.stack .tbl{background:transparent}
+.wrapt.stack .tbl,.wrapt.stack tbody,.wrapt.stack tr,.wrapt.stack td,.wrapt.stack tbody th{display:block;width:100%}
+.wrapt.stack thead,.wrapt.stack caption{display:none}
+.wrapt.stack tr{background:var(--white);border-radius:var(--rad-s);box-shadow:0 0 0 1px var(--line);margin-bottom:10px;padding:4px 0;overflow:hidden}
+.wrapt.stack td,.wrapt.stack tbody th{display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:right;border-bottom:1px solid var(--line);padding:9px 14px;white-space:normal;min-width:0!important;background:transparent}
+.wrapt.stack td>*{min-width:0}
+.wrapt.stack td:last-child{border-bottom:0}
+.wrapt.stack td[data-l]::before{content:attr(data-l);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);font-weight:700;text-align:left;flex-shrink:0}
+.wrapt.stack tr>:first-child{display:block;text-align:left;font-size:.95rem}
+.wrapt.stack tr>:first-child::before{content:none}
+.wrapt.stack tr>td:first-child:has(.thumb){display:flex;justify-content:flex-start}
+.wrapt.stack .barcell{width:100%}.wrapt.stack .barcell .bar{flex:1}
+.wrapt.stack .actions{justify-content:flex-end}
+.wrapt.stack tr>:first-child .actions{justify-content:flex-start}
+.wrapt.stack td[colspan]{display:block;text-align:left}
+.wrapt.stack td[colspan]::before{content:none}
+.thumb{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--sand);display:block}
+.thumb svg{width:48px;height:48px}
+.st{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:var(--r);font-size:.78rem;font-weight:700;color:var(--ink);background:var(--sand);white-space:nowrap}
+.st.demande,.st.en_attente,.st.a_faire{background:var(--ora-f)}.st.devis_envoye,.st.bat_envoye{background:var(--blu-t)}.st.valide,.st.envoye{background:var(--cya-t)}.st.en_production,.st.en_cours{background:var(--cya-f)}.st.prete{background:var(--blu-f)}.st.livree,.st.termine,.st.on{background:#BFE8D6}.st.annulee,.st.remplace,.st.annule,.st.off{color:var(--gray)}.st.correction,.st.erreur{background:var(--mag-t);color:var(--err)}
+.tiers{display:flex;flex-direction:column;gap:8px}
+.tier{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
+.msg{font-weight:700;font-size:.9rem}
+.msg.err{color:var(--err)}.msg.ok{color:var(--ok)}
+.prev{display:flex;flex-direction:column;gap:10px;align-items:center}
+.prev .media{width:220px;height:220px;max-width:100%;border-radius:var(--rad);overflow:hidden;background:var(--c-f,var(--sand));display:flex;align-items:center;justify-content:center}
+.prev .media img{width:100%;height:100%;object-fit:cover}
+.prev .media svg{width:80%}
+.sum{display:grid;grid-template-columns:1fr auto;gap:6px 16px}
+.sum .v{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.sum .big{font-family:var(--display);font-size:1.5rem}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.empty{padding:36px;text-align:center;color:var(--gray)}
+.diff{font-size:.82rem;color:var(--gray);max-width:420px;word-break:break-word}
+.diff b{color:var(--ink)}
+.matrix th,.matrix td{text-align:center}
+.matrix td:first-child,.matrix th:first-child{text-align:left}
+.matrix input{width:20px;height:20px;accent-color:var(--mag-l)}
+.matrix .na{color:var(--gray)}
+.matrix tbody th{text-transform:none;letter-spacing:0;font-size:.92rem;background:var(--white);border-bottom:1px solid var(--line);white-space:normal}
+.bar{height:10px;border-radius:5px;background:var(--cya-f);min-width:2px}
+.barcell{width:40%}
+.kanban{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.col{background:var(--white);border-radius:var(--rad);box-shadow:0 0 0 1px var(--line);padding:14px;display:flex;flex-direction:column;gap:10px}
+.col h2{display:flex;justify-content:space-between;align-items:center;font-size:1.05rem}
+.job{border-radius:var(--rad-s);padding:12px 14px;background:var(--cream);box-shadow:inset 5px 0 0 var(--c,var(--line));display:flex;flex-direction:column;gap:6px}
+.job b{color:var(--ink)}
+.medias{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.media-it{background:var(--white);border-radius:var(--rad-s);box-shadow:0 0 0 1px var(--line);overflow:hidden;display:flex;flex-direction:column}
+.media-it img{width:100%;aspect-ratio:1;object-fit:cover;background:var(--sand);display:block;max-width:100%}
+.media-it div{padding:10px;display:flex;flex-direction:column;gap:6px;font-size:.82rem;word-break:break-all}
+.md-view{background:var(--white);border-radius:var(--rad);box-shadow:0 0 0 1px var(--line);padding:22px;max-width:760px}
+.md-view h2{font-size:1.3rem;margin:18px 0 8px}.md-view h3{margin:14px 0 6px}
+.md-view p{margin:0 0 10px}.md-view ul{margin:0 0 10px;padding-left:20px}
+.md-view .md-note{background:var(--ora-t);border-radius:var(--rad-s);padding:10px 14px;color:var(--ink)}
+.order-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--rad-s);background:var(--cream);flex-wrap:wrap}
+.order-row .nm{flex:1;font-weight:700;color:var(--ink);min-width:160px}
+.mail-body{white-space:pre-wrap;font-size:.86rem;background:var(--cream);border-radius:var(--rad-s);padding:12px;margin-top:8px;color:var(--body)}
+.toast{position:fixed;bottom:24px;right:24px;z-index:600;background:var(--ink);color:var(--on-dark);padding:14px 20px;border-radius:var(--rad-s);font-weight:700;box-shadow:0 10px 30px rgba(16,24,38,.3);opacity:0;transform:translateY(10px);transition:opacity .2s,transform .2s;pointer-events:none;max-width:440px}
+.toast.on{opacity:1;transform:none}
+.toast.err{background:var(--err)}
+.modal{position:fixed;inset:0;z-index:550;background:rgba(5,13,27,.55);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal .box{background:var(--white);border-radius:22px;padding:24px;width:min(520px,100%);max-height:90vh;overflow:auto;display:flex;flex-direction:column;gap:14px}
+.modal .box p{color:var(--body)}
+.ro-grid{grid-template-columns:minmax(0,1fr) minmax(0,2fr);align-items:start}
+
+@media(max-width:1100px){.dv-grid{grid-template-columns:1fr}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:1fr 1fr}.kanban{grid-template-columns:1fr}.ro-grid{grid-template-columns:1fr}}
+@media(max-width:900px){
+  body.nav-open{overflow:hidden}
+  header.top .in{height:56px;padding:0 16px}
+  .brand img{height:44px}
+  .brand span,.who .mail{display:none}
+  .layout{display:block}
+  .mobilebar{display:flex;align-items:center;gap:12px;position:sticky;top:61px;z-index:280;background:var(--white);border-bottom:1px solid var(--line);padding:9px 16px}
+  .mobilebar .mb-lbl{flex:1;min-width:0}
+  .mobilebar .mb-where{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);display:block}
+  .mobilebar .mb-title{font-weight:700;color:var(--ink);font-size:.9rem;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mobilebar .mb-btn{flex-shrink:0;min-height:40px;padding:0 18px;font:inherit;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.8rem;background:var(--ink);color:var(--on-dark);border:none;border-radius:var(--r);cursor:pointer}
+  nav#sidebar{position:fixed;top:0;left:0;bottom:0;height:100dvh;width:min(86vw,330px);transform:translateX(-101%);transition:transform .24s cubic-bezier(.4,0,.2,1);z-index:400;overscroll-behavior:contain;overflow-y:auto;padding:0 0 24px}
+  nav#sidebar.open{transform:none;box-shadow:14px 0 40px rgba(5,13,27,.4)}
+  nav#sidebar .links{position:static;padding:8px 12px}
+  .drawer-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--ink);position:sticky;top:0;z-index:2;border-bottom:1px solid var(--edge)}
+  .drawer-head .dh-t{font-family:var(--display);color:var(--on-dark);font-weight:800}
+  .drawer-head .dh-x{margin-left:auto;min-height:38px;padding:0 14px;color:var(--on-dark);font:inherit;font-weight:700;background:transparent;border:1px solid var(--on-dark-3);border-radius:var(--r);cursor:pointer}
+  nav#sidebar a{padding:11px 18px;min-height:44px;font-size:.9rem}
+  main{padding:20px 16px 56px}
+  .head h1{font-size:1.6rem}
+  .btn{min-height:42px}
+  .grid.g2,.grid.g3,.grid.g4{grid-template-columns:1fr}
+  .nav-btns{flex-direction:column-reverse;align-items:stretch}
+  .nav-btns .btn{width:100%}
+  .field input,.field textarea,.field select{font-size:16px}
+  .toast{left:16px;right:16px;width:auto;text-align:center;max-width:none}
+  #ladd{grid-template-columns:1fr!important}
+}
+@media(max-width:380px){main{padding:16px 13px 56px}nav#sidebar{width:92vw}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="login-view" class="login" hidden></div>
+
+<div id="app-view" hidden>
+  <div class="demo-band" id="demo-band" hidden>Mode démonstration : les modifications ne sont pas enregistrées</div>
+  <header class="top"><div class="in">
+    <a class="brand" href="#/tableau"><img id="brand-logo" src="logo-lazerdeco-blanc.png" alt="LAZR DECO, tableau de bord"><span>Espace de gestion</span></a>
+    <div class="who"><span class="chip" id="who-role"></span><span class="mail" id="who-mail"></span><button class="btn outline small" type="button" id="logout">Déconnexion</button></div>
+  </div><div class="filet"></div></header>
+  <div class="mobilebar">
+    <span class="mb-lbl"><span class="mb-where">Vous consultez</span><span class="mb-title" id="mb-title">Tableau de bord</span></span>
+    <button class="mb-btn" type="button" id="mb-btn" aria-controls="sidebar" aria-expanded="false" onclick="toggleNav()">Menu</button>
+  </div>
+  <div class="backdrop" id="backdrop" onclick="closeNav()" aria-hidden="true"></div>
+  <div class="layout">
+    <nav id="sidebar" aria-label="Navigation de l'espace de gestion">
+      <div class="drawer-head"><span class="dh-t">Navigation</span><button class="dh-x" type="button" onclick="closeNav()">Fermer</button></div>
+      <div class="links" id="nav-links"></div>
+    </nav>
+    <main id="main" tabindex="-1"></main>
+  </div>
+</div>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-t"><div class="box" id="modal-box"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+const RETOUR_AUTH = /(?:^|[#&])type=(invite|recovery|signup|magiclink)/.exec(location.hash);
+const DATA = /*DATA*/null;
+const $ = id => document.getElementById(id);
+let CFG = DATA.config;
+let CATS = DATA.categories.slice(), TECH = Object.assign({}, DATA.techniques);
+let catById = Object.fromEntries(CATS.map(c => [c.id, c]));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const r2 = n => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
+const eur = n => (n == null || isNaN(n)) ? '—' : r2(Number(n)).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €';
+const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const dateFr = d => d ? new Date(d).toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit', year: 'numeric'}) : '—';
+const heureFr = d => d ? new Date(d).toLocaleString('fr-FR', {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit'}) : '—';
+const slug = s => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
+/*FORMES*/
+/*TARIFS*/
+
+/* ==================== Référentiels ==================== */
+const MODULES = [
+  ['statistiques', 'Statistiques et exports', ['voir']],
+  ['produits', 'Produits', ['voir', 'creer', 'modifier', 'supprimer']],
+  ['univers', 'Univers', ['voir', 'creer', 'modifier', 'supprimer']],
+  ['machines', 'Machines', ['voir', 'creer', 'modifier', 'supprimer']],
+  ['promotions', 'Promotions', ['voir', 'creer', 'modifier', 'supprimer']],
+  ['medias', 'Médiathèque', ['voir', 'creer', 'supprimer']],
+  ['devis', 'Devis, BAT et commandes', ['voir', 'creer', 'modifier', 'supprimer']],
+  ['production', 'Production', ['voir', 'modifier']],
+  ['paiements', 'Paiements', ['voir', 'creer', 'modifier', 'supprimer']],
+  ['clients', 'Clients et tarifs pro', ['voir', 'modifier']],
+  ['pages', 'Pages, accueil et SEO', ['voir', 'creer', 'modifier', 'supprimer']],
+  ['textes', 'Textes du site', ['voir', 'modifier']],
+  ['parametres', 'Paramètres', ['voir', 'modifier']],
+  ['emails', 'E-mails', ['voir', 'modifier']],
+  ['utilisateurs', 'Utilisateurs', ['voir', 'creer', 'modifier', 'supprimer']],
+  ['roles', 'Rôles et droits', ['voir', 'creer', 'modifier', 'supprimer']],
+  ['journal', 'Journal des actions', ['voir']]
+];
+const ACTIONS = [['voir', 'Voir'], ['creer', 'Créer'], ['modifier', 'Modifier'], ['supprimer', 'Supprimer']];
+const STATUTS = {demande: 'Demande reçue', devis_envoye: 'Devis envoyé', bat_envoye: 'BAT envoyé', valide: 'Validée', en_production: 'En production', prete: 'Prête', livree: 'Livrée', annulee: 'Annulée'};
+const MODES = {virement: 'Virement', especes: 'Espèces', carte: 'Carte bancaire', cheque: 'Chèque', autre: 'Autre'};
+const TYPES = {acompte: 'Acompte', solde: 'Solde', remboursement: 'Remboursement'};
+const DEST = {'mq-retrait': 'Martinique — retrait', 'mq-livraison': 'Martinique — livraison', gp: 'Guadeloupe', gf: 'Guyane'};
+const BAT_ST = {en_attente: 'En attente du client', valide: 'Validé', correction: 'Correction demandée', remplace: 'Remplacé'};
+const PROD_ST = {a_faire: 'À faire', en_cours: 'En cours', termine: 'Terminé'};
+const MAIL_ST = {en_attente: 'En attente', envoye: 'Envoyé', erreur: 'Erreur', annule: 'Annulé'};
+const MAIL_TYPES = {nouvelle_demande: 'Nouvelle demande (équipe)', statut: 'Changement de statut (client)', bat: 'BAT disponible (client)', bat_reponse: 'Réponse au BAT (équipe)', paiement: 'Paiement reçu (client)'};
+const VARS_MAIL = '{{numero}} {{client}} {{societe}} {{statut}} {{total_ttc}} {{marque}} {{lien_client}} {{lien_gestion}} — BAT : {{version}} {{decision}} {{commentaire}} — paiement : {{montant}}';
+const SECTIONS = {hero: 'Bandeau d’ouverture avec le logo', reassurance: 'Arguments (BAT, quantités, express, pros)', univers: 'Les univers', selection: 'Sélection de produits', techniques: 'Les technologies', appel: 'Bandeau « Composer mon devis »'};
+const KEYS = {produits: 'ref', categories: 'id', techniques: 'id', roles: 'id', pages: 'slug', textes: 'cle', parametres: 'cle', codes_promo: 'code', profils: 'id'};
+const keyOf = t => KEYS[t] || 'id';
+const fromDb = p => ({ref: p.ref, nom: p.nom, cat: p.categorie, tech: p.techniques || [], desc: p.description || '', q: (p.quantites || []).map(Number), p: (p.prix || []).map(Number),
+  badge: p.badge, emplacement: p.emplacement == null ? null : Number(p.emplacement), aPartir: p.a_partir, img: p.image, forme: p.forme, teinte: p.teinte, actif: p.actif, ordre: p.ordre, maj_le: p.maj_le});
+const toDb = p => ({ref: p.ref, nom: p.nom, categorie: p.cat, techniques: p.tech, description: p.desc || '', quantites: p.q, prix: p.p, badge: p.badge || null,
+  emplacement: p.emplacement || null, a_partir: !!p.aPartir, image: p.img || null, forme: p.forme || null, teinte: p.teinte || null, actif: p.actif !== false, ordre: Number(p.ordre) || 0});
+
+function messageErreur(e) {
+  const m = (e && (e.message || e.error_description)) || String(e);
+  if (/row-level security|permission denied|42501|not authorized/i.test(m) && !/Seul|Vous ne pouvez|Droit|ne peut|fixes/.test(m)) return 'Action non autorisée pour votre profil.';
+  if (/Invalid login credentials/i.test(m)) return 'E-mail ou mot de passe incorrect.';
+  if (/Email not confirmed/i.test(m)) return 'Confirmez d’abord votre adresse e-mail (lien reçu par e-mail).';
+  if (/paliers_coherents/i.test(m)) return 'Paliers incohérents : quantités croissantes et prix dégressifs.';
+  if (/duplicate key|already exists/i.test(m)) return 'Cet identifiant existe déjà.';
+  if (/violates foreign key/i.test(m)) return 'Élément encore utilisé ailleurs : retirez d’abord ses liens.';
+  if (/Password should be/i.test(m)) return 'Mot de passe trop court : 8 caractères minimum.';
+  if (/Failed to fetch|NetworkError/i.test(m)) return 'Connexion au serveur impossible. Vérifiez votre réseau.';
+  return m;
+}
+
+/* ==================== Droits ==================== */
+let ROLES = [];
+let ME = null;
+function droitsDe(roleId) { const r = ROLES.find(x => x.id === roleId); return r ? (r.permissions || {}) : {}; }
+function peutRole(roleId, mod, act) { if (roleId === 'admin') return true; const p = droitsDe(roleId)[mod]; return Array.isArray(p) && p.includes(act); }
+const can = (mod, act) => !!ME && ME.actif !== false && peutRole(ME.role, mod, act || 'voir');
+
+/* ==================== Accès aux données ==================== */
+function SupabaseAPI(url, key) {
+  const sb = window.supabase.createClient(url, key, {auth: {persistSession: true, autoRefreshToken: true, detectSessionInUrl: true}});
+  const q = async (p) => { const {data, error} = await p; if (error) throw error; return data; };
+  return {
+    demo: false,
+    async session() { const {data} = await sb.auth.getSession(); return data.session ? data.session.user : null; },
+    async login(email, pw) { return (await q(sb.auth.signInWithPassword({email, password: pw}))).user; },
+    async logout() { await sb.auth.signOut(); },
+    async reset(email) { return q(sb.auth.resetPasswordForEmail(email, {redirectTo: location.href.split('#')[0]})); },
+    async motDePasse(pw) { return q(sb.auth.updateUser({password: pw})); },
+    async list(t, o) {
+      o = o || {}; let r = sb.from(t).select(o.select || '*');
+      Object.entries(o.eq || {}).forEach(([k, v]) => { r = r.eq(k, v); });
+      if (o.in) r = r.in(o.in[0], o.in[1]);
+      (o.order || []).forEach(([c, asc]) => { r = r.order(c, {ascending: asc !== false}); });
+      if (o.limit) r = r.limit(o.limit);
+      return q(r);
+    },
+    async get(t, k) { return q(sb.from(t).select('*').eq(keyOf(t), k).maybeSingle()); },
+    async insert(t, row) { return q(sb.from(t).insert(row).select().single()); },
+    async update(t, k, patch) { const d = await q(sb.from(t).update(patch).eq(keyOf(t), k).select()); if (!d.length) throw new Error('permission denied'); return d[0]; },
+    async upsert(t, row) { return q(sb.from(t).upsert(row).select().single()); },
+    async remove(t, k) { const d = await q(sb.from(t).delete().eq(keyOf(t), k).select()); if (!d.length) throw new Error('permission denied'); },
+    async rpc(n, a) { return q(sb.rpc(n, a)); },
+    async upload(bucket, path, file) {
+      await q(sb.storage.from(bucket).upload(path, file, {contentType: file.type, upsert: false}));
+      return bucket === 'bat' ? path : sb.storage.from(bucket).getPublicUrl(path).data.publicUrl;
+    },
+    async fichiers(bucket) {
+      const d = await q(sb.storage.from(bucket).list('', {limit: 500, sortBy: {column: 'created_at', order: 'desc'}}));
+      return d.filter(f => f.id).map(f => ({bucket, nom: f.name, taille: (f.metadata || {}).size || 0, date: f.created_at, url: sb.storage.from(bucket).getPublicUrl(f.name).data.publicUrl}));
+    },
+    async supprimerFichier(bucket, nom) { return q(sb.storage.from(bucket).remove([nom])); },
+    async lienBat(path) { return (await q(sb.storage.from('bat').createSignedUrl(path, 3600))).signedUrl; },
+    async fn(nom, corps) {
+      const {data, error} = await sb.functions.invoke(nom, {body: corps});
+      if (error) { let m = error.message; try { const j = await error.context.json(); m = j.erreur || j.message || m; } catch (e) {} throw new Error(m); }
+      if (data && data.erreur) throw new Error(data.erreur);
+      return data;
+    }
+  };
+}
+
+/* Démonstration : mêmes règles que la base, en mémoire. */
+function DemoAPI() {
+  const now = () => new Date().toISOString();
+  const jour = n => new Date(Date.now() - n * 864e5).toISOString();
+  const dj = n => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
+  let seq = 1000; const nid = () => ++seq;
+  const S = {user: null, files: {produits: [], medias: [], bat: []}, blobs: {}};
+  S.roles = [
+    {id: 'admin', nom: 'Administrateur', description: 'Tous les droits sur l’ensemble du site.', permissions: {}, systeme: true, equipe: true, ordre: 0},
+    ...(DATA.roles || []).map(r => ({...r, systeme: false, equipe: true})),
+    {id: 'client', nom: 'Client', description: 'Compte client du site : ses devis, BAT et commandes uniquement.', permissions: {}, systeme: true, equipe: false, ordre: 99}];
+  S.profils = [
+    {id: 'u-admin', email: 'admin@lazrdeco.demo', nom: 'Admin Démo', role: 'admin', actif: true, remise_pro: 0, cree_le: jour(90)},
+    {id: 'u-createur', email: 'createur@lazrdeco.demo', nom: 'Créa Démo', role: 'createur', actif: true, remise_pro: 0, cree_le: jour(60)},
+    {id: 'u-gestion', email: 'gestion@lazrdeco.demo', nom: 'Gestion Démo', role: 'gestion', actif: true, remise_pro: 0, cree_le: jour(60)},
+    {id: 'u-atelier', email: 'atelier@lazrdeco.demo', nom: 'Atelier Démo', role: 'atelier', actif: true, remise_pro: 0, cree_le: jour(40), invite_le: jour(41)},
+    {id: 'u-c1', email: 'marie.l@exemple.mq', nom: 'Marie L.', societe: 'Boulangerie du Bourg', telephone: '0696 00 00 01', role: 'client', actif: true, remise_pro: 0, cree_le: jour(20)},
+    {id: 'u-c2', email: 'club.rugby@exemple.mq', nom: 'Jean P.', societe: 'Club de rugby', telephone: '0696 00 00 02', role: 'client', actif: true, remise_pro: 10, cree_le: jour(12)},
+    {id: 'u-c3', email: 'paul.m@exemple.mq', nom: 'Paul M.', role: 'client', actif: true, remise_pro: 0, cree_le: jour(3)}];
+  S.produits = DATA.produits.map((p, i) => ({...toDb({...p, actif: true, ordre: i}), maj_le: jour(30)}));
+  S.categories = DATA.categories.map((c, i) => ({...c, ordre: i, actif: true}));
+  S.techniques = Object.entries(DATA.techniques).map(([id, t], i) => ({id, nom: t.nom, detail: t.detail, delai_jours: t.delai || 3, actif: true, ordre: i}));
+  S.textes = Object.entries(DATA.textes || {}).map(([cle, valeur]) => ({cle, valeur, maj_le: jour(30)}));
+  S.parametres = [['marque', CFG.marque], ['email', CFG.email], ['whatsapp', CFG.whatsapp], ['telephone', CFG.telephone], ['adresse', CFG.adresse], ['logo', CFG.logo],
+    ['tva', CFG.tva], ['express', CFG.express], ['delais', CFG.delais || {}], ['site_url', 'https://lazrdeco.demo/'], ['email_equipe', ['equipe@lazrdeco.demo']],
+    ['accueil', DATA.accueil], ['seo', DATA.seo], ['modeles_emails', DATA.modeles_emails]].map(([cle, valeur]) => ({cle, valeur: JSON.parse(JSON.stringify(valeur == null ? '' : valeur)), maj_le: jour(30)}));
+  S.pages = (DATA.pages || []).map((p, i) => ({slug: p.slug, titre: p.titre, contenu: p.contenu, type: p.type || 'libre', seo_titre: null, seo_description: null, publie: true, dans_pied: true, ordre: p.ordre || i, maj_le: jour(30)}));
+  S.promotions = [{id: nid(), nom: 'Rentrée : mugs et gourdes', pct: 15, produit: null, univers: 'mugs', debut: dj(-5), fin: dj(20), actif: true, cree_le: jour(5)}];
+  S.codes_promo = [{code: 'BIENVENUE10', description: 'Première commande', type: 'pct', valeur: 10, minimum_ht: 50, debut: null, fin: null, max_utilisations: null, produit: null, univers: null, actif: true, cree_le: jour(30)}];
+  S.devis = []; S.devis_lignes = []; S.bats = []; S.paiements = []; S.emails = []; S.journal = [];
+
+  const P = (m, a) => !!S.user && S.user.actif && peutRole(S.user.role, m, a);
+  const param = c => (S.parametres.find(x => x.cle === c) || {}).valeur;
+  const prod = ref => fromDb(S.produits.find(p => p.ref === ref));
+  const err = m => { throw new Error(m); };
+  const log = (table_nom, action, cle, avant, apres) => S.journal.unshift({id: nid(), quand: now(), qui_email: S.user ? S.user.email : 'système', role: S.user ? S.user.role : null, table_nom, action, cle, avant, apres});
+  const tvaDe = d => Number((param('tva') || {})[d === 'gp' ? 'Guadeloupe' : d === 'gf' ? 'Guyane' : 'Martinique'] || 0);
+  const utilisations = (code, sauf) => S.devis.filter(d => d.code_promo === code && d.statut !== 'annulee' && d.id !== sauf).length;
+  function prixLigne(l, staff) {
+    const p = prod(l.ref); const d = S.devis.find(x => x.id === l.devis);
+    if (l.prix_force && staff) { l.promo_pct = 0; l.remise_pro = 0; }
+    else {
+      l.prix_force = false;
+      const rp = Number((S.profils.find(x => x.id === d.client) || {}).remise_pro || 0);
+      const r = TARIF.unitaire(p, l.quantite, {promos: S.promotions, emplacement: l.emplacement, express: l.express, tauxExpress: param('express'), remisePro: rp});
+      if (!r) err(`Quantité minimale pour ${p.ref} : ${p.q[0]} exemplaires`);
+      if (!(l.emplacement && p.emplacement)) l.emplacement = false;
+      l.prix_unitaire = r.u; l.promo_pct = r.pct; l.remise_pro = rp;
+    }
+    l.prix_unitaire = r2(l.prix_unitaire); l.total = r2(l.prix_unitaire * l.quantite);
+  }
+  function recalcul(id) {
+    const d = S.devis.find(x => x.id === id); const ls = S.devis_lignes.filter(l => l.devis === id);
+    d.sous_total_ht = r2(ls.reduce((s, l) => s + l.total, 0));
+    let res = {ok: false, remise: 0};
+    if (d.code_promo) res = TARIF.code(S.codes_promo.find(c => c.code === d.code_promo), ls.map(l => ({ref: l.ref, cat: prod(l.ref).cat, total: l.total})), {utilisations: utilisations(d.code_promo, d.id)});
+    d.remise_code = res.ok ? res.remise : 0; d.code_valide = !!res.ok;
+    d.total_ht = r2(d.sous_total_ht - d.remise_code); d.taux_tva = tvaDe(d.destination);
+    d.total_ttc = r2((d.total_ht + Number(d.frais_livraison)) * (1 + d.taux_tva));
+  }
+  function notifier(type, id, extra) {
+    const m = (param('modeles_emails') || {})[type]; if (!m || m.actif === false) return;
+    const d = S.devis.find(x => x.id === id); const c = S.profils.find(x => x.id === d.client);
+    const v = Object.assign({numero: d.numero, client: c.nom || c.email, societe: c.societe || '', statut: STATUTS[d.statut], total_ttc: eur(d.total_ttc).replace(/ | /g, ' '),
+      marque: param('marque') || 'LAZR DECO', lien_client: (param('site_url') || '') + '#/compte', lien_gestion: (param('site_url') || '') + 'admin.html#/commandes/' + d.id}, extra || {});
+    const rend = s => Object.entries(v).reduce((a, [k, x]) => a.split('{{' + k + '}}').join(x == null ? '' : x), s || '');
+    const dests = m.pour === 'equipe' ? (param('email_equipe') || []) : [c.email];
+    dests.filter(x => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x)).forEach(dest => S.emails.unshift({id: nid(), cree_le: now(), type, destinataire: dest, sujet: rend(m.sujet), corps: rend(m.corps), devis: d.id, statut: 'en_attente', erreur: null, tentatives: 0, envoye_le: null}));
+  }
+  function setStatut(d, s) {
+    if (d.statut === s) return; d.statut = s; d.maj_le = now();
+    if (['devis_envoye', 'valide', 'en_production', 'prete', 'livree', 'annulee'].includes(s)) notifier('statut', d.id);
+  }
+  function suivi(d) {
+    const c = S.profils.find(x => x.id === d.client) || {};
+    const paye = r2(S.paiements.filter(p => p.devis === d.id).reduce((s, p) => s + (p.type === 'remboursement' ? -p.montant : p.montant), 0));
+    return {...d, client_nom: c.nom, client_societe: c.societe, client_email: c.email, client_telephone: c.telephone, paye, reste: r2(d.total_ttc - paye)};
+  }
+  const estEquipe = () => !!S.user && S.user.actif && !!(S.roles.find(r => r.id === S.user.role) || {}).equipe;
+  function lire(t, row) {
+    switch (t) {
+      case 'produits': case 'categories': case 'techniques': case 'textes': return true;
+      case 'promotions': return TARIF.enCours(row) || P('promotions', 'voir');
+      case 'codes_promo': return P('promotions', 'voir');
+      case 'pages': return row.publie || P('pages', 'voir');
+      case 'parametres': return !['email_equipe', 'modeles_emails'].includes(row.cle) || estEquipe();
+      case 'roles': return estEquipe();
+      case 'profils': return row.id === S.user.id || ['utilisateurs', 'clients', 'devis', 'statistiques', 'production'].some(m => P(m, 'voir'));
+      case 'devis': case 'suivi_devis': case 'devis_lignes': return ['devis', 'statistiques', 'production'].some(m => P(m, 'voir'));
+      case 'bats': return P('devis', 'voir') || P('production', 'voir');
+      case 'paiements': return P('paiements', 'voir') || P('statistiques', 'voir');
+      case 'emails': return P('emails', 'voir');
+      case 'journal': return P('journal', 'voir');
+    }
+    return false;
+  }
+  const MODT = {produits: 'produits', categories: 'univers', techniques: 'machines', promotions: 'promotions', codes_promo: 'promotions', pages: 'pages', roles: 'roles', devis: 'devis', paiements: 'paiements', emails: 'emails'};
+  function ecrire(t, op, row) {
+    if (t === 'textes') return P('textes', 'modifier');
+    if (t === 'parametres') return P('parametres', 'modifier') || (['accueil', 'seo'].includes(row.cle) && P('pages', 'modifier'));
+    if (t === 'profils') return row.id === S.user.id || P('utilisateurs', 'modifier') || P('clients', 'modifier');
+    if (t === 'devis_lignes') return op === 'modifier' ? (P('devis', 'modifier') || P('production', 'modifier')) : P('devis', 'modifier');
+    if (t === 'bats') return P('devis', 'modifier');
+    if (t === 'pages' && op === 'supprimer') return P('pages', 'supprimer') && row.type === 'libre';
+    if (t === 'roles' && op === 'supprimer') return P('roles', 'supprimer') && !row.systeme;
+    if (t === 'emails') return op === 'modifier' && P('emails', 'modifier');
+    if (t === 'journal') return false;
+    return MODT[t] ? P(MODT[t], op) : false;
+  }
+  const table = t => S[t === 'suivi_devis' ? 'devis' : t];
+  const vue = (t, r) => t === 'suivi_devis' ? suivi(r) : {...r};
+  const deny = () => err('permission denied');
+
+  function avantMaj(t, old, n) {
+    if (t === 'profils') {
+      if (n.email !== old.email) deny();
+      if (n.role !== old.role || n.actif !== old.actif) {
+        if (!P('utilisateurs', 'modifier') && !(n.role === old.role && P('clients', 'modifier') && old.role === 'client')) err('Droit « Utilisateurs › modifier » requis pour changer un rôle ou désactiver un compte');
+        if (old.id === S.user.id) err('Vous ne pouvez pas modifier votre propre rôle ni désactiver votre propre compte');
+        if ((n.role === 'admin' || old.role === 'admin') && S.user.role !== 'admin') err('Seul un administrateur peut attribuer ou retirer le rôle Administrateur');
+      }
+      if (Number(n.remise_pro) !== Number(old.remise_pro) && !P('clients', 'modifier')) err('Droit « Clients › modifier » requis pour fixer un tarif professionnel');
+    }
+    if (t === 'roles') {
+      if (old.systeme && JSON.stringify(n.permissions) !== JSON.stringify(old.permissions)) err(`Les droits du rôle « ${old.nom} » sont fixes`);
+      n.systeme = old.systeme;
+      if (S.user.role !== 'admin' && old.id === S.user.role) err('Vous ne pouvez pas modifier les droits de votre propre rôle');
+    }
+    if (t === 'roles' || t === 'roles_ins') {
+      if (S.user.role !== 'admin' && ((n.permissions || {}).roles || (n.permissions || {}).utilisateurs)) err('Seul un administrateur peut accorder les droits « Utilisateurs » et « Rôles »');
+    }
+    if (t === 'produits') {
+      if (!paliersOk(n.quantites.map(Number), n.prix.map(Number))) err('paliers_coherents');
+      if (n.techniques.some(x => !S.techniques.some(k => k.id === x))) err('Machine inconnue');
+      n.maj_le = now();
+    }
+    if (t === 'devis') {
+      ['numero', 'client', 'cree_le', 'sous_total_ht', 'remise_code', 'total_ht', 'code_valide'].forEach(k => { n[k] = old[k]; });
+      n.code_promo = n.code_promo ? String(n.code_promo).trim().toUpperCase() : null;
+      n.taux_tva = tvaDe(n.destination); n.maj_le = now();
+    }
+    if (t === 'devis_lignes') {
+      const staff = P('devis', 'modifier');
+      if (!staff) { ['devis', 'ref', 'quantite', 'emplacement', 'express', 'note', 'fichier', 'prix_force', 'prix_unitaire'].forEach(k => { if (n[k] !== old[k]) err('Le profil Production ne peut modifier que l’avancement des lignes'); }); }
+      const prixIdem = ['ref', 'quantite', 'emplacement', 'express', 'prix_force'].every(k => n[k] === old[k]) && (!n.prix_force || Number(n.prix_unitaire) === Number(old.prix_unitaire));
+      if (!prixIdem) { n.quantite = Number(n.quantite); n.prix_unitaire = Number(n.prix_unitaire); prixLigne(n, staff); }
+    }
+  }
+  function apresMaj(t, old, n) {
+    if (t === 'devis_lignes') {
+      recalcul(n.devis);
+      if (old.statut_prod !== n.statut_prod) {
+        const d = S.devis.find(x => x.id === n.devis); const ls = S.devis_lignes.filter(l => l.devis === d.id);
+        if (ls.every(l => l.statut_prod === 'termine') && ['valide', 'en_production'].includes(d.statut)) setStatut(d, 'prete');
+        else if (ls.some(l => l.statut_prod !== 'a_faire') && d.statut === 'valide') setStatut(d, 'en_production');
+      }
+    }
+    if (t === 'devis') {
+      if (old.code_promo !== n.code_promo || old.destination !== n.destination || Number(old.frais_livraison) !== Number(n.frais_livraison)) recalcul(n.id);
+      if (old.statut !== n.statut) { const s = n.statut; n.statut = old.statut; setStatut(n, s); }
+    }
+  }
+  const api = {
+    demo: true,
+    async session() { return S.user; },
+    async loginDemo(r) { S.user = S.profils.find(p => p.role === r); return S.user; },
+    async login() { err('En mode démonstration, choisissez un profil.'); },
+    async logout() { S.user = null; },
+    async reset() {}, async motDePasse() {},
+    async list(t, o) {
+      o = o || {}; let rows = table(t).filter(r => lire(t, r)).map(r => vue(t, r));
+      Object.entries(o.eq || {}).forEach(([k, v]) => { rows = rows.filter(r => r[k] === v); });
+      if (o.in) rows = rows.filter(r => o.in[1].includes(r[o.in[0]]));
+      (o.order || []).slice().reverse().forEach(([c, asc]) => { rows.sort((a, b) => (a[c] > b[c] ? 1 : a[c] < b[c] ? -1 : 0) * (asc === false ? -1 : 1)); });
+      if (t === 'devis_lignes') rows = rows.map(l => ({...l, produits: {nom: prod(l.ref).nom, techniques: prod(l.ref).tech, categorie: prod(l.ref).cat}}));
+      return o.limit ? rows.slice(0, o.limit) : rows;
+    },
+    async get(t, k) { const r = table(t).find(x => String(x[keyOf(t)]) === String(k)); return r && lire(t, r) ? vue(t, r) : null; },
+    async insert(t, row) {
+      const n = {...row};
+      if (!ecrire(t, 'creer', n)) deny();
+      if (t === 'roles') { n.systeme = false; n.equipe = true; avantMaj('roles_ins', {}, n); }
+      const k = keyOf(t);
+      if (k === 'id' && t !== 'roles') n.id = nid();
+      else if (table(t).some(x => x[k] === n[k])) err('duplicate key');
+      if (t === 'produits') avantMaj('produits', {}, n);
+      if (t === 'devis') {
+        n.numero = 'D' + String(new Date().getFullYear()).slice(2) + '-' + String(n.id).padStart(5, '0'); n.statut = n.statut || 'demande';
+        Object.assign(n, {cree_le: now(), maj_le: now(), frais_livraison: Number(n.frais_livraison || 0), sous_total_ht: 0, remise_code: 0, total_ht: 0, total_ttc: 0, code_valide: false, note_interne: n.note_interne || '', message: n.message || ''});
+        n.code_promo = n.code_promo ? n.code_promo.toUpperCase() : null;
+      }
+      if (t === 'devis_lignes') { Object.assign(n, {statut_prod: 'a_faire', emplacement: !!n.emplacement, express: !!n.express, prix_force: !!n.prix_force, quantite: Number(n.quantite), note: n.note || '', fichier: n.fichier || ''}); prixLigne(n, true); }
+      if (t === 'bats') {
+        n.version = S.bats.filter(b => b.devis === n.devis).reduce((m, b) => Math.max(m, b.version), 0) + 1;
+        S.bats.filter(b => b.devis === n.devis && b.statut === 'en_attente').forEach(b => { b.statut = 'remplace'; });
+        Object.assign(n, {statut: 'en_attente', commentaire_client: null, repondu_le: null, depose_le: now(), depose_par: S.user.id});
+      }
+      if (t === 'paiements') { n.montant = Number(n.montant); n.cree_le = now(); }
+      if (t === 'promotions' || t === 'codes_promo') n.cree_le = now();
+      table(t).push(n);
+      if (t === 'devis') recalcul(n.id);
+      if (t === 'devis_lignes') recalcul(n.devis);
+      if (t === 'bats') { const d = S.devis.find(x => x.id === n.devis); if (['demande', 'devis_envoye', 'bat_envoye'].includes(d.statut)) d.statut = 'bat_envoye'; notifier('bat', d.id, {version: String(n.version)}); }
+      if (t === 'paiements' && n.type !== 'remboursement') notifier('paiement', n.devis, {montant: eur(n.montant).replace(/ | /g, ' ')});
+      if (!['devis_lignes', 'emails'].includes(t)) log(t, 'insert', String(t === 'devis' ? n.numero : n[k]), null, n);
+      return {...n};
+    },
+    async update(t, k, patch) {
+      const r = table(t).find(x => String(x[keyOf(t)]) === String(k)); if (!r || !lire(t, r) || !ecrire(t, 'modifier', r)) deny();
+      const old = {...r}; const n = {...r, ...patch};
+      avantMaj(t, old, n); Object.assign(r, n); apresMaj(t, old, r);
+      if (!['devis_lignes', 'emails'].includes(t)) log(t, 'update', String(t === 'devis' ? r.numero : r[keyOf(t)]), old, {...r});
+      return vue(t, r);
+    },
+    async upsert(t, row) { return table(t).some(x => x[keyOf(t)] === row[keyOf(t)]) ? api.update(t, row[keyOf(t)], row) : api.insert(t, row); },
+    async remove(t, k) {
+      const i = table(t).findIndex(x => String(x[keyOf(t)]) === String(k)); const r = table(t)[i]; if (!r || !ecrire(t, 'supprimer', r)) deny();
+      if (t === 'categories' && S.produits.some(p => p.categorie === r.id)) err('violates foreign key');
+      if (t === 'techniques' && S.produits.some(p => p.techniques.includes(r.id))) err('Cette machine est utilisée par des produits : retirez-la d’abord des fiches ou masquez-la');
+      if (t === 'roles' && S.profils.some(p => p.role === r.id)) err('violates foreign key');
+      if (t === 'devis' && S.paiements.some(p => p.devis === r.id)) err('violates foreign key');
+      table(t).splice(i, 1);
+      if (t === 'devis') { S.devis_lignes = S.devis_lignes.filter(l => l.devis !== r.id); S.bats = S.bats.filter(b => b.devis !== r.id); }
+      if (t === 'devis_lignes') recalcul(r.devis); else log(t, 'delete', String(t === 'devis' ? r.numero : r[keyOf(t)]), r, null);
+    },
+    async rpc(n) { err('Fonction indisponible en démonstration : ' + n); },
+    async upload(bucket, path, file) {
+      if (bucket === 'bat' ? !P('devis', 'modifier') : bucket === 'medias' ? !P('medias', 'creer') : !(P('produits', 'modifier') || P('produits', 'creer') || P('medias', 'creer'))) deny();
+      const url = (window.URL && URL.createObjectURL) ? URL.createObjectURL(file) : 'blob:' + path;
+      S.files[bucket].unshift({bucket, nom: path, taille: file.size || 0, date: now(), url}); S.blobs[path] = url;
+      return bucket === 'bat' ? path : url;
+    },
+    async fichiers(bucket) { if (bucket === 'bat') deny(); return S.files[bucket].slice(); },
+    async supprimerFichier(bucket, nom) { if (!P('medias', 'supprimer')) deny(); S.files[bucket] = S.files[bucket].filter(f => f.nom !== nom); },
+    async lienBat(path) { return S.blobs[path] || '#'; },
+    async fn(nom, c) {
+      if (nom === 'envoyer-emails') { if (!P('emails', 'modifier')) err('Action non autorisée pour votre profil.'); return {configure: false, message: 'Service d’envoi non configuré : les e-mails restent en attente jusqu’à la configuration du nom de domaine et de Resend.'}; }
+      if (nom !== 'gestion-comptes') err('Fonction inconnue');
+      const ACT = {inviter: 'creer', renvoyer: 'creer', supprimer: 'supprimer'};
+      if (!ACT[c.action]) err('Action inconnue.');
+      if (!P('utilisateurs', ACT[c.action])) err('Action non autorisée pour votre profil.');
+      if (c.action === 'inviter') {
+        const email = String(c.email || '').trim().toLowerCase();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) err('Adresse e-mail invalide.');
+        const r = S.roles.find(x => x.id === c.role); if (!r || !r.equipe) err('Choisissez un rôle d’équipe.');
+        if (c.role === 'admin' && S.user.role !== 'admin') err('Seul un administrateur peut inviter un administrateur.');
+        if (S.profils.some(p => p.email === email)) err('Un compte existe déjà avec cet e-mail : attribuez-lui le rôle depuis la liste des utilisateurs.');
+        const p = {id: 'u-' + nid(), email, nom: String(c.nom || ''), role: c.role, actif: true, remise_pro: 0, cree_le: now(), invite_le: now()};
+        S.profils.push(p); log('profils', 'invitation', email, null, {role: c.role}); return {ok: true, id: p.id};
+      }
+      const p = S.profils.find(x => x.id === c.id); if (!p) err('Compte introuvable.');
+      if (c.action === 'renvoyer') { p.invite_le = now(); log('profils', 'renvoi_invitation', p.email, null, {}); return {ok: true}; }
+      if (p.id === S.user.id) err('Vous ne pouvez pas supprimer votre propre compte.');
+      if (p.role === 'admin' && S.user.role !== 'admin') err('Seul un administrateur peut supprimer un administrateur.');
+      if (S.devis.some(d => d.client === p.id)) err('Ce compte a des devis ou commandes : désactivez-le pour conserver l’historique.');
+      S.profils = S.profils.filter(x => x.id !== p.id); log('profils', 'suppression', p.email, p, null); return {ok: true};
+    }
+  };
+  // Jeu d'exemples (créé avec les droits système)
+  S.user = {id: 'sys', role: 'admin', actif: true, email: 'système'};
+  const mk = (client, dest, statut, j, lignes, pays, msg, code) => {
+    const id = nid();
+    S.devis.push({id, numero: 'D26-' + String(id).padStart(5, '0'), client, destination: dest, statut, message: msg || '', note_interne: '', code_promo: code || null, frais_livraison: 0, cree_le: jour(j), maj_le: jour(j), sous_total_ht: 0, remise_code: 0, total_ht: 0, total_ttc: 0, code_valide: false});
+    lignes.forEach(([ref, quantite, o]) => { const l = {id: nid(), devis: id, ref, quantite, emplacement: !!(o && o.e), express: !!(o && o.x), note: (o && o.n) || '', fichier: (o && o.f) || '', prix_force: false, statut_prod: (o && o.s) || 'a_faire'}; prixLigne(l, true); S.devis_lignes.push(l); });
+    recalcul(id);
+    pays.forEach(p => S.paiements.push({id: nid(), devis: id, date_paiement: jour(j - 1).slice(0, 10), reference: '', cree_le: jour(j - 1), ...p}));
+    return id;
+  };
+  const d1 = mk('u-c2', 'mq-livraison', 'en_production', 9, [['T-02', 30, {e: 1, n: 'Nom et numéro au dos', f: 'logo-club.svg', s: 'en_cours'}], ['M-01', 30, {s: 'a_faire'}]], [{type: 'acompte', mode: 'virement', montant: 400}], 'Pour le tournoi du mois prochain');
+  S.bats.push({id: nid(), devis: d1, version: 1, fichier: d1 + '/1-bat-maillots.pdf', nom_fichier: 'bat-maillots.pdf', message: 'Logo poitrine 9 cm', statut: 'valide', commentaire_client: null, depose_le: jour(8), repondu_le: jour(7)});
+  const d2 = mk('u-c1', 'mq-retrait', 'bat_envoye', 2, [['P-03', 5, {n: 'Joyeux anniversaire Léa'}], ['C-02', 2]], [], 'Retrait samedi matin si possible', 'BIENVENUE10');
+  S.bats.push({id: nid(), devis: d2, version: 1, fichier: d2 + '/1-bat-gateau.png', nom_fichier: 'bat-gateau.png', message: '', statut: 'en_attente', commentaire_client: null, depose_le: jour(1), repondu_le: null});
+  const d3 = mk('u-c1', 'gp', 'livree', 25, [['T-05', 100, {f: 'logo-boulangerie.png', s: 'termine'}]], [{type: 'acompte', mode: 'carte', montant: 200}], '');
+  const t3 = S.devis.find(d => d.id === d3); S.paiements.push({id: nid(), devis: d3, type: 'solde', mode: 'virement', montant: r2(t3.total_ttc - 200), date_paiement: jour(20).slice(0, 10), reference: 'VIR-2291', cree_le: jour(20)});
+  const d4 = mk('u-c3', 'mq-livraison', 'demande', 0, [['B-01', 250], ['B-03', 50]], [], 'Pour notre salon professionnel');
+  [d1, d2].forEach(id => notifier('statut', id));
+  notifier('nouvelle_demande', d4);
+  S.emails.forEach((e, i) => { if (i > 0) { e.statut = 'envoye'; e.envoye_le = e.cree_le; } });
+  S.user = null;
+  return api;
+}
+
+const SBC = CFG.supabase || {};
+const API = (SBC.url && SBC.cle_publique && window.supabase) ? SupabaseAPI(SBC.url, SBC.cle_publique) : DemoAPI();
+let PARAMS = {};
+const param = c => PARAMS[c];
+
+function paliersOk(q, p) {
+  if (q.length !== p.length || q.length < 2 || q.length > 6 || q[0] < 1) return false;
+  for (let i = 1; i < q.length; i++) if (!(q[i] > q[i - 1]) || p[i] > p[i - 1]) return false;
+  return p.every(v => v > 0) && q.every(v => Number.isInteger(v));
+}
+
+/* ==================== Interface commune ==================== */
+let toastT = null;
+function toast(m, e) { const t = $('toast'); t.textContent = m; t.classList.toggle('err', !!e); t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), e ? 5500 : 2600); }
+async function act(fn, okMsg) { try { const r = await fn(); if (okMsg) toast(okMsg); return r; } catch (e) { toast(messageErreur(e), true); throw e; } }
+let modalRes = null, modalPrev = null;
+function demander(titre, texte, bouton, danger) {
+  return new Promise(res => {
+    modalRes = res; modalPrev = document.activeElement;
+    $('modal-box').innerHTML = `<h2 id="modal-t">${esc(titre)}</h2>${texte ? `<p>${esc(texte)}</p>` : ''}
+      <div class="actions nav-btns" style="justify-content:flex-end"><button class="btn outline" type="button" data-m="0">Annuler</button><button class="btn ${danger ? 'danger' : 'primary'}" type="button" data-m="1">${esc(bouton || 'Confirmer')}</button></div>`;
+    $('modal').hidden = false;
+    $('modal-box').querySelectorAll('[data-m]').forEach(b => b.onclick = () => fermerModal(b.dataset.m === '1'));
+    $('modal-box').querySelector('[data-m="1"]').focus();
+  });
+}
+function fermerModal(v) { $('modal').hidden = true; $('modal-box').innerHTML = ''; const r = modalRes; modalRes = null; if (modalPrev && modalPrev.focus) { try { modalPrev.focus(); } catch (e) {} } if (r) r(v); }
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) fermerModal(false); });
+
+function openNav() {
+  $('sidebar').classList.add('open'); $('backdrop').classList.add('on'); document.body.classList.add('nav-open');
+  $('mb-btn').setAttribute('aria-expanded', 'true'); $('mb-btn').textContent = 'Fermer';
+  const cur = document.querySelector('#sidebar a.active') || document.querySelector('#sidebar a');
+  if (cur) { try { cur.focus({preventScroll: true}); } catch (e) { cur.focus(); } }
+}
+function closeNav() {
+  $('sidebar').classList.remove('open'); $('backdrop').classList.remove('on'); document.body.classList.remove('nav-open');
+  $('mb-btn').setAttribute('aria-expanded', 'false'); $('mb-btn').textContent = 'Menu';
+}
+function toggleNav() { $('sidebar').classList.contains('open') ? closeNav() : openNav(); }
+function navKey(e, href) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(href); } }
+function go(href) { if (location.hash === href) route(); else location.hash = href; }
+
+/* Générateur de formulaires : {k, l, t, opts, h, req, min, max, step, ro, ph, w, maxl, long} */
+function champ(f, v, idp) {
+  const id = `${idp}-${f.k}`, val = v == null ? '' : v;
+  const attrs = `id="${id}" data-k="${f.k}"${f.req ? ' required' : ''}${f.ro ? ' readonly' : ''}${f.ph ? ` placeholder="${esc(f.ph)}"` : ''}${f.min != null ? ` min="${f.min}"` : ''}${f.max != null ? ` max="${f.max}"` : ''}${f.step ? ` step="${f.step}"` : ''}${f.maxl ? ` maxlength="${f.maxl}"` : ''}`;
+  let input;
+  if (f.t === 'check') return `<label class="check"><input type="checkbox" ${attrs}${val ? ' checked' : ''}> ${esc(f.l)}</label>`;
+  if (f.t === 'textarea') input = `<textarea ${attrs}${f.long ? ' class="long"' : ''}>${esc(val)}</textarea>`;
+  else if (f.t === 'select') input = `<select ${attrs}>${f.opts.map(([o, l]) => `<option value="${esc(o)}"${String(o) === String(val) ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
+  else input = `<input type="${f.t || 'text'}" ${f.t === 'number' ? 'inputmode="decimal" ' : ''}${attrs} value="${esc(val)}">`;
+  return `<div class="field"${f.w ? ` style="grid-column:span ${f.w}"` : ''}><label for="${id}">${esc(f.l)}</label>${input}${f.h ? `<span class="hint">${esc(f.h)}</span>` : ''}</div>`;
+}
+const formHtml = (fields, obj, idp) => fields.map(f => champ(f, (obj || {})[f.k], idp)).join('');
+function lireForm(fields, idp, base) {
+  const o = Object.assign({}, base || {});
+  fields.forEach(f => {
+    const el = $(`${idp}-${f.k}`); if (!el) return;
+    if (f.t === 'check') o[f.k] = el.checked;
+    else if (f.t === 'number') o[f.k] = el.value === '' ? null : Number(el.value);
+    else if (f.t === 'date') o[f.k] = el.value || null;
+    else o[f.k] = el.value.trim();
+    if (f.nul && o[f.k] === '') o[f.k] = null;
+  });
+  return o;
+}
+
+const PAGES = [
+  {sec: 'Pilotage'},
+  {page: 'tableau', label: 'Tableau de bord', mod: null, c: 'blu'},
+  {page: 'statistiques', label: 'Statistiques et exports', mod: 'statistiques', c: 'blu'},
+  {sec: 'Catalogue'},
+  {page: 'produits', label: 'Produits', mod: 'produits', c: 'cya'},
+  {page: 'univers', label: 'Univers', mod: 'univers', c: 'cya'},
+  {page: 'machines', label: 'Machines', mod: 'machines', c: 'cya'},
+  {page: 'promotions', label: 'Promotions', mod: 'promotions', c: 'cya'},
+  {page: 'medias', label: 'Médiathèque', mod: 'medias', c: 'cya'},
+  {sec: 'Ventes'},
+  {page: 'commandes', label: 'Devis et commandes', mod: 'devis', c: 'ora', badge: 'aTraiter'},
+  {page: 'production', label: 'Production', mod: 'production', c: 'ora', badge: 'aProduire'},
+  {page: 'paiements', label: 'Paiements', mod: 'paiements', c: 'ora'},
+  {page: 'clients', label: 'Clients', mod: 'clients', c: 'ora'},
+  {sec: 'Site'},
+  {page: 'pages', label: 'Pages, accueil et SEO', mod: 'pages', c: 'mag'},
+  {page: 'textes', label: 'Textes du site', mod: 'textes', c: 'mag'},
+  {sec: 'Administration'},
+  {page: 'utilisateurs', label: 'Utilisateurs', mod: 'utilisateurs', c: 'mag'},
+  {page: 'roles', label: 'Rôles et droits', mod: 'roles', c: 'mag'},
+  {page: 'parametres', label: 'Paramètres', mod: 'parametres', c: 'mag'},
+  {page: 'emails', label: 'E-mails', mod: 'emails', c: 'mag', badge: 'mails'},
+  {page: 'journal', label: 'Journal des actions', mod: 'journal', c: 'mag'}
+];
+let BADGES = {};
+const visible = p => p.page && (!p.mod || can(p.mod, 'voir'));
+function buildNav() {
+  const out = []; let sec = null;
+  PAGES.forEach(p => {
+    if (p.sec) { sec = p.sec; return; }
+    if (!visible(p)) return;
+    if (sec) { out.push(`<div class="sec">${esc(sec)}</div>`); sec = null; }
+    const n = p.badge && BADGES[p.badge];
+    out.push(`<a href="#/${p.page}" data-page="${p.page}" data-label="${esc(p.label)}" data-c="${p.c}" tabindex="0" onkeydown="navKey(event,'#/${p.page}')">${esc(p.label)}${n ? `<span class="n">${n}</span>` : ''}</a>`);
+  });
+  $('nav-links').innerHTML = out.join('');
+}
+$('nav-links').addEventListener('click', e => { if (e.target.closest('a')) closeNav(); });
+function setActive(page, label) {
+  document.querySelectorAll('#sidebar a').forEach(a => a.classList.toggle('active', a.dataset.page === page));
+  $('mb-title').textContent = label;
+  document.title = label + ' — LAZR DECO gestion';
+}
+const head = (eyebrow, titre, sous, droite) => `<div class="head"><div><p class="eyebrow">${esc(eyebrow)}</p><h1>${esc(titre)}</h1>${sous ? `<p>${esc(sous)}</p>` : ''}</div>${droite ? `<div class="actions">${droite}</div>` : ''}</div>`;
+const visuel = p => p.img ? `<img class="thumb" src="${esc(p.img)}" alt="">` : `<span class="thumb">${illustration(p)}</span>`;
+const tabs = (id, items, cur) => `<div class="tabs" role="tablist">${items.map(([k, l]) => `<button type="button" role="tab" data-tab="${id}" data-v="${k}" aria-selected="${k === cur}">${esc(l)}</button>`).join('')}</div>`;
+function bindTabs(id, fn) { document.querySelectorAll(`[data-tab="${id}"]`).forEach(b => b.onclick = () => fn(b.dataset.v)); }
+const stBadge = (cls, label) => `<span class="st ${esc(cls)}">${esc(label)}</span>`;
+const prodShape = r => fromDb(r);
+function csv(nom, lignes) {
+  const s = lignes.map(l => l.map(x => { const v = x == null ? '' : String(x); return /[";\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(';')).join('\r\n');
+  const blob = new Blob(['﻿' + s], {type: 'text/csv;charset=utf-8'});
+  const a = document.createElement('a'); a.href = (window.URL && URL.createObjectURL) ? URL.createObjectURL(blob) : '#'; a.download = nom; document.body.appendChild(a); a.click(); a.remove();
+  toast('Export ' + nom + ' prêt');
+}
+
+/* ==================== Tableau de bord ==================== */
+async function pTableau() {
+  const blocs = [];
+  if (can('devis')) {
+    const ds = await API.list('suivi_devis', {order: [['cree_le', false]]});
+    const bats = await API.list('bats');
+    const enAttente = bats.filter(b => b.statut === 'en_attente').length;
+    const reste = ds.filter(d => ['valide', 'en_production', 'prete', 'livree'].includes(d.statut)).reduce((s, d) => s + Math.max(0, Number(d.reste)), 0);
+    blocs.push(`<div class="grid g4">
+      <a class="kpi" data-c="ora" href="#/commandes?s=demande"><b>${ds.filter(d => d.statut === 'demande').length}</b><span>demandes à traiter</span></a>
+      <a class="kpi" data-c="blu" href="#/commandes?s=bat_envoye"><b>${enAttente}</b><span>BAT en attente du client</span></a>
+      <a class="kpi" data-c="cya" href="#/production"><b>${ds.filter(d => ['valide', 'en_production'].includes(d.statut)).length}</b><span>commandes à fabriquer</span></a>
+      <a class="kpi" data-c="mag" href="#/paiements"><b>${eur(reste)}</b><span>reste à encaisser</span></a></div>`);
+    blocs.push(`<div class="card" style="margin-top:16px"><h2 style="margin-bottom:12px">Dernières demandes</h2>${tableDevis(ds.slice(0, 6))}</div>`);
+  } else if (can('production')) {
+    blocs.push(`<div class="grid g3"><a class="kpi" data-c="cya" href="#/production"><b>${BADGES.aProduire || 0}</b><span>lignes à fabriquer</span></a></div>`);
+  }
+  if (can('produits')) {
+    const ps = (await API.list('produits')).map(prodShape);
+    blocs.push(`<div class="grid g3" style="margin-top:16px">
+      <a class="kpi" data-c="cya" href="#/produits"><b>${ps.length}</b><span>produits au catalogue</span></a>
+      <a class="kpi" data-c="ora" href="#/produits?f=sansphoto"><b>${ps.filter(p => !p.img).length}</b><span>sans photo de réalisation</span></a>
+      <a class="kpi" data-c="blu" href="#/produits?f=inactifs"><b>${ps.filter(p => p.actif === false).length}</b><span>masqués du site</span></a></div>`);
+  }
+  if (can('emails') && BADGES.mails) blocs.push(`<div class="card" style="margin-top:16px"><p><b>${BADGES.mails} e-mail(s) en attente d’envoi.</b> <a href="#/emails">Voir la file d’envoi</a></p></div>`);
+  const r = ROLES.find(x => x.id === ME.role) || {};
+  return head('Bienvenue', 'Bonjour ' + String(ME.nom || ME.email).split(' ')[0], `Profil ${r.nom || ME.role} : ${r.description || ''}`) + (blocs.join('') || '<div class="card"><p>Utilisez le menu pour accéder à vos modules.</p></div>');
+}
+function tableDevis(ds) {
+  if (!ds.length) return '<p class="empty">Aucun devis pour ce filtre.</p>';
+  return `<div class="wrapt"><table class="tbl"><thead><tr><th>N°</th><th>Date</th><th>Client</th><th>Destination</th><th>Statut</th><th class="num">Total TTC</th><th class="num">Reste</th></tr></thead><tbody>
+    ${ds.map(d => `<tr class="go" tabindex="0" onclick="go('#/commandes/${d.id}')" onkeydown="if(event.key==='Enter')go('#/commandes/${d.id}')">
+      <td><b>${esc(d.numero)}</b></td><td>${dateFr(d.cree_le)}</td><td>${esc(d.client_nom || d.client_email)}${d.client_societe ? `<div class="muted">${esc(d.client_societe)}</div>` : ''}</td>
+      <td>${esc(DEST[d.destination])}</td><td>${stBadge(d.statut, STATUTS[d.statut])}</td><td class="num">${eur(d.total_ttc)}</td>
+      <td class="num">${Number(d.reste) > 0.004 && d.statut !== 'annulee' ? `<b>${eur(d.reste)}</b>` : '<span class="muted">soldé</span>'}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+/* ==================== Statistiques et exports ==================== */
+let STP = '90';
+async function pStatistiques() {
+  const [ds, ls, ps] = await Promise.all([API.list('suivi_devis'), API.list('devis_lignes', {select: '*, produits(nom, categorie, techniques)'}), API.list('paiements')]);
+  const debut = STP === 'tout' ? 0 : Date.now() - Number(STP) * 864e5;
+  const dP = ds.filter(d => new Date(d.cree_le).getTime() >= debut);
+  const conf = dP.filter(d => ['valide', 'en_production', 'prete', 'livree'].includes(d.statut));
+  const ca = conf.reduce((s, d) => s + Number(d.total_ht), 0);
+  const enc = ps.filter(p => new Date(p.date_paiement).getTime() >= debut).reduce((s, p) => s + (p.type === 'remboursement' ? -1 : 1) * Number(p.montant), 0);
+  const idsConf = new Set(conf.map(d => d.id));
+  const lc = ls.filter(l => idsConf.has(l.devis));
+  const grp = (f) => { const m = {}; lc.forEach(l => { const k = f(l); m[k] = (m[k] || 0) + Number(l.total); }); return Object.entries(m).sort((a, b) => b[1] - a[1]); };
+  const parUnivers = grp(l => (catById[(l.produits || {}).categorie] || {}).nom || (l.produits || {}).categorie || '—');
+  const parMachine = grp(l => ((l.produits || {}).techniques || []).map(t => (TECH[t] || {}).nom || t)[0] || '—');
+  const parProduit = grp(l => l.ref + ' ' + ((l.produits || {}).nom || '')).slice(0, 10);
+  const mois = {}; conf.forEach(d => { const k = d.cree_le.slice(0, 7); mois[k] = (mois[k] || 0) + Number(d.total_ht); });
+  const parMois = Object.entries(mois).sort((a, b) => a[0].localeCompare(b[0]));
+  const tableBar = (titre, rows, col) => {
+    const max = Math.max(1, ...rows.map(r => r[1]));
+    return `<div class="card"><h2 style="margin-bottom:10px">${esc(titre)}</h2>${rows.length ? `<div class="wrapt"><table class="tbl"><thead><tr><th>${esc(col)}</th><th class="num">CA HT</th><th class="barcell"><span class="sr">Part relative</span></th></tr></thead><tbody>
+      ${rows.map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${eur(v)}</td><td class="barcell"><div class="bar" style="width:${Math.round(v / max * 100)}%"></div></td></tr>`).join('')}</tbody></table></div>` : '<p class="hint">Aucune commande confirmée sur la période.</p>'}</div>`;
+  };
+  return head('Pilotage', 'Statistiques et exports', 'Chiffre d’affaires des commandes confirmées (validées, en production, prêtes ou livrées).')
+    + `<div class="tools"><label class="sr" for="st-p">Période</label><select id="st-p">${[['30', '30 derniers jours'], ['90', '90 derniers jours'], ['365', '12 derniers mois'], ['tout', 'Depuis le début']].map(([v, l]) => `<option value="${v}"${STP === v ? ' selected' : ''}>${l}</option>`).join('')}</select></div>`
+    + `<div class="grid g4">
+      <div class="kpi" data-c="blu"><b>${dP.length}</b><span>demandes reçues</span></div>
+      <div class="kpi" data-c="cya"><b>${eur(ca)}</b><span>CA HT confirmé (${conf.length} commandes)</span></div>
+      <div class="kpi" data-c="ora"><b>${eur(enc)}</b><span>encaissé sur la période</span></div>
+      <div class="kpi" data-c="mag"><b>${dP.length ? Math.round(conf.length / dP.length * 100) : 0} %</b><span>taux de transformation · panier moyen ${eur(conf.length ? ca / conf.length : 0)}</span></div></div>`
+    + `<div class="grid g2" style="margin-top:16px;align-items:start">${tableBar('Par mois', parMois.map(([k, v]) => [new Date(k + '-01T12:00:00').toLocaleDateString('fr-FR', {month: 'long', year: 'numeric'}), v]), 'Mois')}${tableBar('Par univers', parUnivers, 'Univers')}${tableBar('Par machine', parMachine, 'Machine')}${tableBar('10 meilleurs produits', parProduit, 'Produit')}</div>`
+    + `<div class="card" style="margin-top:16px"><h2 style="margin-bottom:10px">Exports CSV (Excel, Numbers)</h2><div class="actions">
+      <button class="btn outline small" type="button" data-x="devis">Devis et commandes</button><button class="btn outline small" type="button" data-x="lignes">Lignes de commande</button>
+      <button class="btn outline small" type="button" data-x="paiements">Paiements</button>${can('clients') ? '<button class="btn outline small" type="button" data-x="clients">Clients</button>' : ''}${can('produits') ? '<button class="btn outline small" type="button" data-x="produits">Produits et tarifs</button>' : ''}</div>
+      <p class="hint" style="margin-top:8px">Séparateur point-virgule, encodage UTF-8 : s’ouvre directement dans Excel en français.</p></div>`;
+}
+function bindStatistiques() {
+  $('st-p').onchange = e => { STP = e.target.value; route(); };
+  document.querySelectorAll('[data-x]').forEach(b => b.onclick = async () => {
+    const x = b.dataset.x, n = v => String(r2(v)).replace('.', ',');
+    try {
+      if (x === 'devis') { const ds = await API.list('suivi_devis', {order: [['cree_le', true]]}); csv('devis.csv', [['Numéro', 'Date', 'Client', 'Société', 'E-mail', 'Destination', 'Statut', 'Code promo', 'Sous-total HT', 'Remise', 'Total HT', 'Livraison HT', 'TVA', 'Total TTC', 'Payé', 'Reste'], ...ds.map(d => [d.numero, dateFr(d.cree_le), d.client_nom, d.client_societe, d.client_email, DEST[d.destination], STATUTS[d.statut], d.code_promo, n(d.sous_total_ht), n(d.remise_code), n(d.total_ht), n(d.frais_livraison), n(d.taux_tva * 100) + ' %', n(d.total_ttc), n(d.paye), n(d.reste)])]); }
+      if (x === 'lignes') { const [ls, ds] = await Promise.all([API.list('devis_lignes', {select: '*, produits(nom, categorie, techniques)'}), API.list('suivi_devis')]); const num = Object.fromEntries(ds.map(d => [d.id, d.numero])); csv('lignes.csv', [['Devis', 'Réf.', 'Produit', 'Quantité', 'PU HT', 'Total HT', 'Promo %', 'Remise pro %', 'Express', 'Marquage supp.', 'Production'], ...ls.map(l => [num[l.devis], l.ref, (l.produits || {}).nom, l.quantite, n(l.prix_unitaire), n(l.total), n(l.promo_pct || 0), n(l.remise_pro || 0), l.express ? 'oui' : '', l.emplacement ? 'oui' : '', PROD_ST[l.statut_prod]])]); }
+      if (x === 'paiements') { const [ps, ds] = await Promise.all([API.list('paiements', {order: [['date_paiement', true]]}), API.list('suivi_devis')]); const num = Object.fromEntries(ds.map(d => [d.id, d])); csv('paiements.csv', [['Date', 'Devis', 'Client', 'Type', 'Mode', 'Montant', 'Référence'], ...ps.map(p => [dateFr(p.date_paiement), (num[p.devis] || {}).numero, (num[p.devis] || {}).client_nom, TYPES[p.type], MODES[p.mode], n(p.type === 'remboursement' ? -p.montant : p.montant), p.reference])]); }
+      if (x === 'clients') { const ps = (await API.list('profils')).filter(p => p.role === 'client'); csv('clients.csv', [['Nom', 'Société', 'E-mail', 'Téléphone', 'Remise pro %', 'Inscrit le', 'Actif'], ...ps.map(p => [p.nom, p.societe, p.email, p.telephone, n(p.remise_pro || 0), dateFr(p.cree_le), p.actif ? 'oui' : 'non'])]); }
+      if (x === 'produits') { const ps = (await API.list('produits', {order: [['ordre', true]]})).map(prodShape); csv('produits.csv', [['Réf.', 'Nom', 'Univers', 'Machines', 'Paliers', 'Prix HT', 'En ligne'], ...ps.map(p => [p.ref, p.nom, (catById[p.cat] || {}).nom, p.tech.join(' + '), p.q.join(' / '), p.p.map(n).join(' / '), p.actif !== false ? 'oui' : 'non'])]); }
+    } catch (e) { toast(messageErreur(e), true); }
+  });
+}
+
+/* ==================== Produits ==================== */
+let PF = {q: '', cat: '', f: ''};
+async function pProduits(params) {
+  if (params.get('f')) PF.f = params.get('f');
+  const [rows, promos] = await Promise.all([API.list('produits', {order: [['categorie', true], ['ordre', true]]}), API.list('promotions')]);
+  const ps = rows.map(prodShape);
+  const liste = ps.filter(p => (!PF.cat || p.cat === PF.cat) && (!PF.q || norm(p.ref + ' ' + p.nom + ' ' + p.desc).includes(norm(PF.q)))
+    && (PF.f !== 'sansphoto' || !p.img) && (PF.f !== 'inactifs' || p.actif === false) && (PF.f !== 'promo' || TARIF.promoPct(p, promos) > 0));
+  return head('Catalogue', 'Produits', `${ps.length} références · ${liste.length} affichées`, can('produits', 'creer') ? `<a class="btn primary" href="#/produits/nouveau">Ajouter un produit</a>` : '')
+    + `<div class="tools"><label class="sr" for="pf-q">Rechercher</label><input id="pf-q" type="search" placeholder="Référence, nom…" value="${esc(PF.q)}">
+      <label class="sr" for="pf-cat">Univers</label><select id="pf-cat"><option value="">Tous les univers</option>${CATS.map(c => `<option value="${c.id}"${PF.cat === c.id ? ' selected' : ''}>${esc(c.nom)}</option>`).join('')}</select>
+      <label class="sr" for="pf-f">Filtre</label><select id="pf-f">${[['', 'Tous'], ['sansphoto', 'Sans photo'], ['inactifs', 'Masqués'], ['promo', 'En promotion']].map(([v, l]) => `<option value="${v}"${PF.f === v ? ' selected' : ''}>${l}</option>`).join('')}</select></div>`
+    + (liste.length ? `<div class="wrapt"><table class="tbl"><thead><tr><th></th><th>Réf.</th><th>Produit</th><th>Univers</th><th class="num">Prix HT (1er → dernier palier)</th><th>Site</th></tr></thead><tbody>
+      ${liste.map(p => { const pc = TARIF.promoPct(p, promos); return `<tr class="go" tabindex="0" onclick="go('#/produits/${p.ref}')" onkeydown="if(event.key==='Enter')go('#/produits/${p.ref}')" data-c="${(catById[p.cat] || {}).couleur || 'blu'}">
+        <td>${visuel(p)}</td><td><b>${esc(p.ref)}</b></td><td>${esc(p.nom)}${p.badge ? ' ' + stBadge('valide', p.badge) : ''}${pc ? ' ' + stBadge('correction', 'Promo −' + pc + ' %') : ''}</td><td>${esc((catById[p.cat] || {}).nom || p.cat)}</td>
+        <td class="num">${eur(p.p[0])} → ${eur(p.p[p.p.length - 1])}</td><td>${p.actif === false ? stBadge('off', 'Masqué') : stBadge('on', 'En ligne')}</td></tr>`; }).join('')}
+      </tbody></table></div>` : '<p class="empty card">Aucun produit ne correspond.</p>');
+}
+function bindProduits() {
+  $('pf-q').oninput = e => { PF.q = e.target.value; clearTimeout(bindProduits.t); bindProduits.t = setTimeout(async () => { await route(); const i = $('pf-q'); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }, 250); };
+  $('pf-cat').onchange = e => { PF.cat = e.target.value; route(); };
+  $('pf-f').onchange = e => { PF.f = e.target.value; history.replaceState(null, '', '#/produits'); route(); };
+}
+let EDIT = null;
+async function pProduit(ref) {
+  const nouveau = ref === 'nouveau';
+  if (nouveau && !can('produits', 'creer')) return '<div class="card"><p class="msg err">Action non autorisée pour votre profil.</p></div>';
+  if (nouveau) EDIT = {ref: '', nom: '', cat: CATS[0].id, tech: [], desc: '', q: [1, 10, 50, 100], p: [10, 8, 6, 5], badge: '', emplacement: null, aPartir: false, img: '', actif: true, ordre: 99, _nouveau: true};
+  else {
+    const r = await API.get('produits', ref);
+    if (!r) { EDIT = null; return '<div class="card"><p class="msg err">Produit introuvable.</p><p><a href="#/produits">Retour à la liste</a></p></div>'; }
+    const p = prodShape(r); EDIT = {...p, q: p.q.slice(), p: p.p.slice()};
+  }
+  const e = EDIT, ro = !can('produits', nouveau ? 'creer' : 'modifier');
+  const medias = can('medias') ? (await API.fichiers('medias').catch(() => [])) : [];
+  return head(nouveau ? 'Nouveau produit' : 'Fiche produit', nouveau ? 'Ajouter un produit' : e.nom, nouveau ? 'Le produit apparaît sur le site dès l’enregistrement s’il est « en ligne ».' : `Référence ${e.ref}${e.maj_le ? ' · modifié le ' + heureFr(e.maj_le) : ''}`, `<a class="btn outline" href="#/produits">Retour à la liste</a>`)
+  + `<form id="pform" class="grid g2" novalidate style="align-items:start"><fieldset ${ro ? 'disabled' : ''} style="border:0;padding:0;margin:0;min-width:0;display:contents">
+    <div class="card grid" style="gap:14px">
+      <div class="grid g2">
+        <div class="field"><label for="f-ref">Référence</label><input id="f-ref" value="${esc(e.ref)}" ${nouveau ? '' : 'readonly'} placeholder="Ex. T-09" required><span class="hint">Lettre de l’univers, tiret, 2 ou 3 chiffres.</span></div>
+        <div class="field"><label for="f-cat">Univers</label><select id="f-cat">${CATS.map(c => `<option value="${c.id}"${c.id === e.cat ? ' selected' : ''}>${esc(c.nom)}</option>`).join('')}</select></div>
+      </div>
+      <div class="field"><label for="f-nom">Nom du produit</label><input id="f-nom" value="${esc(e.nom)}" maxlength="80" required></div>
+      <div class="field"><label for="f-desc">Description</label><textarea id="f-desc" maxlength="400">${esc(e.desc)}</textarea><span class="hint" id="f-desc-n"></span></div>
+      <fieldset class="field" style="border:0;padding:0;margin:0"><legend class="lbl">Machines utilisées</legend><div style="display:flex;flex-wrap:wrap;gap:4px 18px">
+        ${Object.entries(TECH).map(([k, t]) => `<label class="check"><input type="checkbox" name="tech" value="${k}"${e.tech.includes(k) ? ' checked' : ''}> ${esc(t.nom)}</label>`).join('')}</div></fieldset>
+      <div class="grid g2">
+        <div class="field"><label for="f-badge">Badge</label><select id="f-badge"><option value="">Aucun</option>${['Best-seller', 'Nouveau'].map(b => `<option${e.badge === b ? ' selected' : ''}>${b}</option>`).join('')}</select></div>
+        <div class="field"><label for="f-empl">Marquage supplémentaire (€ HT/u)</label><input id="f-empl" type="number" inputmode="decimal" min="0" step="0.01" value="${e.emplacement || ''}" placeholder="Aucun"></div>
+        <div class="field"><label for="f-ordre">Ordre d’affichage</label><input id="f-ordre" type="number" inputmode="numeric" step="1" value="${e.ordre || 0}"></div>
+      </div>
+      <label class="check"><input type="checkbox" id="f-apartir"${e.aPartir ? ' checked' : ''}> Prix « à partir de » (ajusté sur devis)</label>
+      <label class="check"><input type="checkbox" id="f-actif"${e.actif !== false ? ' checked' : ''}> En ligne sur le site</label>
+    </div>
+    <div class="grid" style="gap:16px">
+      <div class="card grid" style="gap:12px">
+        <h2>Tarifs dégressifs</h2>
+        <p class="hint">Prix unitaires HT. Quantités croissantes, prix décroissants. 2 à 6 paliers. Les promotions s’appliquent par-dessus (module Promotions).</p>
+        <div class="tiers" id="tiers"></div>
+        <div class="actions"><button class="btn outline small" type="button" id="t-add">Ajouter un palier</button></div>
+        <p class="msg" id="t-msg" aria-live="polite"></p>
+      </div>
+      <div class="card prev" data-c="${(catById[e.cat] || {}).couleur || 'blu'}" id="prev-card">
+        <div class="media" id="prev">${e.img ? `<img src="${esc(e.img)}" alt="Photo du produit">` : illustration(e)}</div>
+        <div class="field" style="width:100%"><label for="f-photo">Envoyer une photo (JPG, PNG, WebP, 5 Mo max)</label><input id="f-photo" type="file" accept="image/jpeg,image/png,image/webp"></div>
+        ${medias.length ? `<div class="field" style="width:100%"><label for="f-media">ou choisir dans la médiathèque</label><select id="f-media"><option value="">—</option>${medias.map(m => `<option value="${esc(m.url)}">${esc(m.nom)}</option>`).join('')}</select></div>` : ''}
+        <div class="actions">${e.img ? '<button class="btn danger small" type="button" id="f-nophoto">Retirer la photo</button>' : ''}</div>
+        <p class="hint">Sans photo, le site affiche l’illustration avec le logo.</p>
+      </div>
+      ${ro ? '<p class="hint">Consultation seule : votre profil ne permet pas de modifier les produits.</p>' : `<div class="actions nav-btns">
+        <button class="btn primary" type="submit" id="f-save">${nouveau ? 'Créer le produit' : 'Enregistrer'}</button>
+        ${!nouveau && can('produits', 'supprimer') ? '<button class="btn danger" type="button" id="f-del">Supprimer</button>' : ''}</div>`}
+    </div></fieldset></form>`;
+}
+function renderTiers() {
+  const e = EDIT;
+  $('tiers').innerHTML = e.q.map((q, i) => `<div class="tier">
+    <div class="field"><label for="tq-${i}">Dès (ex.)</label><input id="tq-${i}" type="number" inputmode="numeric" min="1" step="1" value="${q}" data-t="q" data-i="${i}"></div>
+    <div class="field"><label for="tp-${i}">Prix HT/u</label><input id="tp-${i}" type="number" inputmode="decimal" min="0.01" step="0.01" value="${e.p[i]}" data-t="p" data-i="${i}"></div>
+    <button class="btn danger small" type="button" data-rm="${i}" ${e.q.length <= 2 ? 'disabled' : ''} aria-label="Retirer le palier ${i + 1}">Retirer</button></div>`).join('');
+  document.querySelectorAll('#tiers input').forEach(inp => inp.oninput = () => { e[inp.dataset.t][+inp.dataset.i] = Number(inp.value); checkTiers(); });
+  document.querySelectorAll('#tiers [data-rm]').forEach(b => b.onclick = () => { e.q.splice(+b.dataset.rm, 1); e.p.splice(+b.dataset.rm, 1); renderTiers(); });
+  $('t-add').disabled = e.q.length >= 6;
+  checkTiers();
+}
+function checkTiers() {
+  const e = EDIT, okT = paliersOk(e.q, e.p);
+  const tvaMq = Number((CFG.tva || {}).Martinique || 0);
+  $('t-msg').className = 'msg ' + (okT ? 'ok' : 'err');
+  $('t-msg').textContent = okT ? `Particulier : ${eur(e.p[0] * (1 + tvaMq))} TTC l’unité · dernier palier ${eur(e.p[e.p.length - 1])} HT dès ${e.q[e.q.length - 1]} ex.` : 'Paliers incohérents : chaque quantité doit dépasser la précédente et chaque prix être inférieur ou égal au précédent.';
+  return okT;
+}
+function lireProduit() {
+  const e = EDIT;
+  e.ref = $('f-ref').value.trim().toUpperCase(); e.nom = $('f-nom').value.trim(); e.cat = $('f-cat').value; e.desc = $('f-desc').value.trim();
+  e.tech = [...document.querySelectorAll('[name=tech]:checked')].map(x => x.value);
+  e.badge = $('f-badge').value || null; e.emplacement = $('f-empl').value ? Number($('f-empl').value) : null; e.ordre = Number($('f-ordre').value) || 0;
+  e.aPartir = $('f-apartir').checked; e.actif = $('f-actif').checked;
+  return e;
+}
+function bindProduit() {
+  const e = EDIT; if (!e || !$('tiers')) return;
+  renderTiers();
+  const n = () => { $('f-desc-n').textContent = $('f-desc').value.length + ' / 400 caractères'; };
+  $('f-desc').oninput = n; n();
+  $('t-add').onclick = () => { const lq = e.q[e.q.length - 1], lp = e.p[e.p.length - 1]; e.q.push(lq * 2); e.p.push(r2(lp * 0.9)); renderTiers(); };
+  $('f-cat').onchange = () => { $('prev-card').dataset.c = (catById[$('f-cat').value] || {}).couleur || 'blu'; if (!e.img) $('prev').innerHTML = illustration(lireProduit()); };
+  $('f-photo').onchange = async (ev) => {
+    const f = ev.target.files && ev.target.files[0]; if (!f) return;
+    if (f.size > 5 * 1024 * 1024) { toast('Photo trop lourde : 5 Mo maximum.', true); ev.target.value = ''; return; }
+    const ref = ($('f-ref').value.trim() || 'nouveau').toLowerCase();
+    const ext = (f.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '');
+    try { e.img = await act(() => API.upload('produits', `${ref}-${Date.now()}.${ext}`, f), 'Photo envoyée : enregistrez la fiche pour la publier'); $('prev').innerHTML = `<img src="${esc(e.img)}" alt="Photo du produit">`; } catch (err) { ev.target.value = ''; }
+  };
+  if ($('f-media')) $('f-media').onchange = ev => { if (!ev.target.value) return; e.img = ev.target.value; $('prev').innerHTML = `<img src="${esc(e.img)}" alt="Photo du produit">`; toast('Image choisie : enregistrez pour confirmer'); };
+  if ($('f-nophoto')) $('f-nophoto').onclick = () => { e.img = ''; $('prev').innerHTML = illustration(lireProduit()); toast('Photo retirée : enregistrez pour confirmer'); };
+  if ($('f-del')) $('f-del').onclick = async () => {
+    if (!await demander(`Supprimer ${e.ref} ?`, 'Suppression définitive. Pour le retirer temporairement, décochez plutôt « En ligne sur le site ».', 'Supprimer', true)) return;
+    try { await act(() => API.remove('produits', e.ref), 'Produit supprimé'); go('#/produits'); } catch (err) {}
+  };
+  $('pform').onsubmit = async (ev) => {
+    ev.preventDefault();
+    const p = lireProduit();
+    const er = !/^[A-Z]-[0-9]{2,3}$/.test(p.ref) ? 'Référence invalide (ex. T-09).' : p.nom.length < 2 ? 'Nom trop court.' : !p.tech.length ? 'Cochez au moins une machine.' : !checkTiers() ? 'Corrigez les paliers de prix.' : '';
+    if (er) { toast(er, true); return; }
+    const row = toDb(p);
+    try { if (p._nouveau) await act(() => API.insert('produits', row), 'Produit créé'); else await act(() => API.update('produits', p.ref, row), 'Fiche enregistrée'); go('#/produits/' + p.ref); } catch (e2) {}
+  };
+}
+
+/* ==================== Univers et machines ==================== */
+async function pUnivers() {
+  const [cs, ps] = await Promise.all([API.list('categories', {order: [['ordre', true]]}), API.list('produits')]);
+  const couleurs = [['mag', 'Magenta'], ['cya', 'Cyan'], ['ora', 'Orange'], ['blu', 'Bleu']];
+  const F = nv => [{k: 'id', l: 'Identifiant', ro: !nv, ph: 'ex. vaisselle', h: nv ? 'Minuscules, chiffres et tirets ; définitif.' : ''}, {k: 'nom', l: 'Nom'}, {k: 'accroche', l: 'Accroche', w: 2},
+    {k: 'couleur', l: 'Couleur', t: 'select', opts: couleurs}, {k: 'ordre', l: 'Ordre', t: 'number', step: 1}, {k: 'actif', l: 'Visible sur le site', t: 'check'}];
+  const bloc = (c, nv) => { const n = ps.filter(p => p.categorie === c.id).length, idp = nv ? 'cat-new' : 'cat-' + c.id, M = nv ? can('univers', 'creer') : can('univers', 'modifier');
+    return `<form class="card grid" data-cat="${esc(c.id)}" data-new="${nv ? 1 : 0}" data-c="${c.couleur}" style="gap:10px;box-shadow:0 0 0 1px var(--line),inset 0 6px 0 var(--c)" novalidate><fieldset ${M ? '' : 'disabled'} style="border:0;padding:0;margin:0;display:grid;gap:10px;min-width:0">
+      <h2>${nv ? 'Nouvel univers' : esc(c.nom)}</h2>${nv ? '' : `<p class="hint">${n} produit(s)</p>`}
+      <div class="grid g2">${formHtml(F(nv), c, idp)}</div>
+      <div class="actions">${M ? `<button class="btn dark small" type="submit">${nv ? 'Créer' : 'Enregistrer'}</button>` : ''}
+      ${!nv && can('univers', 'supprimer') ? `<button class="btn danger small" type="button" data-delcat="${esc(c.id)}" ${n ? 'disabled title="Univers encore utilisé"' : ''}>Supprimer</button>` : ''}</div></fieldset></form>`; };
+  return head('Catalogue', 'Univers', 'Les catégories du site. Un univers masqué disparaît du menu, ses produits restent en base.')
+    + `<div class="grid g2">${cs.map(c => bloc(c, false)).join('')}${can('univers', 'creer') ? bloc({id: '', nom: '', accroche: '', couleur: 'blu', ordre: cs.length, actif: true}, true) : ''}</div>`;
+}
+function bindUnivers() {
+  const F = [{k: 'id'}, {k: 'nom'}, {k: 'accroche'}, {k: 'couleur'}, {k: 'ordre', t: 'number'}, {k: 'actif', t: 'check'}];
+  document.querySelectorAll('[data-cat]').forEach(f => f.onsubmit = async (ev) => {
+    ev.preventDefault(); const nv = f.dataset.new === '1', idp = nv ? 'cat-new' : 'cat-' + f.dataset.cat;
+    const c = lireForm(F, idp); c.id = c.id.toLowerCase(); c.ordre = c.ordre || 0;
+    if (!/^[a-z0-9-]{2,40}$/.test(c.id) || c.nom.length < 2) { toast('Identifiant (minuscules, chiffres, tirets) et nom requis.', true); return; }
+    try { await act(() => nv ? API.insert('categories', c) : API.update('categories', c.id, c), 'Univers enregistré'); await chargerRef(); route(); } catch (e) {}
+  });
+  document.querySelectorAll('[data-delcat]').forEach(b => b.onclick = async () => {
+    if (!await demander('Supprimer cet univers ?', '', 'Supprimer', true)) return;
+    try { await act(() => API.remove('categories', b.dataset.delcat), 'Univers supprimé'); await chargerRef(); route(); } catch (e) {}
+  });
+}
+async function pMachines() {
+  const [ts, ps] = await Promise.all([API.list('techniques', {order: [['ordre', true]]}), API.list('produits')]);
+  const F = nv => [{k: 'id', l: 'Identifiant', ro: !nv, ph: 'ex. sublimation'}, {k: 'nom', l: 'Nom affiché'}, {k: 'detail', l: 'Supports et usages', w: 2},
+    {k: 'delai_jours', l: 'Délai de fabrication (jours ouvrés)', t: 'number', min: 0, max: 60, step: 1}, {k: 'ordre', l: 'Ordre', t: 'number', step: 1}, {k: 'actif', l: 'Active (visible sur le site)', t: 'check'}];
+  const bloc = (t, nv) => { const n = ps.filter(p => (p.techniques || []).includes(t.id)).length, idp = nv ? 'tec-new' : 'tec-' + t.id, M = nv ? can('machines', 'creer') : can('machines', 'modifier');
+    return `<form class="card grid" data-tec="${esc(t.id)}" data-new="${nv ? 1 : 0}" style="gap:10px" novalidate><fieldset ${M ? '' : 'disabled'} style="border:0;padding:0;margin:0;display:grid;gap:10px;min-width:0"><h2>${nv ? 'Nouvelle machine' : esc(t.nom)}</h2>${nv ? '' : `<p class="hint">${n} produit(s) · délai ${t.delai_jours} j</p>`}
+      <div class="grid g2">${formHtml(F(nv), t, idp)}</div>
+      <div class="actions">${M ? `<button class="btn dark small" type="submit">${nv ? 'Créer' : 'Enregistrer'}</button>` : ''}
+      ${!nv && can('machines', 'supprimer') ? `<button class="btn danger small" type="button" data-deltec="${esc(t.id)}" ${n ? 'disabled title="Machine encore utilisée"' : ''}>Supprimer</button>` : ''}</div></fieldset></form>`; };
+  return head('Catalogue', 'Machines', 'Les technologies de l’atelier. Le délai sert à l’estimation de fabrication et à la file de production.')
+    + `<div class="grid g2">${ts.map(t => bloc(t, false)).join('')}${can('machines', 'creer') ? bloc({id: '', nom: '', detail: '', delai_jours: 3, ordre: ts.length, actif: true}, true) : ''}</div>`;
+}
+function bindMachines() {
+  const F = [{k: 'id'}, {k: 'nom'}, {k: 'detail'}, {k: 'delai_jours', t: 'number'}, {k: 'ordre', t: 'number'}, {k: 'actif', t: 'check'}];
+  document.querySelectorAll('[data-tec]').forEach(f => f.onsubmit = async (ev) => {
+    ev.preventDefault(); const nv = f.dataset.new === '1', idp = nv ? 'tec-new' : 'tec-' + f.dataset.tec;
+    const t = lireForm(F, idp); t.id = t.id.toLowerCase(); t.ordre = t.ordre || 0; t.delai_jours = t.delai_jours == null ? 3 : t.delai_jours;
+    if (!/^[a-z0-9-]{2,20}$/.test(t.id) || t.nom.length < 2) { toast('Identifiant (minuscules, chiffres, tirets) et nom requis.', true); return; }
+    try { await act(() => nv ? API.insert('techniques', t) : API.update('techniques', t.id, t), 'Machine enregistrée'); await chargerRef(); route(); } catch (e) {}
+  });
+  document.querySelectorAll('[data-deltec]').forEach(b => b.onclick = async () => {
+    if (!await demander('Supprimer cette machine ?', '', 'Supprimer', true)) return;
+    try { await act(() => API.remove('techniques', b.dataset.deltec), 'Machine supprimée'); await chargerRef(); route(); } catch (e) {}
+  });
+}
+
+/* ==================== Promotions ==================== */
+let PROMO_TAB = 'promos', PROMO_EDIT = null;
+async function pPromotions() {
+  const [promos, codes, prods] = await Promise.all([API.list('promotions', {order: [['id', false]]}), API.list('codes_promo', {order: [['cree_le', false]]}), API.list('produits', {order: [['ref', true]]})]);
+  const ds = can('devis') ? await API.list('devis') : null;
+  const cible = x => x.produit ? 'Produit ' + x.produit : x.univers ? 'Univers ' + ((catById[x.univers] || {}).nom || x.univers) : 'Tout le catalogue';
+  const etat = x => TARIF.enCours(x) ? stBadge('on', 'En cours') : (x.actif === false ? stBadge('off', 'Désactivée') : (x.debut && x.debut > TARIF.jour() ? stBadge('bat_envoye', 'À venir') : stBadge('off', 'Terminée')));
+  const periode = x => (x.debut ? 'du ' + dateFr(x.debut) : 'dès maintenant') + (x.fin ? ' au ' + dateFr(x.fin) : ', sans fin');
+  const optsCible = [['tout', 'Tout le catalogue'], ['univers', 'Un univers'], ['produit', 'Un produit']];
+  const cibleDe = e => e ? (e.produit ? 'produit' : e.univers ? 'univers' : 'tout') : 'tout';
+  const selU = `<option value="">—</option>${CATS.map(c => `<option value="${c.id}">${esc(c.nom)}</option>`).join('')}`;
+  const selP = `<option value="">—</option>${prods.map(p => `<option value="${p.ref}">${esc(p.ref + ' ' + p.nom)}</option>`).join('')}`;
+  let corps = '';
+  if (PROMO_TAB === 'promos') {
+    const e = PROMO_EDIT && PROMO_EDIT.t === 'promos' ? PROMO_EDIT.row : null;
+    corps = `<div class="grid g2" style="align-items:start"><div class="wrapt"><table class="tbl"><thead><tr><th>Promotion</th><th>Cible</th><th class="num">Remise</th><th>Période</th><th>État</th></tr></thead><tbody>
+      ${promos.length ? promos.map(x => `<tr class="go" tabindex="0" data-edit-promo="${x.id}"><td><b>${esc(x.nom)}</b></td><td>${esc(cible(x))}</td><td class="num">−${String(Number(x.pct)).replace('.', ',')} %</td><td>${esc(periode(x))}</td><td>${etat(x)}</td></tr>`).join('') : '<tr><td colspan="5" class="muted">Aucune promotion.</td></tr>'}</tbody></table></div>
+      ${can('promotions', e ? 'modifier' : 'creer') ? `<form class="card grid" id="promo-f" style="gap:12px" novalidate><h2>${e ? 'Modifier la promotion' : 'Nouvelle promotion'}</h2>
+        <p class="hint">Prix barré et badge « Promo » sur le site pendant la période. La remise s’applique au prix du palier.</p>
+        ${formHtml([{k: 'nom', l: 'Nom interne', ph: 'ex. Fête des mères'}, {k: 'pct', l: 'Remise (%)', t: 'number', min: 1, max: 90, step: 0.5}], e || {pct: 10}, 'pr')}
+        <div class="field"><label for="pr-cible">S’applique à</label><select id="pr-cible">${optsCible.map(([v, l]) => `<option value="${v}"${cibleDe(e) === v ? ' selected' : ''}>${l}</option>`).join('')}</select></div>
+        <div class="field" id="pr-u-w"><label for="pr-univers">Univers</label><select id="pr-univers">${selU}</select></div>
+        <div class="field" id="pr-p-w"><label for="pr-produit">Produit</label><select id="pr-produit">${selP}</select></div>
+        <div class="grid g2">${formHtml([{k: 'debut', l: 'Début', t: 'date'}, {k: 'fin', l: 'Fin', t: 'date'}], e || {}, 'pr')}</div>
+        ${champ({k: 'actif', l: 'Active', t: 'check'}, e ? e.actif : true, 'pr')}
+        <div class="actions nav-btns"><button class="btn primary" type="submit">${e ? 'Enregistrer' : 'Créer la promotion'}</button>${e ? '<button class="btn outline" type="button" id="pr-annul">Nouvelle</button>' : ''}${e && can('promotions', 'supprimer') ? '<button class="btn danger" type="button" id="pr-del">Supprimer</button>' : ''}</div></form>` : ''}</div>`;
+  } else if (PROMO_TAB === 'codes') {
+    const e = PROMO_EDIT && PROMO_EDIT.t === 'codes' ? PROMO_EDIT.row : null;
+    const util = c => ds ? ds.filter(d => d.code_promo === c.code && d.statut !== 'annulee').length : '—';
+    corps = `<div class="grid g2" style="align-items:start"><div class="wrapt"><table class="tbl"><thead><tr><th>Code</th><th class="num">Valeur</th><th>Conditions</th><th class="num">Utilisé</th><th>État</th></tr></thead><tbody>
+      ${codes.length ? codes.map(c => `<tr class="go" tabindex="0" data-edit-code="${esc(c.code)}"><td><b>${esc(c.code)}</b>${c.description ? `<div class="muted">${esc(c.description)}</div>` : ''}</td><td class="num">${c.type === 'pct' ? '−' + String(Number(c.valeur)).replace('.', ',') + ' %' : '−' + eur(c.valeur)}</td>
+        <td class="muted">${esc([cible(c), Number(c.minimum_ht) ? 'dès ' + eur(c.minimum_ht).replace(/ /g, ' ') + ' HT' : '', periode(c)].filter(Boolean).join(' · '))}</td><td class="num">${util(c)}${c.max_utilisations ? ' / ' + c.max_utilisations : ''}</td><td>${etat(c)}</td></tr>`).join('') : '<tr><td colspan="5" class="muted">Aucun code promo.</td></tr>'}</tbody></table></div>
+      ${can('promotions', e ? 'modifier' : 'creer') ? `<form class="card grid" id="code-f" style="gap:12px" novalidate><h2>${e ? 'Modifier le code ' + esc(e.code) : 'Nouveau code promo'}</h2>
+        <p class="hint">Saisi par le client dans son devis. La remise est recalculée par le serveur à chaque modification.</p>
+        ${formHtml([{k: 'code', l: 'Code', ro: !!e, ph: 'ex. SALON2026', h: 'Majuscules, chiffres, tirets.'}, {k: 'description', l: 'Description interne'}], e || {}, 'co')}
+        <div class="grid g2">${formHtml([{k: 'type', l: 'Type', t: 'select', opts: [['pct', 'Pourcentage'], ['montant', 'Montant en € HT']]}, {k: 'valeur', l: 'Valeur', t: 'number', min: 0.01, step: 0.01},
+          {k: 'minimum_ht', l: 'Minimum d’achat HT', t: 'number', min: 0, step: 0.01}, {k: 'max_utilisations', l: 'Utilisations maximum', t: 'number', min: 1, step: 1, ph: 'Illimité'}], e || {type: 'pct', valeur: 10, minimum_ht: 0}, 'co')}</div>
+        <div class="field"><label for="co-cible">Valable sur</label><select id="co-cible">${optsCible.map(([v, l]) => `<option value="${v}"${cibleDe(e) === v ? ' selected' : ''}>${l}</option>`).join('')}</select></div>
+        <div class="field" id="co-u-w"><label for="co-univers">Univers</label><select id="co-univers">${selU}</select></div>
+        <div class="field" id="co-p-w"><label for="co-produit">Produit</label><select id="co-produit">${selP}</select></div>
+        <div class="grid g2">${formHtml([{k: 'debut', l: 'Début', t: 'date'}, {k: 'fin', l: 'Fin', t: 'date'}], e || {}, 'co')}</div>
+        ${champ({k: 'actif', l: 'Actif', t: 'check'}, e ? e.actif : true, 'co')}
+        <div class="actions nav-btns"><button class="btn primary" type="submit">${e ? 'Enregistrer' : 'Créer le code'}</button>${e ? '<button class="btn outline" type="button" id="co-annul">Nouveau</button>' : ''}${e && can('promotions', 'supprimer') ? '<button class="btn danger" type="button" id="co-del">Supprimer</button>' : ''}</div></form>` : ''}</div>`;
+  } else {
+    const cl = can('clients') ? (await API.list('profils')).filter(p => p.role === 'client' && Number(p.remise_pro) > 0) : [];
+    corps = `<div class="card grid" style="gap:12px"><h2>Tarifs professionnels</h2><p class="hint">Remise permanente appliquée automatiquement à tous les prix d’un compte client (revendeurs, associations, collectivités). Elle se cumule aux promotions et se fixe dans le module Clients.</p>
+      ${can('clients') ? (cl.length ? `<div class="wrapt"><table class="tbl"><thead><tr><th>Client</th><th>Société</th><th class="num">Remise</th></tr></thead><tbody>${cl.map(c => `<tr><td>${esc(c.nom || c.email)}</td><td>${esc(c.societe || '—')}</td><td class="num">−${String(Number(c.remise_pro)).replace('.', ',')} %</td></tr>`).join('')}</tbody></table></div>` : '<p class="hint">Aucun client ne bénéficie d’un tarif pro.</p>') + '<div class="actions"><a class="btn outline small" href="#/clients">Gérer dans Clients</a></div>' : '<p class="hint">Le module Clients n’est pas ouvert à votre profil.</p>'}</div>`;
+  }
+  return head('Catalogue', 'Promotions', 'Prix barrés par produit ou univers, codes promo et tarifs professionnels.')
+    + tabs('promo', [['promos', 'Promotions produit'], ['codes', 'Codes promo'], ['pro', 'Tarifs professionnels']], PROMO_TAB) + corps;
+}
+function bindCible(px, row) {
+  const maj = () => { const v = $(px + '-cible').value; $(px + '-u-w').hidden = v !== 'univers'; $(px + '-p-w').hidden = v !== 'produit'; };
+  $(px + '-cible').onchange = maj;
+  if (row) { if (row.univers) $(px + '-univers').value = row.univers; if (row.produit) $(px + '-produit').value = row.produit; }
+  maj();
+}
+function lireCible(px) { const v = $(px + '-cible').value; return {univers: v === 'univers' ? ($(px + '-univers').value || null) : null, produit: v === 'produit' ? ($(px + '-produit').value || null) : null, _v: v}; }
+async function bindPromotions() {
+  bindTabs('promo', v => { PROMO_TAB = v; PROMO_EDIT = null; route(); });
+  document.querySelectorAll('[data-edit-promo]').forEach(tr => { const f = async () => { PROMO_EDIT = {t: 'promos', row: await API.get('promotions', tr.dataset.editPromo)}; route(); }; tr.onclick = f; tr.onkeydown = e => { if (e.key === 'Enter') f(); }; });
+  document.querySelectorAll('[data-edit-code]').forEach(tr => { const f = async () => { PROMO_EDIT = {t: 'codes', row: await API.get('codes_promo', tr.dataset.editCode)}; route(); }; tr.onclick = f; tr.onkeydown = e => { if (e.key === 'Enter') f(); }; });
+  const cur = PROMO_EDIT ? PROMO_EDIT.row : null;
+  if ($('promo-f')) {
+    bindCible('pr', cur);
+    if ($('pr-annul')) $('pr-annul').onclick = () => { PROMO_EDIT = null; route(); };
+    if ($('pr-del')) $('pr-del').onclick = async () => { if (!await demander('Supprimer cette promotion ?', '', 'Supprimer', true)) return; try { await act(() => API.remove('promotions', cur.id), 'Promotion supprimée'); PROMO_EDIT = null; route(); } catch (e) {} };
+    $('promo-f').onsubmit = async ev => {
+      ev.preventDefault();
+      const o = lireForm([{k: 'nom'}, {k: 'pct', t: 'number'}, {k: 'debut', t: 'date'}, {k: 'fin', t: 'date'}, {k: 'actif', t: 'check'}], 'pr'); const c = lireCible('pr');
+      if (o.nom.length < 2 || !(o.pct > 0 && o.pct <= 90)) { toast('Indiquez un nom et une remise entre 1 et 90 %.', true); return; }
+      if (c._v !== 'tout' && !(c.univers || c.produit)) { toast('Choisissez la cible de la promotion.', true); return; }
+      if (o.debut && o.fin && o.fin < o.debut) { toast('La fin doit suivre le début.', true); return; }
+      const row = {nom: o.nom, pct: o.pct, debut: o.debut, fin: o.fin, actif: o.actif, univers: c.univers, produit: c.produit};
+      try { await act(() => cur ? API.update('promotions', cur.id, row) : API.insert('promotions', row), 'Promotion enregistrée'); PROMO_EDIT = null; route(); } catch (e) {}
+    };
+  }
+  if ($('code-f')) {
+    bindCible('co', cur);
+    if ($('co-annul')) $('co-annul').onclick = () => { PROMO_EDIT = null; route(); };
+    if ($('co-del')) $('co-del').onclick = async () => { if (!await demander('Supprimer ce code ?', 'Les devis qui l’utilisent perdront la remise au prochain recalcul.', 'Supprimer', true)) return; try { await act(() => API.remove('codes_promo', cur.code), 'Code supprimé'); PROMO_EDIT = null; route(); } catch (e) {} };
+    $('code-f').onsubmit = async ev => {
+      ev.preventDefault();
+      const o = lireForm([{k: 'code'}, {k: 'description'}, {k: 'type'}, {k: 'valeur', t: 'number'}, {k: 'minimum_ht', t: 'number'}, {k: 'max_utilisations', t: 'number'}, {k: 'debut', t: 'date'}, {k: 'fin', t: 'date'}, {k: 'actif', t: 'check'}], 'co');
+      o.code = o.code.toUpperCase(); const c = lireCible('co');
+      if (!/^[A-Z0-9_-]{3,30}$/.test(o.code)) { toast('Code de 3 à 30 caractères : majuscules, chiffres, tirets.', true); return; }
+      if (!(o.valeur > 0) || (o.type === 'pct' && o.valeur > 90)) { toast('Valeur invalide (pourcentage : 90 % maximum).', true); return; }
+      if (c._v !== 'tout' && !(c.univers || c.produit)) { toast('Choisissez la cible du code.', true); return; }
+      const row = {code: o.code, description: o.description, type: o.type, valeur: o.valeur, minimum_ht: o.minimum_ht || 0, max_utilisations: o.max_utilisations || null, debut: o.debut, fin: o.fin, actif: o.actif, univers: c.univers, produit: c.produit};
+      try { await act(() => cur ? API.update('codes_promo', cur.code, row) : API.insert('codes_promo', row), 'Code enregistré'); PROMO_EDIT = null; route(); } catch (e) {}
+    };
+  }
+}
+
+/* ==================== Médiathèque ==================== */
+async function pMedias() {
+  const [m, p, prods] = await Promise.all([API.fichiers('medias'), API.fichiers('produits'), API.list('produits')]);
+  const usage = url => prods.filter(x => x.image === url).map(x => x.ref);
+  const carte = f => { const u = usage(f.url); return `<div class="media-it"><img src="${esc(f.url)}" alt="${esc(f.nom)}" loading="lazy"><div><b>${esc(f.nom)}</b><span class="muted">${f.bucket === 'medias' ? 'Médiathèque' : 'Photo produit'} · ${Math.round((f.taille || 0) / 1024)} Ko${u.length ? ' · utilisée par ' + esc(u.join(', ')) : ''}</span>
+    <div class="actions"><button class="btn outline small" type="button" data-copy="${esc(f.url)}">Copier le lien</button>${can('medias', 'supprimer') ? `<button class="btn danger small" type="button" data-delf="${esc(f.bucket)}|${esc(f.nom)}" ${u.length ? 'disabled title="Image utilisée par un produit"' : ''}>Supprimer</button>` : ''}</div></div></div>`; };
+  const tout = [...m, ...p];
+  return head('Catalogue', 'Médiathèque', `${tout.length} image(s). Les images de la médiathèque peuvent être choisies dans les fiches produits ou utilisées dans les pages.`)
+    + (can('medias', 'creer') ? `<div class="card" style="margin-bottom:16px"><div class="field"><label for="md-up">Ajouter des images (JPG, PNG, WebP, SVG — 5 Mo max chacune)</label><input id="md-up" type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" multiple></div></div>` : '')
+    + (tout.length ? `<div class="medias">${tout.map(carte).join('')}</div>` : '<p class="empty card">Aucune image pour l’instant.</p>');
+}
+function bindMedias() {
+  if ($('md-up')) $('md-up').onchange = async ev => {
+    const fs = [...(ev.target.files || [])]; let n = 0;
+    for (const f of fs) {
+      if (f.size > 5 * 1024 * 1024) { toast(f.name + ' : 5 Mo maximum.', true); continue; }
+      const base = slug(f.name.replace(/\.[^.]+$/, '')) || 'image', ext = (f.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '');
+      try { await API.upload('medias', `${base}-${Date.now()}.${ext}`, f); n++; } catch (e) { toast(messageErreur(e), true); }
+    }
+    if (n) { toast(n + ' image(s) ajoutée(s)'); route(); }
+  };
+  document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copier(b.dataset.copy, 'Lien copié'));
+  document.querySelectorAll('[data-delf]').forEach(b => b.onclick = async () => {
+    const [bk, nom] = b.dataset.delf.split('|');
+    if (!await demander('Supprimer cette image ?', nom, 'Supprimer', true)) return;
+    try { await act(() => API.supprimerFichier(bk, nom), 'Image supprimée'); route(); } catch (e) {}
+  });
+}
+function copier(t, msg) {
+  const ok = () => toast(msg || 'Copié');
+  const repli = () => { const ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (e) { toast('Copie impossible : sélectionnez le texte manuellement', true); } ta.remove(); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, repli); else repli();
+}
+
+/* ==================== Devis et commandes ==================== */
+let CF = {s: '', q: ''};
+async function pCommandes(params) {
+  if (params.get('s')) CF.s = params.get('s');
+  const ds = await API.list('suivi_devis', {order: [['cree_le', false]]});
+  const liste = ds.filter(d => (!CF.s || d.statut === CF.s) && (!CF.q || norm([d.numero, d.client_nom, d.client_societe, d.client_email].join(' ')).includes(norm(CF.q))));
+  return head('Ventes', 'Devis et commandes', `${ds.length} au total · ${liste.length} affichés`, can('devis', 'creer') ? '<button class="btn primary" type="button" id="dv-new">Créer un devis</button>' : '')
+    + `<div class="tools"><label class="sr" for="cf-q">Rechercher</label><input id="cf-q" type="search" placeholder="N°, client, société…" value="${esc(CF.q)}">
+      <label class="sr" for="cf-s">Statut</label><select id="cf-s"><option value="">Tous les statuts</option>${Object.entries(STATUTS).map(([k, v]) => `<option value="${k}"${CF.s === k ? ' selected' : ''}>${v}</option>`).join('')}</select></div>`
+    + tableDevis(liste);
+}
+function bindCommandes() {
+  $('cf-q').oninput = e => { CF.q = e.target.value; clearTimeout(bindCommandes.t); bindCommandes.t = setTimeout(async () => { await route(); const i = $('cf-q'); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }, 250); };
+  $('cf-s').onchange = e => { CF.s = e.target.value; history.replaceState(null, '', '#/commandes'); route(); };
+  if ($('dv-new')) $('dv-new').onclick = nouveauDevis;
+}
+async function nouveauDevis() {
+  const cl = (await API.list('profils')).filter(p => p.role === 'client' && p.actif);
+  modalPrev = document.activeElement; modalRes = null;
+  $('modal-box').innerHTML = `<h2 id="modal-t">Créer un devis</h2><p>Pour une demande reçue par téléphone, e-mail ou au comptoir. Le client doit avoir un compte sur le site.</p>
+    <div class="field"><label for="nd-c">Client</label><select id="nd-c">${cl.map(c => `<option value="${c.id}">${esc((c.societe ? c.societe + ' — ' : '') + (c.nom || c.email))}</option>`).join('')}</select></div>
+    <div class="field"><label for="nd-d">Destination</label><select id="nd-d">${Object.entries(DEST).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select></div>
+    <div class="actions nav-btns" style="justify-content:flex-end"><button class="btn outline" type="button" id="nd-x">Annuler</button><button class="btn primary" type="button" id="nd-ok" ${cl.length ? '' : 'disabled'}>Créer</button></div>`;
+  $('modal').hidden = false; $('nd-c').focus();
+  $('nd-x').onclick = () => fermerModal(false);
+  $('nd-ok').onclick = async () => {
+    try { const d = await act(() => API.insert('devis', {client: $('nd-c').value, destination: $('nd-d').value, statut: 'demande'}), 'Devis créé : ajoutez les lignes'); fermerModal(false); go('#/commandes/' + d.id); } catch (e) {}
+  };
+}
+let DEV = null;
+async function pCommande(id) {
+  const d = await API.get('suivi_devis', Number(id));
+  if (!d) { DEV = null; return '<div class="card"><p class="msg err">Devis introuvable.</p><p><a href="#/commandes">Retour aux devis</a></p></div>'; }
+  const [lignes, paiements, bats, prods] = await Promise.all([API.list('devis_lignes', {eq: {devis: d.id}, order: [['id', true]], select: '*, produits(nom, categorie, techniques)'}),
+    can('paiements') ? API.list('paiements', {eq: {devis: d.id}, order: [['date_paiement', true]]}) : Promise.resolve(null),
+    API.list('bats', {eq: {devis: d.id}, order: [['version', false]]}), can('devis', 'modifier') ? API.list('produits', {order: [['ref', true]]}) : Promise.resolve([])]);
+  const mails = can('emails') ? await API.list('emails', {eq: {devis: d.id}, order: [['id', false]]}) : null;
+  DEV = {...d, lignes, paiements, bats};
+  const M = can('devis', 'modifier');
+  const opts = l => [l.emplacement ? 'marquage supplémentaire' : '', l.express ? 'express 24 h' : '', Number(l.promo_pct) ? 'promo −' + Number(l.promo_pct) + ' %' : '', Number(l.remise_pro) ? 'tarif pro −' + Number(l.remise_pro) + ' %' : '', l.prix_force ? 'prix forcé' : '', l.fichier ? 'fichier : ' + l.fichier : ''].filter(Boolean).join(' · ');
+  const tl = `<div class="wrapt"><table class="tbl"><thead><tr><th>Produit</th><th class="num">Qté</th><th class="num">PU HT</th><th class="num">Total HT</th><th>Production</th></tr></thead><tbody>
+    ${lignes.length ? lignes.map(l => `<tr><td style="min-width:220px"><b>${esc(l.ref)}</b> ${esc((l.produits || {}).nom || '')}<div class="muted">${esc(opts(l))}</div>${l.note ? `<div class="muted">« ${esc(l.note)} »</div>` : ''}${M ? `<div class="actions" style="margin-top:8px">${l.prix_force ? `<button class="btn outline small" type="button" data-lgrille="${l.id}">Prix grille</button>` : ''}<button class="btn danger small" type="button" data-ldel="${l.id}">Retirer</button></div>` : ''}</td>
+      <td class="num">${M ? `<label class="sr" for="lq-${l.id}">Quantité</label><input class="inl" id="lq-${l.id}" type="number" inputmode="numeric" min="1" step="1" value="${l.quantite}" style="width:76px" data-lq="${l.id}">` : l.quantite}</td>
+      <td class="num">${M ? `<label class="sr" for="lp-${l.id}">Prix unitaire HT</label><input class="inl" id="lp-${l.id}" type="number" inputmode="decimal" min="0" step="0.01" value="${Number(l.prix_unitaire)}" style="width:92px" data-lp="${l.id}" title="Modifier force le prix">` : eur(l.prix_unitaire)}</td>
+      <td class="num">${eur(l.total)}</td><td>${stBadge(l.statut_prod, PROD_ST[l.statut_prod])}</td></tr>`).join('') : `<tr><td colspan="5" class="muted">Aucune ligne.</td></tr>`}</tbody></table></div>`;
+  const ajout = M ? `<form class="grid" id="ladd" style="gap:10px;margin-top:12px;grid-template-columns:2fr 1fr auto;align-items:end" novalidate>
+      <div class="field"><label for="la-ref">Ajouter un produit</label><select id="la-ref">${prods.map(p => `<option value="${p.ref}">${esc(p.ref + ' ' + p.nom + ' (dès ' + p.quantites[0] + ')')}</option>`).join('')}</select></div>
+      <div class="field"><label for="la-q">Quantité</label><input id="la-q" type="number" inputmode="numeric" min="1" step="1" value="1"></div>
+      <button class="btn dark" type="submit">Ajouter</button>
+      <div class="actions" style="grid-column:1/-1"><label class="check"><input type="checkbox" id="la-e"> Marquage supplémentaire</label><label class="check"><input type="checkbox" id="la-x"> Express 24 h</label></div></form>` : '';
+  const total = `<div class="sum" style="margin-top:14px"><span>Sous-total HT</span><span class="v">${eur(d.sous_total_ht)}</span>
+    ${d.code_promo ? `<span>Code ${esc(d.code_promo)}${d.code_valide ? '' : ' <b style="color:var(--err)">(non applicable)</b>'}</span><span class="v">−${eur(d.remise_code)}</span>` : ''}
+    <span>Total HT</span><span class="v">${eur(d.total_ht)}</span><span>Livraison HT</span><span class="v">${eur(d.frais_livraison)}</span>
+    <span>${Number(d.taux_tva) ? 'TVA ' + String(r2(d.taux_tva * 100)).replace('.', ',') + ' %' : 'TVA non applicable'}</span><span class="v">${eur((Number(d.total_ht) + Number(d.frais_livraison)) * Number(d.taux_tva))}</span>
+    <span>Total TTC</span><span class="v big">${eur(d.total_ttc)}</span></div>`;
+  const batHtml = `<div class="card grid" style="gap:12px"><h2>Bon à tirer</h2>
+    ${bats.length ? `<div class="wrapt"><table class="tbl"><thead><tr><th>Version</th><th>Déposé</th><th>Statut</th><th></th></tr></thead><tbody>${bats.map(b => `<tr><td><b>v${b.version}</b>${b.message ? `<div class="muted">${esc(b.message)}</div>` : ''}</td><td>${heureFr(b.depose_le)}</td>
+      <td>${stBadge(b.statut, BAT_ST[b.statut])}${b.commentaire_client ? `<div class="muted">« ${esc(b.commentaire_client)} »</div>` : ''}${b.repondu_le ? `<div class="muted">${heureFr(b.repondu_le)}</div>` : ''}</td>
+      <td><button class="btn outline small" type="button" data-bat="${esc(b.fichier)}">Ouvrir</button></td></tr>`).join('')}</tbody></table></div>` : '<p class="hint">Aucun BAT déposé. Le client le valide ou demande une correction depuis son espace ; aucune fabrication ne démarre sans validation.</p>'}
+    ${M ? `<form class="grid" id="batf" style="gap:10px" novalidate><div class="field"><label for="bt-f">Déposer ${bats.length ? 'une nouvelle version' : 'le BAT'} (PDF, JPG, PNG — 10 Mo max)</label><input id="bt-f" type="file" accept="application/pdf,image/jpeg,image/png"></div>
+      <div class="field"><label for="bt-m">Message au client</label><input id="bt-m" maxlength="1000" placeholder="ex. Logo poitrine 9 cm, couleur blanche"></div>
+      <div class="actions"><button class="btn primary" type="submit">Envoyer le BAT au client</button></div></form>` : ''}</div>`;
+  const payHtml = paiements ? `<div class="card grid" style="gap:12px"><h2>Paiements</h2>
+    <div class="sum"><span>Payé</span><span class="v">${eur(d.paye)}</span><span>Reste à payer</span><span class="v big" id="reste">${eur(d.reste)}</span></div>
+    ${paiements.length ? `<div class="wrapt"><table class="tbl"><thead><tr><th>Date</th><th>Type</th><th>Mode</th><th class="num">Montant</th></tr></thead><tbody>
+      ${paiements.map(p => `<tr><td>${dateFr(p.date_paiement)}</td><td>${TYPES[p.type]}</td><td>${MODES[p.mode]}${p.reference ? `<div class="muted">${esc(p.reference)}</div>` : ''}</td><td class="num">${p.type === 'remboursement' ? '−' : ''}${eur(p.montant)}${can('paiements', 'supprimer') ? `<div style="margin-top:6px"><button class="btn danger small" type="button" data-delpay="${p.id}" aria-label="Supprimer le paiement du ${dateFr(p.date_paiement)}">Supprimer</button></div>` : ''}</td></tr>`).join('')}</tbody></table></div>` : '<p class="hint">Aucun paiement enregistré.</p>'}
+    ${can('paiements', 'creer') ? `<form class="grid" id="payform" style="gap:10px" novalidate>
+      <div class="grid g2"><div class="field"><label for="p-type">Type</label><select id="p-type">${Object.entries(TYPES).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select></div>
+      <div class="field"><label for="p-mode">Mode</label><select id="p-mode">${Object.entries(MODES).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select></div></div>
+      <div class="grid g2"><div class="field"><label for="p-montant">Montant TTC</label><input id="p-montant" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="${Number(d.reste) > 0 ? r2(d.reste) : ''}"></div>
+      <div class="field"><label for="p-date">Date</label><input id="p-date" type="date" value="${new Date().toISOString().slice(0, 10)}"></div></div>
+      <div class="field"><label for="p-ref">Référence (n° de virement, de chèque…)</label><input id="p-ref" maxlength="120"></div>
+      <div class="actions"><button class="btn dark" type="submit">Enregistrer le paiement</button>${Number(d.reste) > 0 ? '<button class="btn outline" type="button" id="p-solde">Solder le reste</button>' : ''}</div></form>` : ''}</div>` : '';
+  return head('Devis ' + d.numero, (d.client_societe || d.client_nom || d.client_email), `Créé le ${heureFr(d.cree_le)} · ${DEST[d.destination]} · ${STATUTS[d.statut]}`, `<a class="btn outline" href="#/commandes">Retour aux devis</a>`)
+  + `<div class="grid dv-grid">
+    <div class="grid" style="gap:16px">
+      <div class="card"><h2 style="margin-bottom:12px">Lignes</h2>${tl}${ajout}${total}</div>
+      ${batHtml}
+      <div class="card"><h2 style="margin-bottom:8px">Client</h2>
+        <p><b>${esc(d.client_nom)}</b>${d.client_societe ? ' · ' + esc(d.client_societe) : ''}</p>
+        <p>${esc(d.client_email)}${d.client_telephone ? ' · ' + esc(d.client_telephone) : ''}</p>
+        ${d.message ? `<p style="margin-top:10px" class="hint">Message : « ${esc(d.message)} »</p>` : ''}</div>
+      ${mails ? `<div class="card"><h2 style="margin-bottom:8px">E-mails liés</h2>${mails.length ? mails.map(m => `<p class="hint">${heureFr(m.cree_le)} · ${esc(MAIL_TYPES[m.type] || m.type)} → ${esc(m.destinataire)} · ${stBadge(m.statut, MAIL_ST[m.statut])}</p>`).join('') : '<p class="hint">Aucun e-mail.</p>'}</div>` : ''}
+    </div>
+    <div class="grid" style="gap:16px">
+      ${M ? `<form class="card grid" id="dform" style="gap:12px" novalidate><h2>Suivi</h2>
+        <div class="grid g2"><div class="field"><label for="d-statut">Statut</label><select id="d-statut">${Object.entries(STATUTS).map(([k, v]) => `<option value="${k}"${d.statut === k ? ' selected' : ''}>${v}</option>`).join('')}</select></div>
+        <div class="field"><label for="d-frais">Frais de livraison HT</label><input id="d-frais" type="number" inputmode="decimal" min="0" step="0.01" value="${Number(d.frais_livraison)}"></div></div>
+        <div class="grid g2"><div class="field"><label for="d-dest">Destination</label><select id="d-dest">${Object.entries(DEST).map(([k, v]) => `<option value="${k}"${d.destination === k ? ' selected' : ''}>${v}</option>`).join('')}</select></div>
+        <div class="field"><label for="d-code">Code promo</label><input id="d-code" value="${esc(d.code_promo || '')}" placeholder="Aucun"></div></div>
+        <div class="field"><label for="d-note">Note interne (invisible pour le client)</label><textarea id="d-note">${esc(d.note_interne || '')}</textarea></div>
+        <p class="hint">Le client reçoit un e-mail à chaque changement de statut (sauf « BAT envoyé », qui a son propre e-mail).</p>
+        <div class="actions nav-btns"><button class="btn primary" type="submit">Enregistrer le suivi</button>${can('devis', 'supprimer') ? '<button class="btn danger" type="button" id="d-del">Supprimer le devis</button>' : ''}</div></form>` : `<div class="card"><h2>Suivi</h2><p style="margin-top:8px">${stBadge(d.statut, STATUTS[d.statut])}</p>${d.note_interne ? `<p class="hint" style="margin-top:8px">${esc(d.note_interne)}</p>` : ''}</div>`}
+      ${payHtml}
+    </div></div>`;
+}
+function bindCommande() {
+  const d = DEV; if (!d) return;
+  const re = () => route();
+  document.querySelectorAll('[data-lq]').forEach(i => i.onchange = async () => { try { await act(() => API.update('devis_lignes', Number(i.dataset.lq), {quantite: Math.floor(Number(i.value))}), 'Quantité mise à jour'); } catch (e) {} re(); });
+  document.querySelectorAll('[data-lp]').forEach(i => i.onchange = async () => { const v = Number(i.value); if (!(v >= 0)) return; try { await act(() => API.update('devis_lignes', Number(i.dataset.lp), {prix_force: true, prix_unitaire: r2(v)}), 'Prix forcé enregistré'); } catch (e) {} re(); });
+  document.querySelectorAll('[data-lgrille]').forEach(b => b.onclick = async () => { try { await act(() => API.update('devis_lignes', Number(b.dataset.lgrille), {prix_force: false}), 'Prix de la grille rétabli'); } catch (e) {} re(); });
+  document.querySelectorAll('[data-ldel]').forEach(b => b.onclick = async () => { if (!await demander('Retirer cette ligne ?', '', 'Retirer', true)) return; try { await act(() => API.remove('devis_lignes', Number(b.dataset.ldel)), 'Ligne retirée'); } catch (e) {} re(); });
+  if ($('ladd')) $('ladd').onsubmit = async ev => { ev.preventDefault(); try { await act(() => API.insert('devis_lignes', {devis: d.id, ref: $('la-ref').value, quantite: Math.floor(Number($('la-q').value)), emplacement: $('la-e').checked, express: $('la-x').checked}), 'Ligne ajoutée'); re(); } catch (e) {} };
+  document.querySelectorAll('[data-bat]').forEach(b => b.onclick = async () => { try { const u = await API.lienBat(b.dataset.bat); const a = document.createElement('a'); a.href = u; a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); } catch (e) { toast(messageErreur(e), true); } });
+  if ($('batf')) $('batf').onsubmit = async ev => {
+    ev.preventDefault(); const f = $('bt-f').files && $('bt-f').files[0];
+    if (!f) { toast('Choisissez le fichier du BAT.', true); return; }
+    if (f.size > 10 * 1024 * 1024) { toast('Fichier trop lourd : 10 Mo maximum.', true); return; }
+    const v = (d.bats.reduce((m, b) => Math.max(m, b.version), 0) || 0) + 1, ext = (f.name.split('.').pop() || 'pdf').toLowerCase().replace(/[^a-z0-9]/g, '');
+    try {
+      await act(async () => { const path = await API.upload('bat', `${d.id}/${v}-${Date.now()}.${ext}`, f); await API.insert('bats', {devis: d.id, fichier: path, nom_fichier: f.name.slice(0, 120), message: $('bt-m').value.trim() || null}); }, 'BAT envoyé : le client est prévenu');
+      re();
+    } catch (e) {}
+  };
+  if ($('dform')) $('dform').onsubmit = async ev => {
+    ev.preventDefault();
+    const patch = {statut: $('d-statut').value, frais_livraison: Number($('d-frais').value) || 0, destination: $('d-dest').value, code_promo: $('d-code').value.trim().toUpperCase() || null, note_interne: $('d-note').value.trim()};
+    if (patch.statut !== d.statut && ['valide', 'en_production'].includes(patch.statut) && !d.bats.some(b => b.statut === 'valide')) {
+      if (!await demander('Aucun BAT validé', 'Passer la commande en « ' + STATUTS[patch.statut] + ' » sans BAT validé par le client ?', 'Continuer')) return;
+    }
+    try { await act(() => API.update('devis', d.id, patch), 'Suivi enregistré'); re(); } catch (e) {}
+  };
+  if ($('d-del')) $('d-del').onclick = async () => { if (!await demander('Supprimer ce devis ?', 'Suppression définitive des lignes et des BAT. Impossible si des paiements existent.', 'Supprimer', true)) return; try { await act(() => API.remove('devis', d.id), 'Devis supprimé'); go('#/commandes'); } catch (e) {} };
+  if ($('p-solde')) $('p-solde').onclick = () => { $('p-type').value = 'solde'; $('p-montant').value = r2(d.reste); $('p-montant').focus(); };
+  if ($('payform')) $('payform').onsubmit = async ev => {
+    ev.preventDefault(); const m = Number($('p-montant').value);
+    if (!(m > 0)) { toast('Indiquez un montant supérieur à zéro.', true); $('p-montant').focus(); return; }
+    try { await act(() => API.insert('paiements', {devis: d.id, type: $('p-type').value, mode: $('p-mode').value, montant: r2(m), date_paiement: $('p-date').value, reference: $('p-ref').value.trim() || null}), 'Paiement enregistré'); re(); } catch (e) {}
+  };
+  document.querySelectorAll('[data-delpay]').forEach(b => b.onclick = async () => { if (!await demander('Supprimer ce paiement ?', '', 'Supprimer', true)) return; try { await act(() => API.remove('paiements', Number(b.dataset.delpay)), 'Paiement supprimé'); re(); } catch (e) {} });
+}
+
+/* ==================== Production ==================== */
+let PRM = '';
+async function pProduction() {
+  const [ds, ls, bats] = await Promise.all([API.list('suivi_devis'), API.list('devis_lignes', {select: '*, produits(nom, categorie, techniques)'}), API.list('bats')]);
+  const actifs = Object.fromEntries(ds.filter(d => ['valide', 'en_production', 'prete'].includes(d.statut)).map(d => [d.id, d]));
+  const machine = l => ((l.produits || {}).techniques || [])[0] || '—';
+  const jobs = ls.filter(l => actifs[l.devis] && (!PRM || ((l.produits || {}).techniques || []).includes(PRM)));
+  const batOk = id => bats.some(b => b.devis === id && b.statut === 'valide');
+  const M = can('production', 'modifier');
+  const carte = l => { const d = actifs[l.devis]; const machines = ((l.produits || {}).techniques || []).map(t => (TECH[t] || {}).nom || t).join(' + ') || '—'; const cat = (catById[(l.produits || {}).categorie] || {}).couleur || 'blu';
+    return `<div class="job" data-c="${cat}"><div class="actions" style="justify-content:space-between"><b>${esc(d.numero)}</b>${l.express ? stBadge('correction', 'Express') : ''}</div>
+      <span><b>${l.quantite} ×</b> ${esc(l.ref)} ${esc((l.produits || {}).nom || '')}</span>
+      <span class="muted">${esc(d.client_societe || d.client_nom || '')} · ${esc(machines)}${l.emplacement ? ' · marquage supplémentaire' : ''}</span>
+      ${l.note ? `<span class="muted">« ${esc(l.note)} »</span>` : ''}${l.fichier ? `<span class="muted">Fichier : ${esc(l.fichier)}</span>` : ''}
+      <span>${batOk(d.id) ? stBadge('valide', 'BAT validé') : stBadge('correction', 'BAT non validé')} <span class="muted">· reçu le ${dateFr(d.cree_le)}</span></span>
+      ${M ? `<div class="actions">${l.statut_prod === 'a_faire' ? `<button class="btn dark small" type="button" data-pst="${l.id}|en_cours">Démarrer</button>` : ''}${l.statut_prod === 'en_cours' ? `<button class="btn primary small" type="button" data-pst="${l.id}|termine">Terminer</button><button class="btn outline small" type="button" data-pst="${l.id}|a_faire">Remettre à faire</button>` : ''}${l.statut_prod === 'termine' ? `<button class="btn outline small" type="button" data-pst="${l.id}|en_cours">Rouvrir</button>` : ''}</div>` : ''}</div>`; };
+  const col = (st, titre) => { const js = jobs.filter(l => l.statut_prod === st).sort((a, b) => (b.express - a.express) || (actifs[a.devis].cree_le > actifs[b.devis].cree_le ? 1 : -1));
+    return `<section class="col" aria-label="${titre}"><h2>${titre} <span class="st ${st}">${js.length}</span></h2>${js.map(carte).join('') || '<p class="hint">Rien ici.</p>'}</section>`; };
+  void machine;
+  return head('Ventes', 'Production', 'Lignes des commandes validées, par machine. Une commande passe en production à la première ligne démarrée, et devient « Prête » quand toutes ses lignes sont terminées.')
+    + `<div class="tools"><label class="sr" for="pr-m">Machine</label><select id="pr-m"><option value="">Toutes les machines</option>${Object.entries(TECH).map(([k, t]) => `<option value="${k}"${PRM === k ? ' selected' : ''}>${esc(t.nom)}</option>`).join('')}</select></div>`
+    + `<div class="kanban">${col('a_faire', 'À faire')}${col('en_cours', 'En cours')}${col('termine', 'Terminé')}</div>`;
+}
+function bindProduction() {
+  $('pr-m').onchange = e => { PRM = e.target.value; route(); };
+  document.querySelectorAll('[data-pst]').forEach(b => b.onclick = async () => { const [id, s] = b.dataset.pst.split('|'); try { await act(() => API.update('devis_lignes', Number(id), {statut_prod: s}), PROD_ST[s]); await compterBadges(); buildNav(); route(); } catch (e) {} });
+}
+
+/* ==================== Paiements ==================== */
+let PAF = {m: '', p: '90'};
+async function pPaiements() {
+  const [ps, ds] = await Promise.all([API.list('paiements', {order: [['date_paiement', false]]}), can('devis') || can('statistiques') ? API.list('suivi_devis') : Promise.resolve([])]);
+  const dv = Object.fromEntries(ds.map(d => [d.id, d]));
+  const debut = PAF.p === 'tout' ? '' : new Date(Date.now() - Number(PAF.p) * 864e5).toISOString().slice(0, 10);
+  const liste = ps.filter(p => (!PAF.m || p.mode === PAF.m) && (!debut || p.date_paiement >= debut));
+  const signe = p => (p.type === 'remboursement' ? -1 : 1) * Number(p.montant);
+  const tot = liste.reduce((s, p) => s + signe(p), 0);
+  const parMode = Object.entries(MODES).map(([k, v]) => [v, liste.filter(p => p.mode === k).reduce((s, p) => s + signe(p), 0)]).filter(x => x[1]);
+  return head('Ventes', 'Paiements', `${liste.length} paiement(s) · ${eur(tot)} encaissés`)
+    + `<div class="tools"><label class="sr" for="pa-m">Mode</label><select id="pa-m"><option value="">Tous les modes</option>${Object.entries(MODES).map(([k, v]) => `<option value="${k}"${PAF.m === k ? ' selected' : ''}>${v}</option>`).join('')}</select>
+      <label class="sr" for="pa-p">Période</label><select id="pa-p">${[['30', '30 derniers jours'], ['90', '90 derniers jours'], ['365', '12 derniers mois'], ['tout', 'Tout']].map(([v, l]) => `<option value="${v}"${PAF.p === v ? ' selected' : ''}>${l}</option>`).join('')}</select></div>`
+    + (parMode.length ? `<div class="grid g4" style="margin-bottom:16px">${parMode.map(([m, v], i) => `<div class="kpi" data-c="${['cya', 'ora', 'blu', 'mag', 'cya'][i]}"><b>${eur(v)}</b><span>${esc(m)}</span></div>`).join('')}</div>` : '')
+    + (liste.length ? `<div class="wrapt"><table class="tbl"><thead><tr><th>Date</th><th>Devis</th><th>Client</th><th>Type</th><th>Mode</th><th class="num">Montant</th></tr></thead><tbody>
+      ${liste.map(p => { const d = dv[p.devis] || {}; const lien = can('devis'); return `<tr${lien ? ` class="go" tabindex="0" onclick="go('#/commandes/${p.devis}')" onkeydown="if(event.key==='Enter')go('#/commandes/${p.devis}')"` : ''}><td>${dateFr(p.date_paiement)}</td><td><b>${esc(d.numero || '#' + p.devis)}</b></td><td>${esc(d.client_societe || d.client_nom || '—')}</td><td>${TYPES[p.type]}</td><td>${MODES[p.mode]}${p.reference ? `<div class="muted">${esc(p.reference)}</div>` : ''}</td><td class="num">${p.type === 'remboursement' ? '−' : ''}${eur(p.montant)}</td></tr>`; }).join('')}</tbody></table></div>` : '<p class="empty card">Aucun paiement sur cette période.</p>');
+}
+function bindPaiements() { $('pa-m').onchange = e => { PAF.m = e.target.value; route(); }; $('pa-p').onchange = e => { PAF.p = e.target.value; route(); }; }
+
+/* ==================== Clients ==================== */
+async function pClients() {
+  const [ps, ds] = await Promise.all([API.list('profils', {order: [['cree_le', false]]}), can('devis') ? API.list('suivi_devis') : Promise.resolve([])]);
+  const cl = ps.filter(p => p.role === 'client').map(p => { const mes = ds.filter(d => d.client === p.id && d.statut !== 'annulee'); return {...p, n: mes.length, ttc: mes.reduce((s, d) => s + Number(d.total_ttc), 0), reste: mes.reduce((s, d) => s + Math.max(0, Number(d.reste)), 0)}; });
+  const M = can('clients', 'modifier'), U = can('utilisateurs', 'modifier');
+  return head('Ventes', 'Clients', `${cl.length} comptes clients. Le tarif pro s’applique automatiquement aux nouvelles lignes de leurs devis.`)
+    + (cl.length ? `<div class="wrapt"><table class="tbl"><thead><tr><th>Client</th><th>Contact</th><th>Inscrit le</th><th class="num">Devis</th><th class="num">Montant TTC</th><th class="num">Reste dû</th><th>Tarif pro</th>${U ? '<th>Compte</th>' : ''}</tr></thead><tbody>
+      ${cl.map(c => `<tr><td><b>${esc(c.nom || '—')}</b>${c.societe ? `<div class="muted">${esc(c.societe)}</div>` : ''}</td><td>${esc(c.email)}${c.telephone ? `<div class="muted">${esc(c.telephone)}</div>` : ''}</td>
+        <td>${dateFr(c.cree_le)}</td><td class="num">${c.n}</td><td class="num">${eur(c.ttc)}</td><td class="num">${c.reste > 0.004 ? `<b>${eur(c.reste)}</b>` : '—'}</td>
+        <td>${M ? `<label class="sr" for="rp-${c.id}">Remise pro de ${esc(c.email)} (%)</label><input class="inl" id="rp-${c.id}" type="number" inputmode="decimal" min="0" max="90" step="0.5" value="${Number(c.remise_pro || 0)}" style="width:80px" data-rp="${c.id}"> %` : (Number(c.remise_pro) ? '−' + Number(c.remise_pro) + ' %' : '—')}</td>
+        ${U ? `<td><label class="check"><input type="checkbox" data-actc="${c.id}"${c.actif ? ' checked' : ''}> ${c.actif ? 'Actif' : 'Désactivé'}</label></td>` : ''}</tr>`).join('')}</tbody></table></div>` : '<p class="empty card">Aucun client inscrit.</p>');
+}
+function bindClients() {
+  document.querySelectorAll('[data-rp]').forEach(i => i.onchange = async () => { const v = Number(i.value); if (!(v >= 0 && v <= 90)) { toast('Remise entre 0 et 90 %.', true); return; } try { await act(() => API.update('profils', i.dataset.rp, {remise_pro: r2(v)}), 'Tarif pro enregistré'); } catch (e) { route(); } });
+  document.querySelectorAll('[data-actc]').forEach(c => c.onchange = async () => {
+    if (!c.checked && !await demander('Désactiver ce compte client ?', 'Le client ne pourra plus se connecter. Son historique est conservé.', 'Désactiver', true)) { c.checked = true; return; }
+    try { await act(() => API.update('profils', c.dataset.actc, {actif: c.checked}), c.checked ? 'Compte réactivé' : 'Compte désactivé'); route(); } catch (e) { c.checked = !c.checked; }
+  });
+}
+
+/* ==================== Pages, accueil et SEO ==================== */
+let PG_TAB = 'accueil', PG_EDIT = null;
+async function pPages() {
+  const M = can('pages', 'modifier');
+  let corps = '';
+  if (PG_TAB === 'accueil') {
+    const a = JSON.parse(JSON.stringify(param('accueil') || DATA.accueil)); PG_EDIT = a;
+    a.sections = a.sections || Object.keys(SECTIONS).map(id => ({id, visible: true}));
+    const b = a.banniere || {};
+    corps = `<form class="grid g2" id="acc-f" style="align-items:start" novalidate><fieldset ${M ? '' : 'disabled'} style="border:0;padding:0;margin:0;min-width:0;display:contents">
+      <div class="card grid" style="gap:10px"><h2>Sections de la page d’accueil</h2><p class="hint">Ordre d’affichage et visibilité.</p><div class="grid" id="acc-sec" style="gap:8px"></div></div>
+      <div class="grid" style="gap:16px">
+        <div class="card grid" style="gap:10px"><h2>Bannière d’annonce</h2><p class="hint">Bandeau coloré en haut du site : soldes, fermeture exceptionnelle, nouveauté.</p>
+          ${champ({k: 'actif', l: 'Afficher la bannière', t: 'check'}, b.actif, 'bn')}${formHtml([{k: 'texte', l: 'Texte', maxl: 140}, {k: 'lien', l: 'Lien (facultatif)', ph: '#/c/mugs ou https://…'}, {k: 'couleur', l: 'Couleur', t: 'select', opts: [['ora', 'Orange'], ['mag', 'Magenta'], ['cya', 'Cyan'], ['blu', 'Bleu']]}], b, 'bn')}
+          <div class="grid g2">${formHtml([{k: 'debut', l: 'Début', t: 'date'}, {k: 'fin', l: 'Fin', t: 'date'}], b, 'bn')}</div></div>
+        <div class="card grid" style="gap:10px"><h2>Sélection de produits</h2>
+          ${formHtml([{k: 'titre', l: 'Titre de la section'}, {k: 'refs', l: 'Références mises en avant (8 maximum, dans l’ordre)', ph: 'ex. T-01, M-01, B-01', h: 'Vide : produits marqués Best-seller puis Nouveau.'}], {titre: (a.selection || {}).titre, refs: ((a.selection || {}).refs || []).join(', ')}, 'sl')}</div>
+        ${M ? '<div class="actions nav-btns"><button class="btn primary" type="submit">Enregistrer l’accueil</button></div>' : ''}
+      </div></fieldset></form>`;
+  } else if (PG_TAB === 'pages') {
+    const ps = await API.list('pages', {order: [['ordre', true]]});
+    const e = PG_EDIT && PG_EDIT.slug !== undefined && PG_EDIT.contenu !== undefined ? PG_EDIT : null;
+    corps = `<div class="grid g2" style="align-items:start"><div class="grid" style="gap:12px"><div class="wrapt"><table class="tbl"><thead><tr><th>Page</th><th>Type</th><th>État</th></tr></thead><tbody>
+      ${ps.map(p => `<tr class="go" tabindex="0" data-pg="${esc(p.slug)}"><td><b>${esc(p.titre)}</b><div class="muted">#/page/${esc(p.slug)}</div></td><td>${p.type === 'legale' ? 'Légale' : 'Libre'}</td><td>${p.publie ? stBadge('on', 'Publiée') : stBadge('off', 'Brouillon')}</td></tr>`).join('')}</tbody></table></div>
+      ${can('pages', 'creer') ? '<div class="actions"><button class="btn primary" type="button" id="pg-new">Nouvelle page</button></div>' : ''}</div>
+      ${e ? `<form class="card grid" id="pg-f" style="gap:12px" novalidate><fieldset ${can('pages', e._nouveau ? 'creer' : 'modifier') ? '' : 'disabled'} style="border:0;padding:0;margin:0;min-width:0;display:grid;gap:12px">
+        <h2>${e._nouveau ? 'Nouvelle page' : esc(e.titre)}</h2>
+        ${e.type === 'legale' ? '<p class="hint">Page légale : elle peut être modifiée ou dépubliée, pas supprimée. Faites valider son contenu par un professionnel.</p>' : ''}
+        <div class="grid g2">${formHtml([{k: 'titre', l: 'Titre', maxl: 120}, {k: 'slug', l: 'Adresse', ro: !e._nouveau, h: 'Minuscules et tirets ; définitive.'}], e, 'pg')}</div>
+        ${champ({k: 'contenu', l: 'Contenu', t: 'textarea', long: true, h: '## Titre · ### Sous-titre · - élément de liste · > encadré · **gras** · [texte](https://lien)'}, e.contenu, 'pg')}
+        <div class="grid g2">${formHtml([{k: 'seo_titre', l: 'Titre pour Google (70 caractères)', maxl: 70}, {k: 'ordre', l: 'Ordre', t: 'number', step: 1}], e, 'pg')}</div>
+        ${champ({k: 'seo_description', l: 'Description pour Google (160 caractères conseillés)', t: 'textarea', maxl: 300}, e.seo_description, 'pg')}
+        <div class="actions">${champ({k: 'publie', l: 'Publiée', t: 'check'}, e.publie, 'pg')}${champ({k: 'dans_pied', l: 'Lien dans le pied de page', t: 'check'}, e.dans_pied, 'pg')}</div>
+        <div class="actions nav-btns"><button class="btn primary" type="submit">${e._nouveau ? 'Créer la page' : 'Enregistrer'}</button><button class="btn outline" type="button" id="pg-ap">Aperçu</button>${!e._nouveau && e.type === 'libre' && can('pages', 'supprimer') ? '<button class="btn danger" type="button" id="pg-del">Supprimer</button>' : ''}</div>
+        <div id="pg-view" hidden></div></fieldset></form>` : '<div class="card"><p class="hint">Choisissez une page à modifier.</p></div>'}</div>`;
+  } else {
+    const s = param('seo') || DATA.seo || {};
+    corps = `<form class="card grid" id="seo-f" style="gap:12px;max-width:760px" novalidate><fieldset ${M ? '' : 'disabled'} style="border:0;padding:0;margin:0;display:grid;gap:12px"><h2>Référencement général</h2>
+      <p class="hint">Titre et description affichés par Google pour la page d’accueil. Chaque fiche produit utilise automatiquement son nom et sa description.</p>
+      ${formHtml([{k: 'titre', l: 'Titre du site (70 caractères conseillés)', maxl: 90}, {k: 'description', l: 'Description (160 caractères conseillés)', t: 'textarea', maxl: 300}], s, 'seo')}
+      <div class="card" style="background:var(--cream);box-shadow:none"><p class="hint">Aperçu Google</p><p style="color:#1A0DAB;font-size:1.1rem" id="seo-t">${esc(s.titre || '')}</p><p class="hint" id="seo-d">${esc(s.description || '')}</p></div>
+      ${M ? '<div class="actions"><button class="btn primary" type="submit">Enregistrer</button></div>' : ''}</fieldset></form>`;
+  }
+  return head('Site', 'Pages, accueil et SEO', 'Contenu éditorial du site : page d’accueil, pages légales et libres, référencement.')
+    + tabs('pg', [['accueil', 'Page d’accueil'], ['pages', 'Pages'], ['seo', 'Référencement']], PG_TAB) + corps;
+}
+function renderSections() {
+  const a = PG_EDIT, M = can('pages', 'modifier');
+  $('acc-sec').innerHTML = a.sections.map((s, i) => `<div class="order-row"><span class="nm">${esc(SECTIONS[s.id] || s.id)}</span>
+    <label class="check"><input type="checkbox" data-sv="${i}"${s.visible !== false ? ' checked' : ''}${M ? '' : ' disabled'}> Visible</label>
+    <button class="btn outline small" type="button" data-up="${i}" ${i === 0 || !M ? 'disabled' : ''} aria-label="Monter ${esc(SECTIONS[s.id] || s.id)}">Monter</button>
+    <button class="btn outline small" type="button" data-dn="${i}" ${i === a.sections.length - 1 || !M ? 'disabled' : ''} aria-label="Descendre ${esc(SECTIONS[s.id] || s.id)}">Descendre</button></div>`).join('');
+  document.querySelectorAll('[data-sv]').forEach(c => c.onchange = () => { a.sections[+c.dataset.sv].visible = c.checked; });
+  document.querySelectorAll('[data-up]').forEach(b => b.onclick = () => { const i = +b.dataset.up; [a.sections[i - 1], a.sections[i]] = [a.sections[i], a.sections[i - 1]]; renderSections(); });
+  document.querySelectorAll('[data-dn]').forEach(b => b.onclick = () => { const i = +b.dataset.dn; [a.sections[i + 1], a.sections[i]] = [a.sections[i], a.sections[i + 1]]; renderSections(); });
+}
+async function bindPages() {
+  bindTabs('pg', v => { PG_TAB = v; PG_EDIT = null; route(); });
+  if ($('acc-f')) {
+    renderSections();
+    $('acc-f').onsubmit = async ev => {
+      ev.preventDefault();
+      const a = PG_EDIT; a.banniere = lireForm([{k: 'actif', t: 'check'}, {k: 'texte'}, {k: 'lien'}, {k: 'couleur'}, {k: 'debut', t: 'date'}, {k: 'fin', t: 'date'}], 'bn');
+      const refs = $('sl-refs').value.split(/[\s,;]+/).map(x => x.trim().toUpperCase()).filter(Boolean);
+      const ps = await API.list('produits'); const inconnues = refs.filter(r => !ps.some(p => p.ref === r));
+      if (inconnues.length) { toast('Référence(s) inconnue(s) : ' + inconnues.join(', '), true); return; }
+      if (refs.length > 8) { toast('8 références maximum.', true); return; }
+      if (a.banniere.actif && !a.banniere.texte) { toast('Saisissez le texte de la bannière.', true); return; }
+      if (a.banniere.lien && !/^(https:\/\/|#\/)/.test(a.banniere.lien)) { toast('Le lien doit commencer par https:// ou #/', true); return; }
+      a.selection = {titre: $('sl-titre').value.trim() || 'Best-sellers', refs};
+      try { await act(() => API.upsert('parametres', {cle: 'accueil', valeur: a}), 'Accueil enregistré'); PARAMS.accueil = JSON.parse(JSON.stringify(a)); } catch (e) {}
+    };
+  }
+  document.querySelectorAll('[data-pg]').forEach(tr => { const f = async () => { PG_EDIT = await API.get('pages', tr.dataset.pg); route(); }; tr.onclick = f; tr.onkeydown = e => { if (e.key === 'Enter') f(); }; });
+  if ($('pg-new')) $('pg-new').onclick = () => { PG_EDIT = {_nouveau: true, slug: '', titre: '', contenu: '', type: 'libre', publie: false, dans_pied: true, ordre: 10}; route(); };
+  if ($('pg-ap')) $('pg-ap').onclick = () => { const v = $('pg-view'); v.hidden = !v.hidden; v.innerHTML = `<div class="md-view"><h1 style="font-size:1.8rem;margin-bottom:12px">${esc($('pg-titre').value)}</h1>${MD.rendre($('pg-contenu').value)}</div>`; };
+  if ($('pg-del')) $('pg-del').onclick = async () => { if (!await demander('Supprimer cette page ?', '', 'Supprimer', true)) return; try { await act(() => API.remove('pages', PG_EDIT.slug), 'Page supprimée'); PG_EDIT = null; route(); } catch (e) {} };
+  if ($('pg-f')) {
+    if (PG_EDIT._nouveau) $('pg-titre').oninput = () => { $('pg-slug').value = slug($('pg-titre').value); };
+    $('pg-f').onsubmit = async ev => {
+      ev.preventDefault();
+      const p = lireForm([{k: 'titre'}, {k: 'slug'}, {k: 'contenu'}, {k: 'seo_titre', nul: true}, {k: 'seo_description', nul: true}, {k: 'ordre', t: 'number'}, {k: 'publie', t: 'check'}, {k: 'dans_pied', t: 'check'}], 'pg');
+      p.ordre = p.ordre || 0;
+      if (p.titre.length < 2 || !/^[a-z0-9-]{2,60}$/.test(p.slug)) { toast('Titre et adresse (minuscules, chiffres, tirets) requis.', true); return; }
+      try { const r = await act(() => PG_EDIT._nouveau ? API.insert('pages', {...p, type: 'libre'}) : API.update('pages', PG_EDIT.slug, p), 'Page enregistrée'); PG_EDIT = r; route(); } catch (e) {}
+    };
+  }
+  if ($('seo-f')) {
+    const maj = () => { $('seo-t').textContent = $('seo-titre').value; $('seo-d').textContent = $('seo-description').value; };
+    $('seo-titre').oninput = maj; $('seo-description').oninput = maj;
+    $('seo-f').onsubmit = async ev => { ev.preventDefault(); const s = lireForm([{k: 'titre'}, {k: 'description'}], 'seo'); try { await act(() => API.upsert('parametres', {cle: 'seo', valeur: s}), 'Référencement enregistré'); PARAMS.seo = s; } catch (e) {} };
+  }
+}
+
+/* ==================== Textes ==================== */
+async function pTextes() {
+  const ts = await API.list('textes', {order: [['cle', true]]}); const M = can('textes', 'modifier');
+  return head('Site', 'Textes du site', 'Les modifications s’affichent sur le site au prochain chargement de la page.')
+    + `<div class="grid g2">${ts.map(t => `<form class="card grid" data-texte="${esc(t.cle)}" style="gap:8px" novalidate>
+      <div class="field"><label for="tx-${esc(t.cle)}">${esc(t.cle.replace(/_/g, ' '))}</label>
+      ${t.valeur.length > 70 ? `<textarea id="tx-${esc(t.cle)}" ${M ? '' : 'readonly'}>${esc(t.valeur)}</textarea>` : `<input id="tx-${esc(t.cle)}" value="${esc(t.valeur)}" ${M ? '' : 'readonly'}>`}</div>
+      <div class="actions" style="justify-content:space-between"><span class="hint">Modifié le ${heureFr(t.maj_le)}</span>${M ? '<button class="btn dark small" type="submit">Enregistrer</button>' : ''}</div></form>`).join('')}</div>`;
+}
+function bindTextes() {
+  document.querySelectorAll('[data-texte]').forEach(f => f.onsubmit = async ev => { ev.preventDefault(); const cle = f.dataset.texte, v = f.querySelector('input,textarea').value.trim(); try { await act(() => API.update('textes', cle, {valeur: v, maj_le: new Date().toISOString()}), 'Texte enregistré'); } catch (e) {} });
+}
+
+/* ==================== Paramètres ==================== */
+async function pParametres() {
+  const ps = Object.fromEntries((await API.list('parametres')).map(p => [p.cle, p.valeur]));
+  const tva = ps.tva || {}, del = ps.delais || {}, mod = ps.modeles_emails || {}, M = can('parametres', 'modifier');
+  return head('Administration', 'Paramètres', 'Coordonnées, fiscalité, délais et e-mails automatiques.')
+    + `<form id="parform" class="grid g2" style="align-items:start" novalidate><fieldset ${M ? '' : 'disabled'} style="border:0;padding:0;margin:0;min-width:0;display:contents">
+      <div class="grid" style="gap:16px">
+        <div class="card grid" style="gap:12px"><h2>Coordonnées</h2>
+          ${[['marque', 'Nom commercial'], ['email', 'E-mail de contact affiché'], ['whatsapp', 'WhatsApp (format international, ex. 596696000000)'], ['telephone', 'Téléphone affiché'], ['adresse', 'Adresse de l’atelier'], ['site_url', 'Adresse du site (pour les liens des e-mails)']]
+            .map(([k, l]) => `<div class="field"><label for="pa-${k}">${l}</label><input id="pa-${k}" data-par="${k}" value="${esc(ps[k] || '')}"${k === 'site_url' ? ' placeholder="https://compte.github.io/lazerdeco/"' : ''}></div>`).join('')}
+          <div class="field"><label for="pa-eq">E-mails de l’équipe à prévenir (séparés par des virgules)</label><input id="pa-eq" value="${esc((ps.email_equipe || []).join(', '))}"><span class="hint">Reçoivent les nouvelles demandes et les réponses aux BAT.</span></div></div>
+        <div class="card grid" style="gap:12px"><h2>Fiscalité et options</h2>
+          ${['Martinique', 'Guadeloupe', 'Guyane'].map(t => `<div class="field"><label for="tva-${t}">TVA ${t} (%)</label><input id="tva-${t}" type="number" inputmode="decimal" min="0" max="30" step="0.1" value="${r2((tva[t] || 0) * 100)}"></div>`).join('')}
+          <div class="field"><label for="pa-express">Majoration express 24 h (%)</label><input id="pa-express" type="number" inputmode="decimal" min="0" max="200" step="1" value="${r2((Number(ps.express) || 0) * 100)}"></div></div>
+        <div class="card grid" style="gap:12px"><h2>Délais de livraison affichés</h2>
+          ${Object.entries(DEST).map(([k, v]) => `<div class="field"><label for="de-${k}">${v}</label><input id="de-${k}" data-delai="${k}" value="${esc(del[k] || '')}"></div>`).join('')}</div>
+      </div>
+      <div class="grid" style="gap:16px">
+        <div class="card grid" style="gap:12px"><h2>Modèles d’e-mails automatiques</h2><p class="hint">Variables : ${esc(VARS_MAIL)}</p>
+          ${Object.entries(MAIL_TYPES).map(([k, l]) => { const m = mod[k] || {}; return `<fieldset style="border:0;border-top:1px solid var(--line);padding:12px 0 0;margin:0;display:grid;gap:8px"><legend class="lbl" style="padding:0">${esc(l)}</legend>
+            <label class="check"><input type="checkbox" id="ml-${k}-actif"${m.actif !== false ? ' checked' : ''}> Envoyer cet e-mail</label>
+            <div class="field"><label for="ml-${k}-sujet">Objet</label><input id="ml-${k}-sujet" value="${esc(m.sujet || '')}"></div>
+            <div class="field"><label for="ml-${k}-corps">Message</label><textarea id="ml-${k}-corps">${esc(m.corps || '')}</textarea></div></fieldset>`; }).join('')}</div>
+        ${M ? '<div class="actions nav-btns"><button class="btn primary" type="submit">Enregistrer les paramètres</button></div>' : ''}
+      </div></fieldset></form>`;
+}
+function bindParametres() {
+  if (!$('parform')) return;
+  $('parform').onsubmit = async ev => {
+    ev.preventDefault();
+    const tva = Object.fromEntries(['Martinique', 'Guadeloupe', 'Guyane'].map(t => [t, Math.round(Number($('tva-' + t).value) * 100) / 10000]));
+    const express = Math.round(Number($('pa-express').value) * 100) / 10000;
+    const delais = Object.fromEntries([...document.querySelectorAll('[data-delai]')].map(i => [i.dataset.delai, i.value.trim()]));
+    const eq = $('pa-eq').value.split(/[\s,;]+/).map(x => x.trim()).filter(Boolean);
+    const bad = eq.filter(x => !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x)); if (bad.length) { toast('E-mail invalide : ' + bad.join(', '), true); return; }
+    const site = $('pa-site_url').value.trim(); if (site && !/^https:\/\/.+/.test(site)) { toast('L’adresse du site doit commencer par https://', true); return; }
+    const mod = Object.assign({}, param('modeles_emails') || {});
+    Object.keys(MAIL_TYPES).forEach(k => { mod[k] = Object.assign({}, mod[k] || {}, {actif: $(`ml-${k}-actif`).checked, sujet: $(`ml-${k}-sujet`).value, corps: $(`ml-${k}-corps`).value}); });
+    const simples = [...document.querySelectorAll('[data-par]')].map(i => [i.dataset.par, i.value.trim()]).map(([k, v]) => k === 'site_url' && v && !v.endsWith('/') ? [k, v + '/'] : [k, v]);
+    try {
+      await act(async () => { for (const [k, v] of [...simples, ['tva', tva], ['express', express], ['delais', delais], ['email_equipe', eq], ['modeles_emails', mod]]) await API.upsert('parametres', {cle: k, valeur: v}); }, 'Paramètres enregistrés');
+      await chargerRef();
+    } catch (e) {}
+  };
+}
+
+/* ==================== E-mails ==================== */
+let MF = '';
+async function pEmails() {
+  const ms = await API.list('emails', {order: [['id', false]], limit: 300});
+  const liste = ms.filter(m => !MF || m.statut === MF); const M = can('emails', 'modifier');
+  const att = ms.filter(m => m.statut === 'en_attente').length;
+  return head('Administration', 'E-mails', `${att} en attente · ${ms.filter(m => m.statut === 'envoye').length} envoyé(s). Les e-mails sont créés automatiquement à chaque étape et envoyés par le service Resend.`, M ? '<button class="btn primary" type="button" id="ml-send">Envoyer maintenant</button>' : '')
+    + `<div class="card" style="margin-bottom:16px;background:var(--ora-t);box-shadow:none"><p><b>Nom de domaine requis.</b> Tant que l’adresse d’expédition (ex. contact@votre-domaine.com) n’est pas configurée dans Resend, les e-mails restent en attente ici, sans être perdus. Voir le guide de mise en service.</p></div>`
+    + `<div class="tools"><label class="sr" for="ml-f">Statut</label><select id="ml-f"><option value="">Tous</option>${Object.entries(MAIL_ST).map(([k, v]) => `<option value="${k}"${MF === k ? ' selected' : ''}>${v}</option>`).join('')}</select></div>`
+    + (liste.length ? `<div class="grid" style="gap:10px">${liste.map(m => `<details class="card" style="padding:14px 18px"><summary style="cursor:pointer;display:flex;flex-wrap:wrap;gap:10px;align-items:center;list-style:none">
+      ${stBadge(m.statut, MAIL_ST[m.statut])}<b style="color:var(--ink)">${esc(m.sujet)}</b><span class="muted">→ ${esc(m.destinataire)} · ${heureFr(m.cree_le)}</span></summary>
+      <div class="mail-body">${esc(m.corps)}</div>${m.erreur ? `<p class="msg err" style="margin-top:8px">${esc(m.erreur)}</p>` : ''}
+      ${M ? `<div class="actions" style="margin-top:10px">${m.statut === 'en_attente' ? `<button class="btn outline small" type="button" data-mst="${m.id}|annule">Annuler l’envoi</button>` : ''}${['erreur', 'annule'].includes(m.statut) ? `<button class="btn outline small" type="button" data-mst="${m.id}|en_attente">Remettre en attente</button>` : ''}</div>` : ''}</details>`).join('')}</div>` : '<p class="empty card">Aucun e-mail.</p>');
+}
+function bindEmails() {
+  $('ml-f').onchange = e => { MF = e.target.value; route(); };
+  if ($('ml-send')) $('ml-send').onclick = async () => {
+    try { const r = await API.fn('envoyer-emails', {}); if (r && r.configure === false) toast(r.message, true); else toast(`${r.envoyes} envoyé(s), ${r.erreurs} erreur(s), ${r.restants} en attente`); await compterBadges(); buildNav(); route(); } catch (e) { toast(messageErreur(e), true); }
+  };
+  document.querySelectorAll('[data-mst]').forEach(b => b.onclick = async () => { const [id, s] = b.dataset.mst.split('|'); try { await act(() => API.update('emails', Number(id), {statut: s, tentatives: 0, erreur: null}), MAIL_ST[s]); await compterBadges(); buildNav(); route(); } catch (e) {} });
+}
+
+/* ==================== Utilisateurs ==================== */
+let UT = 'equipe';
+async function pUtilisateurs() {
+  const [ps, ds] = await Promise.all([API.list('profils', {order: [['cree_le', false]]}), can('devis') ? API.list('devis') : Promise.resolve(null)]);
+  const eqRoles = ROLES.filter(r => r.equipe), M = can('utilisateurs', 'modifier'), C = can('utilisateurs', 'creer'), D = can('utilisateurs', 'supprimer');
+  const nDev = id => ds ? ds.filter(d => d.client === id).length : 0;
+  const liste = ps.filter(p => UT === 'equipe' ? p.role !== 'client' : p.role === 'client');
+  const ligne = p => { const self = p.id === ME.id, adminLock = (p.role === 'admin') && ME.role !== 'admin', n = nDev(p.id);
+    const opts = ROLES.filter(r => r.id !== 'admin' || ME.role === 'admin' || p.role === 'admin');
+    return `<tr><td><b>${esc(p.nom || '—')}</b>${self ? ' <span class="chip">vous</span>' : ''}<div class="muted">${esc(p.email)}</div>${p.invite_le ? `<div class="muted">Invité le ${dateFr(p.invite_le)}</div>` : ''}</td>
+    <td>${M && !self && !adminLock ? `<label class="sr" for="r-${p.id}">Rôle de ${esc(p.email)}</label><select class="inl" id="r-${p.id}" data-role="${p.id}" data-prev="${esc(p.role)}">${opts.map(r => `<option value="${r.id}"${p.role === r.id ? ' selected' : ''}>${esc(r.nom)}</option>`).join('')}</select>` : esc((ROLES.find(r => r.id === p.role) || {}).nom || p.role)}</td>
+    <td>${M && !self && !adminLock ? `<label class="check"><input type="checkbox" data-actif="${p.id}"${p.actif ? ' checked' : ''}> ${p.actif ? 'Actif' : 'Désactivé'}</label>` : (p.actif ? stBadge('on', 'Actif') : stBadge('off', 'Désactivé'))}</td>
+    <td>${dateFr(p.cree_le)}</td>
+    <td><div class="actions">${C && p.role !== 'client' && !self ? `<button class="btn outline small" type="button" data-renv="${p.id}">Renvoyer l’invitation</button>` : ''}${D && !self && !adminLock ? `<button class="btn danger small" type="button" data-delu="${p.id}" ${n ? `disabled title="${n} devis : désactivez plutôt ce compte"` : ''}>Supprimer</button>` : ''}</div></td></tr>`; };
+  return head('Administration', 'Utilisateurs', 'Invitez l’équipe, attribuez les rôles, désactivez un compte. Un compte qui a des devis ne se supprime pas : il se désactive et son historique est conservé.')
+    + tabs('ut', [['equipe', `Équipe (${ps.filter(p => p.role !== 'client').length})`], ['clients', `Comptes clients (${ps.filter(p => p.role === 'client').length})`]], UT)
+    + (C && UT === 'equipe' ? `<form class="card grid" id="inv-f" style="gap:12px;margin-bottom:16px" novalidate><h2>Inviter un membre de l’équipe</h2>
+      <p class="hint">La personne reçoit un e-mail avec un lien pour choisir son mot de passe, puis arrive directement dans l’espace de gestion avec le rôle choisi.</p>
+      <div class="grid g3">${formHtml([{k: 'email', l: 'E-mail', t: 'email'}, {k: 'nom', l: 'Nom et prénom'}, {k: 'role', l: 'Rôle', t: 'select', opts: eqRoles.filter(r => r.id !== 'admin' || ME.role === 'admin').map(r => [r.id, r.nom])}], {role: (eqRoles.find(r => r.id !== 'admin') || {}).id}, 'inv')}</div>
+      <div class="actions"><button class="btn primary" type="submit">Envoyer l’invitation</button></div></form>` : '')
+    + (liste.length ? `<div class="wrapt"><table class="tbl"><thead><tr><th>Compte</th><th>Rôle</th><th>État</th><th>Créé le</th><th></th></tr></thead><tbody>${liste.map(ligne).join('')}</tbody></table></div>` : '<p class="empty card">Aucun compte.</p>');
+}
+function bindUtilisateurs() {
+  bindTabs('ut', v => { UT = v; route(); });
+  if ($('inv-f')) $('inv-f').onsubmit = async ev => {
+    ev.preventDefault(); const o = lireForm([{k: 'email'}, {k: 'nom'}, {k: 'role'}], 'inv');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(o.email)) { toast('Adresse e-mail invalide.', true); return; }
+    try { await act(() => API.fn('gestion-comptes', {action: 'inviter', email: o.email, nom: o.nom, role: o.role}), 'Invitation envoyée à ' + o.email); route(); } catch (e) {}
+  };
+  document.querySelectorAll('[data-role]').forEach(s => s.onchange = async () => {
+    const r = ROLES.find(x => x.id === s.value);
+    const txt = s.value === 'client' ? 'Ce compte perdra l’accès à l’espace de gestion.' : `Ce compte aura les droits du rôle « ${r ? r.nom : s.value} ».`;
+    if (!await demander('Changer le rôle ?', txt, 'Attribuer')) { s.value = s.dataset.prev; return; }
+    try { await act(() => API.update('profils', s.dataset.role, {role: s.value}), 'Rôle mis à jour'); route(); } catch (e) { s.value = s.dataset.prev; }
+  });
+  document.querySelectorAll('[data-actif]').forEach(c => c.onchange = async () => {
+    if (!c.checked && !await demander('Désactiver ce compte ?', 'La personne ne pourra plus se connecter. Rien n’est effacé ; vous pourrez le réactiver.', 'Désactiver', true)) { c.checked = true; return; }
+    try { await act(() => API.update('profils', c.dataset.actif, {actif: c.checked}), c.checked ? 'Compte réactivé' : 'Compte désactivé'); route(); } catch (e) { c.checked = !c.checked; }
+  });
+  document.querySelectorAll('[data-renv]').forEach(b => b.onclick = async () => { try { await act(() => API.fn('gestion-comptes', {action: 'renvoyer', id: b.dataset.renv}), 'Invitation renvoyée'); route(); } catch (e) {} });
+  document.querySelectorAll('[data-delu]').forEach(b => b.onclick = async () => {
+    if (!await demander('Supprimer ce compte ?', 'Suppression définitive du compte de connexion. Possible uniquement pour un compte sans devis ni commande.', 'Supprimer', true)) return;
+    try { await act(() => API.fn('gestion-comptes', {action: 'supprimer', id: b.dataset.delu}), 'Compte supprimé'); route(); } catch (e) {}
+  });
+}
+
+/* ==================== Rôles et droits ==================== */
+let RO_EDIT = null;
+async function pRoles() {
+  const [rs, ps] = await Promise.all([API.list('roles', {order: [['ordre', true]]}), can('utilisateurs') ? API.list('profils') : Promise.resolve(null)]);
+  ROLES = rs;
+  const n = id => ps ? ps.filter(p => p.role === id).length : 0;
+  const e = RO_EDIT;
+  const liste = `<div class="grid" style="gap:10px">${rs.map(r => `<button type="button" class="card" data-ro="${esc(r.id)}" style="text-align:left;cursor:pointer;border:0;font:inherit;display:flex;flex-direction:column;gap:4px${e && e.id === r.id ? ';box-shadow:0 0 0 3px var(--ink)' : ''}">
+    <span style="display:flex;justify-content:space-between;gap:10px;align-items:center"><b style="color:var(--ink);font-size:1.05rem">${esc(r.nom)}</b>${ps ? `<span class="chip${r.id === 'admin' ? ' r-admin' : ''}">${n(r.id)} compte(s)</span>` : ''}</span>
+    <span class="hint">${esc(r.description || '')}</span>${r.systeme ? '<span class="hint"><b>Rôle système</b> : droits fixes.</span>' : ''}</button>`).join('')}
+    ${can('roles', 'creer') ? '<button class="btn primary" type="button" id="ro-new">Créer un rôle</button>' : ''}</div>`;
+  let ed = '<div class="card"><p class="hint">Choisissez un rôle pour voir ou modifier ses droits.</p></div>';
+  if (e) {
+    const fixe = !!e.systeme, interdit = (ME.role !== 'admin' && e.id === ME.role);
+    const M = !interdit && can('roles', e._nouveau ? 'creer' : 'modifier');
+    const perm = e.permissions || {};
+    const bloque = m => ME.role !== 'admin' && (m === 'roles' || m === 'utilisateurs');
+    ed = `<form class="card grid" id="ro-f" style="gap:12px" novalidate><h2>${e._nouveau ? 'Nouveau rôle' : esc(e.nom)}</h2>
+      ${e.id === 'admin' ? '<p class="hint">L’administrateur a tous les droits, sur tous les modules, sans exception.</p>' : e.id === 'client' ? '<p class="hint">Les clients n’ont aucun accès à l’espace de gestion : ils gèrent leurs devis, BAT et commandes depuis le site.</p>' : ''}
+      ${interdit ? '<p class="msg err">Vous ne pouvez pas modifier les droits de votre propre rôle.</p>' : ''}
+      <fieldset ${M ? '' : 'disabled'} style="border:0;padding:0;margin:0;display:grid;gap:12px">
+      <div class="grid g2">${formHtml([{k: 'nom', l: 'Nom du rôle', maxl: 40}, {k: 'description', l: 'Description'}], e, 'ro')}</div>
+      ${fixe ? '' : `<div class="wrapt"><table class="tbl matrix"><caption class="sr">Droits par module</caption><thead><tr><th scope="col">Module</th>${ACTIONS.map(([, l]) => `<th scope="col">${l}</th>`).join('')}</tr></thead><tbody>
+        ${MODULES.map(([m, l, acts]) => `<tr><th scope="row" style="font-weight:600;color:var(--ink)">${esc(l)}</th>${ACTIONS.map(([a, al]) => acts.includes(a) ? `<td><label class="sr" for="pm-${m}-${a}">${esc(l)} : ${al}</label><input type="checkbox" id="pm-${m}-${a}" data-pm="${m}" data-pa="${a}"${(perm[m] || []).includes(a) ? ' checked' : ''}${bloque(m) ? ' disabled' : ''}></td>` : '<td class="na"><span aria-hidden="true">—</span></td>').join('')}</tr>`).join('')}</tbody></table></div>
+        <p class="hint">Cocher « Créer », « Modifier » ou « Supprimer » coche aussi « Voir ». ${ME.role !== 'admin' ? 'Seul un administrateur peut accorder les droits Utilisateurs et Rôles.' : 'Les droits Utilisateurs et Rôles donnent un pouvoir proche de l’administrateur : réservez-les à des personnes de confiance.'}</p>`}
+      ${M ? `<div class="actions nav-btns"><button class="btn primary" type="submit">${e._nouveau ? 'Créer le rôle' : fixe ? 'Enregistrer' : 'Enregistrer les droits'}</button>${!e._nouveau && !fixe && can('roles', 'supprimer') ? `<button class="btn danger" type="button" id="ro-del" ${n(e.id) ? 'disabled title="Rôle attribué à des comptes"' : ''}>Supprimer</button>` : ''}</div>` : ''}
+      </fieldset></form>`;
+  }
+  return head('Administration', 'Rôles et droits', 'Chaque rôle définit, module par module, ce que ses comptes peuvent voir, créer, modifier ou supprimer. Les droits sont appliqués par la base de données.')
+    + `<div class="grid ro-grid">${liste}${ed}</div>`;
+}
+function bindRoles() {
+  document.querySelectorAll('[data-ro]').forEach(b => b.onclick = () => { const r = ROLES.find(x => x.id === b.dataset.ro); RO_EDIT = JSON.parse(JSON.stringify(r)); route(); });
+  if ($('ro-new')) $('ro-new').onclick = () => { RO_EDIT = {_nouveau: true, id: '', nom: '', description: '', permissions: {}}; route(); };
+  document.querySelectorAll('[data-pm]').forEach(c => c.onchange = () => {
+    const m = c.dataset.pm;
+    if (c.checked && c.dataset.pa !== 'voir') { const v = $(`pm-${m}-voir`); if (v) v.checked = true; }
+    if (!c.checked && c.dataset.pa === 'voir') document.querySelectorAll(`[data-pm="${m}"]`).forEach(x => { x.checked = false; });
+  });
+  if ($('ro-del')) $('ro-del').onclick = async () => { if (!await demander('Supprimer ce rôle ?', '', 'Supprimer', true)) return; try { await act(() => API.remove('roles', RO_EDIT.id), 'Rôle supprimé'); RO_EDIT = null; await chargerRef(); route(); } catch (e) {} };
+  if ($('ro-f')) $('ro-f').onsubmit = async ev => {
+    ev.preventDefault(); const e = RO_EDIT;
+    const o = lireForm([{k: 'nom'}, {k: 'description'}], 'ro');
+    if (o.nom.length < 2) { toast('Nom du rôle requis.', true); return; }
+    const row = {nom: o.nom, description: o.description};
+    if (!e.systeme) {
+      const permissions = Object.assign({}, ME.role !== 'admin' ? {} : {}, Object.fromEntries(Object.entries(e.permissions || {}).filter(([m]) => ME.role !== 'admin' && (m === 'roles' || m === 'utilisateurs'))));
+      document.querySelectorAll('[data-pm]:checked').forEach(c => { if (c.disabled) return; (permissions[c.dataset.pm] = permissions[c.dataset.pm] || []).push(c.dataset.pa); });
+      row.permissions = permissions;
+    }
+    try {
+      let id = e.id;
+      if (e._nouveau) { id = slug(o.nom).slice(0, 30) || 'role'; while (ROLES.some(r => r.id === id)) id = id.slice(0, 26) + '-' + Math.floor(Math.random() * 900 + 100); await act(() => API.insert('roles', {id, ...row, ordre: 50}), 'Rôle créé'); }
+      else await act(() => API.update('roles', e.id, row), 'Rôle enregistré');
+      await chargerRef(); RO_EDIT = JSON.parse(JSON.stringify(ROLES.find(r => r.id === id) || {...row, id})); buildNav(); route();
+    } catch (err) {}
+  };
+}
+
+/* ==================== Journal ==================== */
+let JF = {t: '', q: ''};
+async function pJournal() {
+  const js = await API.list('journal', {order: [['id', false]], limit: 500});
+  const tables = [...new Set(js.map(j => j.table_nom))].sort();
+  const liste = js.filter(j => (!JF.t || j.table_nom === JF.t) && (!JF.q || norm([j.qui_email, j.cle, JSON.stringify(j.apres)].join(' ')).includes(norm(JF.q))));
+  const diff = (a, b) => {
+    if (!a && !b) return ''; if (!a) return '<span class="muted">création</span>'; if (!b) return '<span class="muted">suppression</span>';
+    const ks = Object.keys(b).filter(k => !['maj_le', 'maj_par', 'total_ttc'].includes(k) && JSON.stringify(a[k]) !== JSON.stringify(b[k]));
+    return ks.slice(0, 4).map(k => `<b>${esc(k)}</b> : ${esc(String(JSON.stringify(a[k])).slice(0, 40))} → ${esc(String(JSON.stringify(b[k])).slice(0, 40))}`).join('<br>') || '<span class="muted">sans changement visible</span>';
+  };
+  const ACT = {insert: 'Création', update: 'Modification', delete: 'Suppression', invitation: 'Invitation', renvoi_invitation: 'Invitation renvoyée', suppression: 'Suppression de compte'};
+  return head('Administration', 'Journal des actions', 'Les 500 dernières actions : catalogue, contenus, comptes, rôles, devis, BAT et paiements.')
+    + `<div class="tools"><label class="sr" for="jf-t">Élément</label><select id="jf-t"><option value="">Tous les éléments</option>${tables.map(t => `<option${JF.t === t ? ' selected' : ''}>${esc(t)}</option>`).join('')}</select>
+      <label class="sr" for="jf-q">Rechercher</label><input id="jf-q" type="search" placeholder="Personne, référence…" value="${esc(JF.q)}"></div>`
+    + (liste.length ? `<div class="wrapt"><table class="tbl"><thead><tr><th>Quand</th><th>Qui</th><th>Action</th><th>Élément</th><th>Détail</th></tr></thead><tbody>
+      ${liste.map(j => `<tr><td>${heureFr(j.quand)}</td><td>${esc(j.qui_email || 'système')}${j.role ? `<div class="muted">${esc((ROLES.find(r => r.id === j.role) || {}).nom || j.role)}</div>` : ''}</td>
+        <td>${ACT[j.action] || esc(j.action)}</td><td><b>${esc(j.table_nom)}</b><div class="muted">${esc(j.cle || '')}</div></td><td class="diff">${diff(j.avant, j.apres)}</td></tr>`).join('')}</tbody></table></div>` : '<p class="empty card">Aucune action pour ce filtre.</p>');
+}
+function bindJournal() {
+  $('jf-t').onchange = e => { JF.t = e.target.value; route(); };
+  $('jf-q').oninput = e => { JF.q = e.target.value; clearTimeout(bindJournal.t); bindJournal.t = setTimeout(async () => { await route(); const i = $('jf-q'); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }, 250); };
+}
+
+/* ==================== Routeur ==================== */
+function parse() {
+  const h = location.hash.replace(/^#\/?/, ''); const [path, qs] = h.split('?'); const [a, b] = path.split('/');
+  return {a: a || 'tableau', b: b ? decodeURIComponent(b) : '', params: new URLSearchParams(qs || '')};
+}
+const VUES = {
+  tableau: {f: pTableau}, statistiques: {f: pStatistiques, b: bindStatistiques},
+  produits: {f: pProduits, b: bindProduits, sub: {f: pProduit, b: bindProduit}}, univers: {f: pUnivers, b: bindUnivers}, machines: {f: pMachines, b: bindMachines},
+  promotions: {f: pPromotions, b: bindPromotions}, medias: {f: pMedias, b: bindMedias},
+  commandes: {f: pCommandes, b: bindCommandes, sub: {f: pCommande, b: bindCommande}}, production: {f: pProduction, b: bindProduction}, paiements: {f: pPaiements, b: bindPaiements}, clients: {f: pClients, b: bindClients},
+  pages: {f: pPages, b: bindPages}, textes: {f: pTextes, b: bindTextes},
+  utilisateurs: {f: pUtilisateurs, b: bindUtilisateurs}, roles: {f: pRoles, b: bindRoles}, parametres: {f: pParametres, b: bindParametres}, emails: {f: pEmails, b: bindEmails}, journal: {f: pJournal, b: bindJournal}
+};
+let routeSeq = 0;
+async function route() {
+  if (!ME) return;
+  const seq = ++routeSeq, r = parse();
+  let def = PAGES.find(p => p.page === r.a && visible(p));
+  if (!def) { def = PAGES.find(p => p.page === 'tableau'); if (location.hash !== '#/tableau') { try { history.replaceState(null, '', '#/tableau'); } catch (e) {} } r.b = ''; }
+  const v = VUES[def.page], sub = r.b && v.sub;
+  setActive(def.page, sub ? (def.page === 'produits' ? (r.b === 'nouveau' ? 'Nouveau produit' : 'Produit ' + r.b) : 'Devis') : def.label);
+  closeNav();
+  try {
+    const html = sub ? await v.sub.f(r.b) : await v.f(r.params);
+    if (seq !== routeSeq) return;
+    $('main').innerHTML = html;
+    const binder = sub ? v.sub.b : v.b; if (binder) await binder(r.params);
+  } catch (e) {
+    if (seq !== routeSeq) return;
+    $('main').innerHTML = `<div class="card"><p class="msg err">${esc(messageErreur(e))}</p><p class="hint" style="margin-top:8px"><a href="#/tableau">Retour au tableau de bord</a></p></div>`;
+  }
+  adapterTables();
+  try { window.scrollTo(0, 0); } catch (e) {}
+}
+function adapterTables() {
+  document.querySelectorAll('#main .wrapt').forEach(w => {
+    const t = w.querySelector('table'); if (!t) return;
+    if (!w.dataset.lab) {
+      const heads = [...t.querySelectorAll('thead tr > *')].map(h => h.textContent.trim());
+      t.querySelectorAll('tbody tr').forEach(tr => [...tr.children].forEach((c, i) => { if (heads[i] && !c.hasAttribute('colspan')) c.setAttribute('data-l', heads[i]); }));
+      w.dataset.lab = '1';
+    }
+    w.classList.remove('stack');
+    if (t.scrollWidth > w.clientWidth + 1) w.classList.add('stack');
+  });
+}
+let adaptT = null;
+window.addEventListener('resize', () => { clearTimeout(adaptT); adaptT = setTimeout(adapterTables, 120); });
+
+async function chargerRef() {
+  try {
+    const [cs, ts, ps, rs] = await Promise.all([API.list('categories', {order: [['ordre', true]]}), API.list('techniques', {order: [['ordre', true]]}), API.list('parametres'), API.list('roles', {order: [['ordre', true]]})]);
+    if (cs.length) { CATS = cs; catById = Object.fromEntries(CATS.map(c => [c.id, c])); }
+    if (ts.length) TECH = Object.fromEntries(ts.map(t => [t.id, {nom: t.nom, detail: t.detail, delai: t.delai_jours}]));
+    PARAMS = Object.fromEntries(ps.map(p => [p.cle, p.valeur]));
+    CFG = Object.assign({}, CFG, PARAMS);
+    if (rs.length) ROLES = rs;
+  } catch (e) {}
+}
+async function compterBadges() {
+  BADGES = {};
+  try { if (can('devis')) BADGES.aTraiter = (await API.list('devis', {eq: {statut: 'demande'}})).length; } catch (e) {}
+  try {
+    if (can('production')) {
+      const [ds, ls] = await Promise.all([API.list('devis'), API.list('devis_lignes')]);
+      const ok = new Set(ds.filter(d => ['valide', 'en_production'].includes(d.statut)).map(d => d.id));
+      BADGES.aProduire = ls.filter(l => ok.has(l.devis) && l.statut_prod !== 'termine').length;
+    }
+  } catch (e) {}
+  try { if (can('emails')) BADGES.mails = (await API.list('emails', {eq: {statut: 'en_attente'}})).length; } catch (e) {}
+}
+
+/* ==================== Connexion ==================== */
+function vueLogin(msg) {
+  $('app-view').hidden = true; $('login-view').hidden = false;
+  $('login-view').innerHTML = `<div class="box">
+    <img src="${esc(CFG.logo)}" alt="Logo LAZR DECO">
+    <h1>Espace de gestion</h1>
+    ${API.demo ? `<div class="demo"><p><b style="color:var(--on-dark)">Mode démonstration.</b> Supabase n’est pas encore configuré : choisissez un profil pour explorer l’espace avec des données d’exemple. Rien n’est enregistré.</p>
+      ${msg ? `<p role="alert" style="color:var(--mag-f);font-weight:700">${esc(msg)}</p>` : ''}
+      <div class="row"><button class="btn primary" type="button" data-demo="admin">Administrateur</button><button class="btn light" type="button" data-demo="createur">Créateur</button><button class="btn outline" type="button" data-demo="gestion">Gestion</button><button class="btn outline" type="button" data-demo="atelier">Atelier</button></div></div>`
+    : `<form class="card" id="lform" novalidate>
+      <div class="field"><label for="l-mail">E-mail</label><input id="l-mail" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="l-pw">Mot de passe</label><input id="l-pw" type="password" autocomplete="current-password" required></div>
+      <p class="msg err" id="l-err" role="alert">${esc(msg || '')}</p>
+      <button class="btn primary" type="submit">Se connecter</button>
+      <button class="btn outline small" type="button" id="l-reset">Mot de passe oublié</button></form>`}
+    <p class="note">Accès réservé à l’équipe LAZR DECO. Les clients se connectent depuis le site.</p></div>`;
+  document.querySelectorAll('[data-demo]').forEach(b => b.onclick = async () => { const u = await API.loginDemo(b.dataset.demo); await demarrer(u); });
+  if ($('lform')) {
+    $('lform').onsubmit = async ev => {
+      ev.preventDefault(); $('l-err').textContent = '';
+      try { const u = await API.login($('l-mail').value.trim(), $('l-pw').value); await demarrer(u); } catch (e) { $('l-err').textContent = messageErreur(e); }
+    };
+    $('l-reset').onclick = async () => {
+      const m = $('l-mail').value.trim(); if (!m) { $('l-err').textContent = 'Saisissez votre e-mail puis cliquez à nouveau.'; $('l-mail').focus(); return; }
+      try { await API.reset(m); toast('E-mail de réinitialisation envoyé'); } catch (e) { $('l-err').textContent = messageErreur(e); }
+    };
+  }
+}
+function vueMotDePasse(user, invite) {
+  $('app-view').hidden = true; $('login-view').hidden = false;
+  $('login-view').innerHTML = `<div class="box"><img src="${esc(CFG.logo)}" alt="Logo LAZR DECO"><h1>${invite ? 'Bienvenue dans l’équipe' : 'Nouveau mot de passe'}</h1>
+    <form class="card" id="pwform" novalidate><p>${invite ? 'Choisissez votre mot de passe pour activer votre compte' : 'Choisissez un nouveau mot de passe pour'} <b>${esc(user.email)}</b>.</p>
+      <div class="field"><label for="pw1">Mot de passe (8 caractères minimum)</label><input id="pw1" type="password" autocomplete="new-password" minlength="8" required></div>
+      <div class="field"><label for="pw2">Confirmation</label><input id="pw2" type="password" autocomplete="new-password" required></div>
+      <p class="msg err" id="pw-err" role="alert"></p><button class="btn primary" type="submit">Enregistrer et continuer</button></form></div>`;
+  $('pwform').onsubmit = async ev => {
+    ev.preventDefault(); const a = $('pw1').value, b = $('pw2').value;
+    if (a.length < 8) { $('pw-err').textContent = 'Mot de passe trop court : 8 caractères minimum.'; return; }
+    if (a !== b) { $('pw-err').textContent = 'Les deux mots de passe ne correspondent pas.'; return; }
+    try { await API.motDePasse(a); toast('Mot de passe enregistré'); try { history.replaceState(null, '', '#/tableau'); } catch (e) {} await demarrer(user); } catch (e) { $('pw-err').textContent = messageErreur(e); }
+  };
+}
+async function demarrer(user) {
+  if (!user) return vueLogin();
+  let p = null;
+  try { await chargerRef(); p = await API.get('profils', user.id); } catch (e) {}
+  const r = p && ROLES.find(x => x.id === p.role);
+  if (!p || !p.actif || !r || !r.equipe) { await API.logout(); ME = null; return vueLogin(!p ? 'Profil introuvable.' : !p.actif ? 'Ce compte est désactivé.' : 'Ce compte n’a pas accès à l’espace de gestion.'); }
+  ME = p;
+  $('login-view').hidden = true; $('app-view').hidden = false; $('demo-band').hidden = !API.demo;
+  $('who-role').textContent = r.nom; $('who-role').className = 'chip' + (p.role === 'admin' ? ' r-admin' : ''); $('who-mail').textContent = p.email;
+  RO_EDIT = null; PROMO_EDIT = null; PG_EDIT = null;
+  await compterBadges(); buildNav();
+  if (!location.hash || location.hash === '#' || /access_token|type=/.test(location.hash)) { try { history.replaceState(null, '', '#/tableau'); } catch (e) {} }
+  await route();
+}
+$('logout').onclick = async () => { await API.logout(); ME = null; vueLogin(); };
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (!$('modal').hidden) fermerModal(false); else closeNav(); } });
+if (typeof window.matchMedia === 'function') {
+  const wide = window.matchMedia('(min-width: 901px)'); const onWide = e => { if (e.matches) closeNav(); };
+  if (wide.addEventListener) wide.addEventListener('change', onWide); else if (wide.addListener) wide.addListener(onWide);
+} else { window.addEventListener('resize', () => { if (window.innerWidth > 900) closeNav(); }); }
+let x0 = null;
+document.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+document.addEventListener('touchend', e => { if (x0 === null || !$('sidebar').classList.contains('open')) { x0 = null; return; } if (e.changedTouches[0].clientX - x0 < -55) closeNav(); x0 = null; }, {passive: true});
+window.addEventListener('hashchange', () => { if (!/access_token|type=/.test(location.hash)) route(); });
+
+chargerLogo(() => {});
+(async () => {
+  try {
+    const u = await API.session();
+    if (u && RETOUR_AUTH && ['invite', 'recovery'].includes(RETOUR_AUTH[1])) return vueMotDePasse(u, RETOUR_AUTH[1] === 'invite');
+    await demarrer(u);
+  } catch (e) { vueLogin(); }
+})();
+</script>
+</body>
+</html>
